@@ -1,0 +1,8 @@
+single_step_controls
+version=1
+nRows=1
+nColumns=9
+inDegrees=no
+endheader
+time	TRIlong	TRIlat	TRImed	BIClong	BICshort	BRA	r_shoulder_elev_reserve	r_elbow_flex_reserve
+0.48885926	0.02513207	0.22736391	0.23170039	1	1	0.02	1.20001386	-0.01935435
