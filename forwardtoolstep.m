@@ -1,10 +1,10 @@
-function forwardtoolstep(forwardTool, controls, t, dt)
+function forwardtoolstep(forwardTool, controls, ti, tf, motionfilename)
 
 % INPUTS
 % forwardTool - the forward dynamics tool object that was initialized outside of the runtime
-% controls - the input matrix from the 6 PIDs/TFs
-% t - the input time value from the signal
-% dt - hyperparameter? the chosen change in time
+% controls - the six time signals from a closed loop or just 6 values in a matrix with values [0, 1]
+% ti - the input time value from the signal
+% tf - ti + dt really, where dt will be a hyperparameter in the closed loop version
 %
 %
 % OUTPUTS
@@ -14,23 +14,28 @@ function forwardtoolstep(forwardTool, controls, t, dt)
 % Write the controls and states to a file for the forward tool to read
 writesingledatastep(controls);
 
-% Set initial and final times
-forwardTool.setInitialTime(t);
-forwardTool.setFinalTime(t + dt);
 
-% Outputs the time states to keep track of the program
+% Set initial and final times
+forwardTool.setInitialTime(ti);
+forwardTool.setFinalTime(tf);
+
+debug = 1;
+
+% Debug output to keep tracck of the program
 if (debug)
     fprintf("Integrating from I = %s to F = %s\n", num2str(forwardTool.getInitialTime(), '%0.6f'), num2str(forwardTool.getFinalTime(), '%0.6f'));
 end
+
 
 % Run the Forward Dynamics Tool
 if (forwardTool.run())
 else
     fprintf("\nCRIT_ERR: ForwardTool failed to run!\n");
-    fprintf("At time = %d\n", t);
-end    
+    fprintf("At time = %d\n", ti);
+end
+
 
 % Copy output data into motion file
-updatemotionfilestep();
+updatemotionfilestep(motionfilename);
 
 end

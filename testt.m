@@ -34,8 +34,7 @@ createmotionfile(); % Creates or resets the motion file
 for i = 1:controlsrows-1
     
     % Write single controls and states
-    writesingledata("controls", controls, i);
-    writesingledata("states", states, i);
+    writesingledatastepalt(controls);
     
     % Get initial and final times for time step and edit them slightly
     mindt = forwardTool.getMinDT();

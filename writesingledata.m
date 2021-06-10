@@ -1,4 +1,4 @@
-function [] = writesingledata(type, data, index)
+function writesingledata(type, data, index)
 
 % type = "states";
 % statesfile = "Tools/CMC_Results/cmc_output_states.sto"; % Assign the file name

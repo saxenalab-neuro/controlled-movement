@@ -7,20 +7,14 @@ model = Model("arm26.osim"); % Add the model
 
 
 % Get data from files
-controlsfile = "Tools/CMC_Results/cmc_output_controls.sto"; % Assign the file name
+controlsfile = "Tools\CMC_Results\cmc_output_controls.sto"; % Assign the file name
 controls = importdata(controlsfile,' ', 7).data; % Import the data from the file
 
 statesfile = "Tools/CMC_Results/cmc_output_states.sto"; % Assign the file name
 states = importdata(statesfile,' ', 7).data; % Import the data from the file
 
-% Get number of rows for both files
+% Get number of rows for controls which will be the number of iterations we need
 [controlsrows, ~] = size(controls);
-[statesrows, ~] = size(states);
-
-% Check consistency between controls and states
-if (controlsrows ~= statesrows)
-    fprintf("CRIT_ERR: Number of rows don't match!\n");
-end
 
 
 % Setup Forward Dynamics tool
@@ -28,32 +22,19 @@ fdSetup = "Tools\single_fd_setup.xml";
 forwardTool = ForwardTool(fdSetup); % Initialize Forward Tool
 
 
-motionoutputfilename = "motion.mot";
-createmotionfile(); % Creates or resets the motion file
-
+motionfilename = "motionalt.mot";
+initial_state = states(1,:);
+createmotionfilestep(motionfilename, initial_state); % Creates or resets the motion file
 
 
 % For each time step, run the Forward Dynamics Tool
 for i = 1:controlsrows-1
     
-    % HYPERPARAMETERS %
-    dt = 1e-4; % CHOOSE A DT, will not be able to calculate it on the fly
-    forwardTool; % initialized from setup file
-    
-    
-    
-    % TIME SIGNAL PARAMATERS %
-    controls = [c1, c2, c3, c4, c5, c6];
-    ti = t;
-    
-    
-    
-    % FILE PARAMETERS %
-    states = previous_states;
-    
-    
+    single_controls = controls(i,:);
+    ti = controls(i,1);
+    tf = controls(i+1,1);   
     
     % FORWARD TOOL STEP FUNCTION %
-    forwardtoolstep(forwardTool, controls, ti, dt);
+    forwardtoolstep(forwardTool, single_controls, ti, tf, motionfilename);
     
 end

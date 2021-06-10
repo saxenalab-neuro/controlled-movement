@@ -3,7 +3,7 @@
 <ForwardTool name="arm26"> 
  
   <!-- OpenSim Model --> 
-  <model_file> C:\Users\Jaxton\OneDrive\Project\arm26.osim </model_file> 
+  <model_file> C:\Users\Jaxton\OneDrive\controlled-movement\arm26.osim </model_file> 
   <force_set_files> reserve_actuators.xml </force_set_files> 
   <replace_force_set> false </replace_force_set>
  
