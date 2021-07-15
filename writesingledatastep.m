@@ -47,7 +47,7 @@ fclose(infile); % Close infile for reading
 
 
 % Read Last State
-infile = fopen(inputfilename, 'r'); % Open computed vstates file for reading
+infile = fopen(inputfilename, 'r'); % Open computed states file for reading
 headerlines = 8;
 c = textscan(infile, '%s', 1, 'delimiter', '\n', 'headerlines', headerlines);
 laststate = c{1,1}{1,1};

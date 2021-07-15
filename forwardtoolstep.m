@@ -37,5 +37,6 @@ end
 
 % Copy output data into motion file
 updatemotionfilestep(motionfilename);
+ss2cumulative();
 
 end

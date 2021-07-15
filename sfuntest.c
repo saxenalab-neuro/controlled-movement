@@ -86,7 +86,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
         *y++ = 2.0 *(*uPtrs[i]); 
     }
     
-    mexEvalString("forwardtool(controls)"
+    mexEvalString("forwardtool(controls)");
 }
 
 

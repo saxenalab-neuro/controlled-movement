@@ -1,0 +1,65 @@
+bicep_curl
+version=1
+nRows=51
+nColumns=8
+inDegrees=yes
+
+# SIMM Motion File Header:
+name bicep_curl
+datacolumns 8
+datarows 51
+otherdata 1
+range 0.000000 0.500000
+endheader
+time	/jointset/shoulder/shoulder_adduction/value	/jointset/shoulder/shoulder_rotation/value	/jointset/shoulder/shoulder_flexion/value	/jointset/elbow/elbow_flexion/value	/jointset/ulnar_radial/radial_pronation/value	/jointset/wrist/wrist_flexion/value	/jointset/wrist/wrist_abduction/value
+0.00	0	0	0	90	0	0	0
+0.01	0	0	0	91	0	0	0
+0.02	0	0	0	92	0	0	0
+0.03	0	0	0	93	0	0	0
+0.04	0	0	0	94	0	0	0
+0.05	0	0	0	95	0	0	0
+0.06	0	0	0	96	0	0	0
+0.07	0	0	0	97	0	0	0
+0.08	0	0	0	98	0	0	0
+0.09	0	0	0	99	0	0	0
+0.10	0	0	0	100	0	0	0
+0.11	0	0	0	101	0	0	0
+0.12	0	0	0	102	0	0	0
+0.13	0	0	0	103	0	0	0
+0.14	0	0	0	104	0	0	0
+0.15	0	0	0	105	0	0	0
+0.16	0	0	0	106	0	0	0
+0.17	0	0	0	107	0	0	0
+0.18	0	0	0	108	0	0	0
+0.19	0	0	0	109	0	0	0
+0.20	0	0	0	110	0	0	0
+0.21	0	0	0	111	0	0	0
+0.22	0	0	0	112	0	0	0
+0.23	0	0	0	113	0	0	0
+0.24	0	0	0	114	0	0	0
+0.25	0	0	0	115	0	0	0
+0.26	0	0	0	116	0	0	0
+0.27	0	0	0	117	0	0	0
+0.28	0	0	0	118	0	0	0
+0.29	0	0	0	119	0	0	0
+0.30	0	0	0	120	0	0	0
+0.31	0	0	0	121	0	0	0
+0.32	0	0	0	122	0	0	0
+0.33	0	0	0	123	0	0	0
+0.34	0	0	0	124	0	0	0
+0.35	0	0	0	125	0	0	0
+0.36	0	0	0	126	0	0	0
+0.37	0	0	0	127	0	0	0
+0.38	0	0	0	128	0	0	0
+0.39	0	0	0	129	0	0	0
+0.40	0	0	0	130	0	0	0
+0.41	0	0	0	131	0	0	0
+0.42	0	0	0	132	0	0	0
+0.43	0	0	0	133	0	0	0
+0.44	0	0	0	134	0	0	0
+0.45	0	0	0	135	0	0	0
+0.46	0	0	0	136	0	0	0
+0.47	0	0	0	137	0	0	0
+0.48	0	0	0	138	0	0	0
+0.49	0	0	0	139	0	0	0
+0.50	0	0	0	140	0	0	0

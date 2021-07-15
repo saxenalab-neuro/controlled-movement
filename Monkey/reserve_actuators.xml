@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSimDocument Version="40000">
+	<ForceSet name="MonkeyArm">
+		<defaults/>
+		<objects>
+			<CoordinateActuator name="shoulder_adduction_reserve">
+				<isDisabled> false </isDisabled>
+				<!--Minimum allowed value for control signal. Used primarily when solving
+				    for control values-->
+				<min_control> -infinity </min_control>
+				<!--Maximum allowed value for control signal. Used primarily when solving
+				    for control values-->
+				<max_control> infinity </max_control>
+				<coordinate> shoulder_adduction </coordinate>
+				<optimal_force> 1 </optimal_force>
+			</CoordinateActuator>
+			<CoordinateActuator name="shoulder_rotation_reserve">
+				<isDisabled> false </isDisabled>
+				<!--Minimum allowed value for control signal. Used primarily when solving
+				    for control values-->
+				<min_control> -infinity </min_control>
+				<!--Maximum allowed value for control signal. Used primarily when solving
+				    for control values-->
+				<max_control> infinity </max_control>
+				<coordinate> shoulder_rotation </coordinate>
+				<optimal_force> 1 </optimal_force>
+			</CoordinateActuator>
+			<CoordinateActuator name="shoulder_flexion_reserve">
+				<isDisabled> false </isDisabled>
+				<!--Minimum allowed value for control signal. Used primarily when solving
+				    for control values-->
+				<min_control> -infinity </min_control>
+				<!--Maximum allowed value for control signal. Used primarily when solving
+				    for control values-->
+				<max_control> infinity </max_control>
+				<coordinate> shoulder_flexion </coordinate>
+				<optimal_force> 1 </optimal_force>
+			</CoordinateActuator>
+			<CoordinateActuator name="elbow_flexion_reserve">
+				<isDisabled> false </isDisabled>
+				<!--Minimum allowed value for control signal. Used primarily when solving
+				    for control values-->
+				<min_control> -infinity </min_control>
+				<!--Maximum allowed value for control signal. Used primarily when solving
+				    for control values-->
+				<max_control> infinity </max_control>
+				<coordinate> elbow_flexion </coordinate>
+				<optimal_force> 1 </optimal_force>
+			</CoordinateActuator>
+			<CoordinateActuator name="radial_pronation_reserve">
+				<isDisabled> false </isDisabled>
+				<!--Minimum allowed value for control signal. Used primarily when solving
+				    for control values-->
+				<min_control> -infinity </min_control>
+				<!--Maximum allowed value for control signal. Used primarily when solving
+				    for control values-->
+				<max_control> infinity </max_control>
+				<coordinate> radial_pronation </coordinate>
+				<optimal_force> 1 </optimal_force>
+			</CoordinateActuator>
+			<CoordinateActuator name="wrist_flexion_reserve">
+				<isDisabled> false </isDisabled>
+				<!--Minimum allowed value for control signal. Used primarily when solving
+				    for control values-->
+				<min_control> -infinity </min_control>
+				<!--Maximum allowed value for control signal. Used primarily when solving
+				    for control values-->
+				<max_control> infinity </max_control>
+				<coordinate> wrist_flexion </coordinate>
+				<optimal_force> 1 </optimal_force>
+			</CoordinateActuator>
+			<CoordinateActuator name="wrist_abduction_reserve">
+				<isDisabled> false </isDisabled>
+				<!--Minimum allowed value for control signal. Used primarily when solving
+				    for control values-->
+				<min_control> -infinity </min_control>
+				<!--Maximum allowed value for control signal. Used primarily when solving
+				    for control values-->
+				<max_control> infinity </max_control>
+				<coordinate> wrist_abduction </coordinate>
+				<optimal_force> 1 </optimal_force>
+			</CoordinateActuator>
+		</objects>
+		<groups/>
+	</ForceSet>
+</OpenSimDocument>
+

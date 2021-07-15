@@ -4,7 +4,7 @@ function [] = updatemotionfile(i)
 headerlines = 15;
 variables = 17;
 
-statesfilename = "Tools/SS_Results/arm26_states_degrees.mot";
+statesfilename = "Tools\SS_Results\arm26_states_degrees.mot";
 motionfilename = "motion.mot";
 
 % For first time point, need to capture both the initial and final states
