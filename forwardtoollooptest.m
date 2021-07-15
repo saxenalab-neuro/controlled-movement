@@ -31,8 +31,8 @@ for i = 1:controlsrows-1
     tf = controls(i+1,1);
     
     % FORWARD TOOL STEP FUNCTION %
-    forwardtoolloop(forwardTool, single_controls, ti, tf-ti)
-    
+    state = forwardtoolloop(forwardTool, single_controls, ti, tf-ti);
+    degrees = rad2deg(state);
 end
 
 copyfile Tools\SS_Results\cumulative_motion.mot cumulative_motion.mot

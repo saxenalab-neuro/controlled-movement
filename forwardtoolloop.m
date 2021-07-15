@@ -19,19 +19,19 @@ writesingledatastep(controls);
 forwardTool.setInitialTime(ti);
 forwardTool.setFinalTime(ti+dt);
 
-debug = 1;
-
-% Debug output to keep tracck of the program
-if (debug)
-    fprintf("Integrating from I = %s to F = %s\n", num2str(forwardTool.getInitialTime(), '%0.6f'), num2str(forwardTool.getFinalTime(), '%0.6f'));
-end
-
 
 % Run the Forward Dynamics Tool
 if (forwardTool.run())
 else
     fprintf("\nCRIT_ERR: ForwardTool failed to run!\n");
     fprintf("At time = %d\n", ti);
+end
+
+
+debug = 1;
+% Debug output to keep tracck of the program
+if (debug)
+    fprintf("Integrated from I = %s to F = %s\n", num2str(forwardTool.getInitialTime(), '%0.6f'), num2str(forwardTool.getFinalTime(), '%0.6f'));
 end
 
 coordinatevalues = ss2cumulative(); % Copy output data into motion file

@@ -1,38 +1,32 @@
 clear;clc;
 
+% Setup OpenSim
+import org.opensim.modeling.* % Import OpenSim Libraries
+ModelVisualizer.addDirToGeometrySearchPaths('C:\OpenSim 4.2\Geometry'); % Add geometry to remove visualization error
+model = Model("arm26.osim"); % Add the model
+
+
+% Remove previous entries in the opensim.log file
+fid = fopen("opensim.log", 'w');
+fclose(fid);
+
+
+% Initialize cumulative files
+initCumulativeFiles();
+
+
+% Initialize the Forward Dynamics Tool
+fdSetupFile = "Tools\fd_loop_setup.xml";
+forwardTool = ForwardTool(fdSetupFile); % Initialize Forward Tool
+%forwardTool.setModel(model);
+
+
 % simple software loop that implements a PID algorithm - https://en.wikipedia.org/wiki/PID_controller#Pseudocode
 
-Kp = 5.2;
-Ki = 2.4;
-Kd = 0;
-dt = 0.001;
-
-setpoint = 130;
-measured_value = 0;
-
-previous_error = 0;
-integral = 0;
-
-N=500;
-
-for i = 1:N
-    
-    error = setpoint - measured_value;
-    proportional = error;
-    integral = integral + error * dt;
-    derivative = (error - previous_error) / dt;
-    controls = Kp * proportional + Ki * integral + Kd * derivative;
-    previous_error = error;
-    %wait(dt)
-    
-end
-
-%%
-
-Kp = [6,5,4,3,2,1];
-Ki = Kp .* 0.5;
-Kd = Ki .* 0.5;
-dt = 0.001;
+Kp = [0, 1, 1, 1, 1, 0];
+Ki = zeros(1,6); %Kp .* 0.5;
+Kd = zeros(1,6); %Ki .* 0.5;
+dt = 0.01;
 
 setpoint = 130;
 measured_value = 0;
@@ -42,20 +36,53 @@ numpids = numel(Kp);
 integral = zeros(1,numpids);
 controls = zeros(1,numpids);
 
-N=500;
+ti = 0.0000;
+
 
 while true
+    error = setpoint - measured_value;
+    proportional = error;
     
     for i = 1:numpids
-        error = setpoint - measured_value;
-        proportional = error;
         integral(i) = integral(i) + error * dt;
         derivative = (error - previous_error) / dt;
-        controls(i) = Kp(i) * proportional + Ki(i) * integral(i) + Kd(i) * derivative;
-        previous_error = error;
+        controls(i) = 1/130 * (Kp(i) * proportional + Ki(i) * integral(i) + Kd(i) * derivative);
+        
+        % Clip controls to proper range
+        if (controls(i) > 1)
+            controls(i) = 1;
+        elseif (controls(i) < 0.02)
+            controls(i) = 0.02;
+        end
     end
     
-    measured_value = forwardtoolloop(ForwardTool, controls, ti, dt);
     
     
+    % Write the controls and states to a file for the forward tool to read
+    writesingledatastep(controls);
+
+
+    % Set initial and final times
+    forwardTool.setInitialTime(ti);
+    forwardTool.setFinalTime(ti+dt);
+
+
+    % Run the Forward Dynamics Tool
+    if (forwardTool.run())
+    else
+        fprintf("\nCRIT_ERR: ForwardTool failed to run!\n");
+        fprintf("At time = %d\n", ti);
+    end
+
+
+    debug = 1;
+    % Debug output to keep tracck of the program
+    if (debug)
+        fprintf("Integrated from I = %s to F = %s\n", num2str(forwardTool.getInitialTime(), '%0.6f'), num2str(forwardTool.getFinalTime(), '%0.6f'));
+    end
+
+    measured_value = rad2deg(ss2cumulative()); % Copy output data into motion file
+    
+    previous_error = error;
+    ti = ti + dt;
 end

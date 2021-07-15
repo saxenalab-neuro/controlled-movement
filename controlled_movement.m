@@ -1,7 +1,5 @@
 clear;clc;
 
-% Screw SIMULINK, this should work better
-
 % Setup OpenSim
 import org.opensim.modeling.* % Import OpenSim Libraries
 ModelVisualizer.addDirToGeometrySearchPaths('C:\OpenSim 4.2\Geometry'); % Add geometry to remove visualization error

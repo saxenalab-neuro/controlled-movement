@@ -2,7 +2,7 @@
 <OpenSimDocument Version="40000">
 	<CMCTool name="cmc_output">
 		<!--Name of the .osim file used to construct a model.-->
-		<model_file>../arm26.osim</model_file>
+		<model_file>C:/Users/Jaxton/OneDrive/controlled-movement/arm26.osim</model_file>
 		<!--Replace the model's force set with sets specified in <force_set_files>? If false, the force set is appended to.-->
 		<replace_force_set>false</replace_force_set>
 		<!--List of xml files used to construct a force set for the model.-->
@@ -44,7 +44,7 @@
 		<!--Motion (.mot) or storage (.sto) file containing the desired kinematic trajectories.-->
 		<desired_kinematics_file>bicepcurl.mot</desired_kinematics_file>
 		<!--File containing the tracking tasks. Which coordinates are tracked and with what weights are specified here.-->
-		<task_set_file>cmc_tasks.xml</task_set_file>
+		<task_set_file>tracking_tasks.xml</task_set_file>
 		<!--File containing the constraints on the controls.-->
 		<constraints_file>control_constraints.xml</constraints_file>
 		<!--File containing the controls output by RRA. These can be used to place constraints on the residuals during CMC.-->

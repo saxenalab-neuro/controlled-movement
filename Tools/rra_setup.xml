@@ -42,7 +42,7 @@
 		<!--Motion (.mot) or storage (.sto) file containing the desired kinematic trajectories.-->
 		<desired_kinematics_file>bicepcurl.mot</desired_kinematics_file>
 		<!--File containing the tracking tasks. Which coordinates are tracked and with what weights are specified here.-->
-		<task_set_file>rra_tasks.xml</task_set_file>
+		<task_set_file>tracking_tasks.xml</task_set_file>
 		<!--DEPRECATED File containing the constraints on the controls.-->
 		<constraints_file />
 		<!--Low-pass cut-off frequency for filtering the desired kinematics. A negative value results in no filtering. The default value is -1.0, so no filtering.-->
@@ -62,7 +62,7 @@
 		<!--Name of the body whose center of mass is adjusted. The heaviest segment in the model should normally be chosen. For a gait model, the torso segment is usually the best choice.-->
 		<adjusted_com_body />
 		<!--Name of the output model file (.osim) containing adjustments to anthropometry made to reduce average residuals. This file is written if the property adjust_com_to_reduce_residuals is set to true. If a name is not specified, the model is written out to a file called adjusted_model.osim.-->
-		<output_model_file>C:\OpenSim 4.2\.osim</output_model_file>
+		<output_model_file />
 		<!--True-false flag indicating whether or not to turn on verbose printing for cmc.-->
 		<use_verbose_printing>false</use_verbose_printing>
 	</RRATool>
