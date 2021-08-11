@@ -1,55 +1,57 @@
 clear;clc;
 
-
-t = transpose(0:.01:1);
-
-
-
-numfunctions = 1;
+% Obtain the defined functions as piecewise function objects
+pwfuncobjects = readpwfunctions("functions.txt");
 
 
-args = ["0", "200*t-20", "70", "200*t-40", "140"]; % Piecewise arguments, need to make sure they are in proper matrix math form
-bounds = [0, 0.1; 0.1, 0.45; 0.45, 0.55; 0.55, 0.9; 0.9, 1]; % Lower Bound, Upper Bound
-
-% @(t) (0).*((t>=0)&(t<0.1)) + ...
-%     (200*t-20).*((t>=0.1)&(t<0.45)) + ...
-%     (70).*((t>=0.45)&(t<0.55)) + ...
-%     (200*t-40).*((t>=0.55)&(t<0.9)) + ...
-%     (140).*((t>=0.9)&(t<=1));
+% Now we have all these functions, need to convert them to function handles
 
 
-f = cell(1,numfunctions);
+%t = transpose(0:.01:1);
 
-% FOR EACH FUNCTON for i = 1:numel(functions)
 
-func = "@(t) ";
+numfunctions = numel(pwfuncobjects);
+f = cell(1,numfunctions); % Preallocate the function handles cell array
 
-for i = 1:numel(args)
-    func = strcat(func, "(" + args(i) + ").*((t>=" + num2str(bounds(i,1)) + ")&(t<");
+% Convert each function into a function handle!
+for functionnum = 1:numfunctions
     
-    if (i == numel(args))
-        func = strcat(func, "="); % Last line so make sure equal to final value
+    % Get object properties
+    numargs = pwfuncobjects{functionnum}.getNumArgs;
+    args = pwfuncobjects{functionnum}.getArgs;
+    bounds = pwfuncobjects{functionnum}.getBounds;
+    
+    func = "@(t) ";
+    
+    for argnum = 1:numargs
+        % First part is big, add the argument, and the first bound and part of the second bound
+        func = strcat(func, "(" + args(argnum) + ").*((t>=" + num2str(bounds(argnum,1)) + ")&(t<");
+        
+        if (argnum == numargs)
+            func = strcat(func, "="); % Last line so make sure equal to final bound
+        end
+        
+        % Add the second bound and wrap it up
+        func = strcat(func, num2str(bounds(argnum,2)) + "))");
+        
+        if (argnum < numargs)
+            func = strcat(func, " + "); % Not the last line so continue the function
+        elseif (argnum == numargs)
+            func = strcat(func, ";"); % Last line so end the function
+        end
     end
     
-    func = strcat(func, num2str(bounds(i,2)) + "))");
-    
-    if (i < numel(args))
-        func = strcat(func, " + "); % Not the last line so continue the function
-    elseif (i == numel(args))
-        func = strcat(func, ";"); % Last line so end the function
-    end
+    % Assign the properties to an object and add it to the list
+    tmp.func = str2func(func);
+    tmp.ti = bounds(1,1);
+    tmp.tf = bounds(numargs,2);    
+    f{functionnum} = tmp;
 end
 
-f{1} = str2func(func);
-
-% END FOR EACH FUNCTION
-
-
-% argtmp = "(" + fs11 + ").*((t>=" + num2str(lb) + ")&(t<" + num2str(ub) + "))"
-% tmp = "@(t) " + fs11;
-% 
-% f1 = str2func(tmp);
+% Now I have a whole lot of function handles
 
 
 
+t = f{1}.ti:0.01:f{1}.tf;
 plot(t,f{1}(t));
+
