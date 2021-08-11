@@ -34,7 +34,13 @@ variables = [
 
 % HARDCODED FUNCTIONS %
 f{1} = @(t) 140*t;
-f{2} = @(t) 70*t;
+f{2} = @(t) 70*t + 30;
+
+
+syms t;
+eh = piecewise(t<0.5, 280*t, 0.5<t, -280*t);
+
+
 
 
 % Get number of rows of variables matrix
