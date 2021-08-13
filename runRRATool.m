@@ -1,4 +1,4 @@
-function [] = runRRATool(run_number)
+function [] = runRRATool(run_number, ti, tf)
 
 
 % IMPORTANT:
@@ -24,8 +24,8 @@ rraTool = RRATool(rrasetup);
 rraTool.setModel(model);
 rraTool.setName("rra_" + num2str(run_number));
 rraTool.setDesiredKinematicsFileName(motionfilename);
-%rraTool.setInitialTime(motion{run_number}.tstart);
-%rraTool.setFinalTime(motion{run_number}.tend);
+rraTool.setInitialTime(ti);
+rraTool.setFinalTime(tf);
 
 % Run the RRA Tool
 assert(rraTool.run());

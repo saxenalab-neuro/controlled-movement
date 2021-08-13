@@ -1,4 +1,4 @@
-function [] = runCMCTool(run_number)
+function [] = runCMCTool(run_number, ti, tf)
 
 % IMPORTANT:
 % File paths are weird for the tools. The root directory is initialized as
@@ -22,8 +22,8 @@ cmcsetup = "System Identification\cmc_motiongen_setup.xml";
 cmcTool = CMCTool(cmcsetup);
 cmcTool.setName("cmc_" + num2str(run_number));
 cmcTool.setDesiredKinematicsFileName(motionfilename);
-%cmcTool.setInitialTime(motion{run_number}.tstart);
-%cmcTool.setFinalTime(motion{run_number}.tend);
+cmcTool.setInitialTime(ti);
+cmcTool.setFinalTime(tf);
 
 % Run the RRA Tool
 assert(cmcTool.run());

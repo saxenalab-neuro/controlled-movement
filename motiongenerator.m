@@ -16,21 +16,14 @@ function [motiondata] = motiongenerator(motion)
 
 
 
-% Gather the key properties from the motion struct
-tstart = motion.tstart;
-tend = motion.tend;
-stepsize = motion.stepsize;
-posstart = motion.posstart;
-posfunc = motion.posfunc;
+% Create the time data
+t = transpose(motion.ti:motion.dt:motion.tf);
 
-
-% Create the time array and create a zeros array for the shoulder
-t = transpose(tstart:stepsize:tend);
+% Create an array of zeros for the shoulder as I want to have it NOT move for now [TAG: HARDCODED]
 shoulder = zeros(numel(t),1);
 
-% Create the position function from the key properties and generate the data points
-f = @(t) posfunc(t) + posstart;
-elbow = f(t);
+% Create the elbow position data from the provided function handle
+elbow = motion.f(t);
 
 % Make sure the elbow position values are within range
 for i = 1:numel(elbow)

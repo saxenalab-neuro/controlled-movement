@@ -1,5 +1,6 @@
 function [pwfunctions] = readpwfunctions(functionsfilename)
 
+% TODO: WRITE ABOUT FUNCTION
 
 
 fid = fopen(functionsfilename); % Open function definitions file

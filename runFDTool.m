@@ -1,4 +1,4 @@
-function [] = runFDTool(run_number)
+function [] = runFDTool(run_number, ti, tf)
 
 % IMPORTANT:
 % File paths are weird for the tools. The root directory is initialized as
@@ -24,8 +24,8 @@ forwardTool = ForwardTool(fdsetup);
 forwardTool.setName("fd_" + num2str(run_number));
 forwardTool.setControlsFileName(controlsfilename);
 forwardTool.setStatesFileName(statesfilename);
-%forwardTool.setInitialTime(motion{run_number}.tstart);
-%forwardTool.setFinalTime(motion{run_number}.tend);
+forwardTool.setInitialTime(ti + 0.03); % CMC wastes the first 0.03 seconds
+forwardTool.setFinalTime(tf);
 
 % Run the RRA Tool
 assert(forwardTool.run());
