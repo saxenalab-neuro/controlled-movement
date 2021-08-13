@@ -8,8 +8,10 @@ function SIdatagen()
 motions = motion_properties_generator();
 
 
+% Motion data and motion file writing
 for i = 1:numel(motions)
-
+    tic;
+    
     % Calculate Motion Data
     motions{i}.data = motiongenerator(motions{i});
 
@@ -20,18 +22,37 @@ for i = 1:numel(motions)
 
     % Write Motion File
     motion_file_writer(motionfilename, motions{i});
-    fprintf("%d: motion file\n", i);
+    fprintf("%d: motion file | %f seconds\n", i, toc);
+
+end
 
 
+breakindex = 6; % Janky way to skip function 6, which is broken
+
+% CMC Tool
+for i = 1:numel(motions)
+    if (i == breakindex)
+        continue
+    end
+    
+    tic
+    
     % Run CMC Tool
     runCMCTool(i, motions{i}.ti, motions{i}.tf);
-    fprintf("%d: CMC\n", i);
+    fprintf("%d: CMC | %f seconds\n", i, toc);
+end
 
-
+% FD Tool
+for i = 1:numel(motions)
+    if (i == breakindex)
+        continue
+    end
+    
+    tic
+    
     % Run Forward Tool
     runFDTool(i, motions{i}.ti, motions{i}.tf);
-    fprintf("%d: FD\n", i);
-
+    fprintf("%d: FD | %f seconds\n", i, toc);
 end
 
 end

@@ -15,7 +15,7 @@ import org.opensim.modeling.* % Import OpenSim Libraries
 ModelVisualizer.addDirToGeometrySearchPaths('C:\OpenSim 4.2\Geometry');
 
 % Set File Paths
-motionfilename = "Motion Files/script_" + num2str(run_number) + ".mot";
+motionfilename = "Motion Files\script_" + num2str(run_number) + ".mot";
 cmcsetup = "System Identification\cmc_motiongen_setup.xml";
 
 % Setup the RRA Tool

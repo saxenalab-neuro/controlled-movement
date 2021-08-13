@@ -24,6 +24,8 @@ elbow = motiondata(:,3);
 dshoulder = gradient(shoulder(:)) ./ gradient(t(:));
 delbow = gradient(elbow(:)) ./ gradient(t(:));
 
+figurename = "Desired Kinematics " + num2str(number);
+figure('Name', figurename, 'NumberTitle', 'off');
 
 % Make the plots
 subplot(1,2,1)
