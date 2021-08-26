@@ -10,7 +10,7 @@ motions = motion_properties_generator();
 
 % Motion data and motion file writing
 for i = 1:numel(motions)
-    tic;
+    tic % Begin timer
     
     % Calculate Motion Data
     motions{i}.data = motiongenerator(motions{i});
@@ -22,37 +22,34 @@ for i = 1:numel(motions)
 
     % Write Motion File
     motion_file_writer(motionfilename, motions{i});
-    fprintf("%d: motion file | %f seconds\n", i, toc);
+    fprintf("%d: motion file | %f seconds\n", i, toc); % End timer and report
 
 end
 
 
-breakindex = 6; % Janky way to skip function 6, which is broken
-
 % CMC Tool
 for i = 1:numel(motions)
-    if (i == breakindex)
-        continue
-    end
-    
-    tic
+    tic % Begin timer
     
     % Run CMC Tool
-    runCMCTool(i, motions{i}.ti, motions{i}.tf);
-    fprintf("%d: CMC | %f seconds\n", i, toc);
+    if (runCMCTool(i, motions{i}.ti, motions{i}.tf))
+        fprintf("%d: CMC | %f seconds\n", i, toc); % End timer and report
+    end
 end
 
 % FD Tool
 for i = 1:numel(motions)
-    if (i == breakindex)
-        continue
-    end
-    
-    tic
+    tic % Begin timer
     
     % Run Forward Tool
-    runFDTool(i, motions{i}.ti, motions{i}.tf);
-    fprintf("%d: FD | %f seconds\n", i, toc);
+    if (runFDTool(i, motions{i}.ti, motions{i}.tf))
+        fprintf("%d: FD | %f seconds\n", i, toc); % End timer and report
+    end
+end
+
+% Run Comparision Graphs
+for i = 1:numel(motions)
+    states_error_grapher(i);
 end
 
 end

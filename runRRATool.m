@@ -1,4 +1,4 @@
-function [] = runRRATool(run_number, ti, tf)
+function [run_successfully] = runRRATool(run_number, ti, tf)
 
 
 % IMPORTANT:
@@ -8,16 +8,16 @@ function [] = runRRATool(run_number, ti, tf)
 % Any further paths must be RELATIVE to this main path at all times
 
 
-
-
 % Setup OpenSim
 import org.opensim.modeling.* % Import OpenSim Libraries
 ModelVisualizer.addDirToGeometrySearchPaths('C:\OpenSim 4.2\Geometry');
 model = Model("arm26.osim"); % Add the model
 
+
 % Set File Paths
 motionfilename = "Motion Files\script_" + num2str(run_number) + ".mot";
 rrasetup = "System Identification\rra_motiongen_setup.xml";
+
 
 % Setup the RRA Tool
 rraTool = RRATool(rrasetup);
@@ -27,7 +27,14 @@ rraTool.setDesiredKinematicsFileName(motionfilename);
 rraTool.setInitialTime(ti);
 rraTool.setFinalTime(tf);
 
+
 % Run the RRA Tool
-assert(rraTool.run());
+run_successfully = rraTool.run();
+
+
+% Error Reporting
+if (run_successfully == 0)
+    fprintf("CRIT_ERR: RRA Tool failed to run on script %d", run_number); 
+end
 
 end
