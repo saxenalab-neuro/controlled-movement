@@ -33,7 +33,7 @@ run_successfully = cmcTool.run();
 
 % Error Reporting
 if (run_successfully == 0)
-    fprintf("CRIT_ERR: CMC Tool failed to run on script %d", run_number); 
+    fprintf("CRIT_ERR: CMC Tool failed to run on script %d\n", run_number); 
 end
 
 end

@@ -29,7 +29,7 @@ for number = 1:numscripts
     % Load data
     time = tcontrols; % Irregular sampled time points
     controls = cmccontrols(:,2:9); % Controls file data points
-    states = cmcstates(:,2:17); % States file data points
+    states = cmcstates(:,2:5); % States file data points
 
     
     % Define new time vector and interpolate input and output data
@@ -45,6 +45,10 @@ for number = 1:numscripts
 end
 
 data = iddata(output, input, Ts);
+
+set(data, 'InputName', {'TRIlong', 'TRIlat', 'TRImed', 'BIClong', 'BICshort', 'BRA', 'shoulder reserve', 'elbow reserve'});
+set(data, 'OutputName', {'shoulder value', 'shoulder speed', 'elbow value', 'elbow speed'});
+
 save('System Identification/Data/sysIDdata.mat', 'data');
 
 end

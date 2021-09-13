@@ -11,7 +11,7 @@ for number = 1:numscripts
     cmccontrols = importdata(cmccontrolsfile, '\t', 7).data; % Import the data from the file
 
     cmcstatesfile = "System Identification/CMC_Results/cmc_" + num2str(number) + "_states.sto";
-    cmcstates = importdata(cmcstatesfile, ' ', 7).data; % Import the data from the file
+    cmcstates = importdata(cmcstatesfile, ' ', 7).data(:,1:5); % Import the data from the file
 
 
     % Assign data
