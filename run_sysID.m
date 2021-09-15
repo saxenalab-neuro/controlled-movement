@@ -3,7 +3,7 @@ clear;clc;
 warning('off', 'Ident:estimation:transientDataCorrection') % Turn off annoying warning
 
 % Load the input-output data, which is stored in an iddata object
-load 'System Identification/Data/sysIDdata.mat' data
+load 'System Identification\Data\sysIDdata.mat' data
 
 % Estimate a fourth-order state-space model
 %nx = 1:10;
@@ -28,7 +28,7 @@ clear;clc;
 warning('off', 'Ident:estimation:transientDataCorrection') % Turn off annoying warning
 
 % Load the input-output data, which is stored in an iddata object
-load 'System Identification/Data/sysIDdata.mat' data
+load 'System Identification\Data\sysIDdata.mat' data
 
 sys1 = n4sid(data, 4);
 

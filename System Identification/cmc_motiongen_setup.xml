@@ -2,13 +2,13 @@
 <OpenSimDocument Version="40000">
 	<CMCTool name="1">
 		<!--Name of the .osim file used to construct a model.-->
-		<model_file>../arm26.osim</model_file>
+		<model_file>arm26.osim</model_file>
 		<!--Replace the model's force set with sets specified in <force_set_files>? If false, the force set is appended to.-->
 		<replace_force_set>false</replace_force_set>
 		<!--List of xml files used to construct a force set for the model.-->
 		<force_set_files>reserve_actuators.xml</force_set_files>
 		<!--Directory used for writing results.-->
-		<results_directory>C:/Users/Jaxton/controlled-movement/System Identification/CMC_Results</results_directory>
+		<results_directory>System Identification\Testing\CMC_Results</results_directory>
 		<!--Output precision. It is 8 by default.-->
 		<output_precision>6</output_precision>
 		<!--Initial time for the simulation.-->
@@ -42,7 +42,7 @@
 		<!--Motion (.mot) or storage (.sto) file containing the desired point trajectories.-->
 		<desired_points_file />
 		<!--Motion (.mot) or storage (.sto) file containing the desired kinematic trajectories.-->
-		<desired_kinematics_file>C:/Users/Jaxton/controlled-movement/System Identification/Motion Files/script_1.mot</desired_kinematics_file>
+		<desired_kinematics_file>System Identification\Testing\Motion Files\testing_1.mot</desired_kinematics_file>
 		<!--File containing the tracking tasks. Which coordinates are tracked and with what weights are specified here.-->
 		<task_set_file>tracking_tasks.xml</task_set_file>
 		<!--File containing the constraints on the controls.-->

@@ -28,11 +28,11 @@ variables = ["time", "/jointset/r_shoulder/r_shoulder_elev/value", "/jointset/r_
 % Messy but modular way to create the header and change the variables while doing so
 buffer = '';
 buffer = strcat(buffer, motion_header(1) + motion_header(2) + motion_header(3) + num2str(rows) + motion_header(4) + num2str(columns));
-buffer =  strcat(buffer, motion_header(5) + motion_header(6) + motion_header(7) + motion_header(8) + motion_header(9) + num2str(columns));
+buffer = strcat(buffer, motion_header(5) + motion_header(6) + motion_header(7) + motion_header(8) + motion_header(9) + num2str(columns));
 buffer = strcat(buffer, motion_header(10) + num2str(rows) + motion_header(11) + motion_header(12) + num2str(motion.ti, '%.4f') + " " + num2str(motion.tf, '%.4f') + motion_header(13));
 
 
-
+% Gather variables line
 for i = 1:numel(variables)
     buffer = strcat(buffer, variables(i));
     
@@ -41,8 +41,11 @@ for i = 1:numel(variables)
     end
 end
 
+% Copy variables line to buffer
 buffer = strcat(buffer, '\n');
 
+
+% Create matrix of data from motion
 matrixbuffer = '';
 for i = 1:rows
     for j = 1:columns
@@ -53,16 +56,11 @@ for i = 1:rows
         end
     end
     
-    matrixbuffer = strcat(matrixbuffer, '\n');    
+    matrixbuffer = strcat(matrixbuffer, '\n');
 end
-
-% tmpfilename = "System Identification\Motion Files\tmp.txt";
-% writematrix(motion.data, tmpfilename, 'Delimiter', '\t');
-% matrixbuffer = fileread(tmpfilename);
 
 
 % Write header file to new cumulative file
-%outfilename = "Motion Files\" + num2str(number) + ".mot";
 outfile = fopen(outfilename, 'w'); % Create or recreate motion file and open for writing
 fprintf(outfile, buffer); % Write header file buffer to output file
 fprintf(outfile, matrixbuffer); % Write matrix to output file

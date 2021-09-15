@@ -2,7 +2,7 @@ function autographall(numscripts)
 
 
 % Load Elbow Deired Motions
-motionsdatafile = "C:/Users/Jaxton/controlled-movement/System Identification/Motion Files/motiondata.mat";
+motionsdatafile = "C:\Users\Jaxton\controlled-movement\System Identification\Motion Files\motiondata.mat";
 motions = load(motionsdatafile).motions;
 
 % Elbow Deired Motions
@@ -17,8 +17,8 @@ end
 subplot(2,1,2)
 for number = 1:numscripts
     % Load .mat files
-    cmccontrolsfile = "C:/Users/Jaxton/controlled-movement/System Identification/Data/controls_" + num2str(number) + ".mat";
-    cmcstatesfile = "C:/Users/Jaxton/controlled-movement/System Identification/Data/states_" + num2str(number) + ".mat";
+    cmccontrolsfile = "C:\Users\Jaxton\controlled-movement\System Identification\Data\controls_" + num2str(number) + ".mat";
+    cmcstatesfile = "C:\Users\Jaxton\controlled-movement\System Identification\Data\states_" + num2str(number) + ".mat";
     
     cmccontrols = load(cmccontrolsfile).cmccontrols;
     cmcstates = load(cmcstatesfile).cmcstates;

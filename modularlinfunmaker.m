@@ -1,5 +1,4 @@
-function [t, y] = modularlinfunmaker(numfeatures, smoother)
-%numfeatures = 3;
+function [t, y] = modularlinfunmaker(numfeatures)
 
 % Define bounds
 lower = 0; % degrees
@@ -9,40 +8,18 @@ timeupper = 1; % seconds
 timelower = 0; % seconds
 dt = 0.001; % seconds
 
-features = randi([0 2], 1, numfeatures); % 0 - constant, 1 - slope (+/- depending on generated numbers)
-% TODO: Expand possible features
 
+% Feature randomization
+features = randi([0 2], 1, numfeatures); % 0 - constant, 1 - slope, 2 - parabola
 
-
-
-% Generate (num features - 1) random time points
-% rt = zeros(1,numfeatures+1);
-% rt(1) = timelower;
-% rt(numel(rt)) = timeupper;
-% rt(2:numfeatures) = sort(timelower + (timeupper - timelower) .*  transpose(round(rand(numfeatures-1,1),3)));
-% rtdiffs = diff(rt);
-% 
-% TODO: This is a little arbitrary
-% while any(rtdiffs < 0.05)
-%     rt(2:numfeatures) = sort(timelower + (timeupper - timelower) .*  transpose(round(rand(numfeatures-1,1),3)));
-%     rtdiffs = diff(rt);
-% end
-
-
-
-
-
-
-% Actual parts
+% Actual values
 t = transpose(timelower:dt:timeupper);
 y = zeros(size(t));
 
-
+% Establish time points of features
 rt = linspace(timelower, timeupper, numfeatures+1);
 ind = floor(rt .* (numel(t)-1) + 1);
 rtdiffs = diff(rt);
-
-
 
 % Start by generating the first random value
 ry = zeros(size(rt));
@@ -50,30 +27,27 @@ ry(1) = lower + (upper-lower) .* round(rand(1),3);
 
 
 
-
 % GO FEATURE BY FEATURE
 for i=1:numfeatures
-    % Generate Constant between connective points
+    
+    % CONSTANT %
     if (features(i) == 0)
-        ry(i+1) = ry(i);
-        y(ind(i):ind(i+1),1) = ry(i); % Assign y values
-        continue
+        ry(i+1) = ry(i); % Calculate constant slope
+        y(ind(i):ind(i+1),1) = ry(i); % Assign y values for output
+        continue % Go to next feature
     end
     
     
-    % All other features need a next random value
-    % Generate the next random value
+    % Generate next random value for all other features
     ry(i+1) = lower + (upper-lower) .* round(rand(1),3);
-
+    
+    % Regenerate random value until the gradient is not horrible
     while (abs(ry(i+1) - ry(i)) / rtdiffs(i)) > gradbound
-        % Regenerate random value until the gradient isn't horrible
-        ry(i+1) = lower + (upper-lower) .* round(rand(1),3);
+        ry(i+1) = lower + (upper-lower) .* round(rand(1),3); % Regenerate random value
     end
     
     
-    
-    
-    % Generate Linear Slope between connective points
+    % LINEAR SLOPE %
     if (features(i) == 1)
         slope = linspace(ry(i), ry(i+1), ind(i+1)-ind(i)+1); % Calculate slope
         y(ind(i):ind(i+1),1) = slope; % Assign y values
@@ -81,38 +55,37 @@ for i=1:numfeatures
     end
     
     
-    % Generate parabola between two points
+    % PARABOLA %
     if (features(i) == 2)
-        
+        % Generate the parabola
         while true
-            % Get three points to fit polynomial to
+            % Generate the vertex point of the parabola
+            lowbound = rt(i) + rtdiffs(i)*0.1; % Modify beginning time point by adding 10% of the difference between the two
+            highbound = rt(i+1) - rtdiffs(i)*0.1; % Modify ending time point by subtracting 10% of the difference between the two
+            tmpx = (highbound - lowbound) .* rand(1) + lowbound; % Create random x coordinate for vertex
+            tmpy = (upper - lower) .* rand(1) + lower; % Create random y coordinate for vertex
             
-            lowbound = rt(i) + rtdiffs(i)*0.1;
-            highbound = rt(i+1) - rtdiffs(i)*0.1;
-            tmpx = (highbound - lowbound) .* rand(1) + lowbound;
-            tmpy = (upper - lower) .* rand(1) + lower;
-            
+            % Create and solve equation
             A = [rt(i)^2 rt(i) 1;
                 tmpx^2 tmpx 1;
                 rt(i+1)^2 rt(i+1) 1];
             b = [ry(i); tmpy; ry(i+1)];
             sol = A\b;
+            
+            % Use solved function to get parabola points
             func = @(x) sol(1)*x.^2 + sol(2)*x + sol(3);
             tmpt = t(ind(i):ind(i+1),1);
             tmpy = func(tmpt);
             
+            % Make sure no values are larger than 140 and smaller than 0
             if any(tmpy > 140) || any(tmpy < 0)
                 continue
             end
             
-            % Calculate gradient
-            dtmpt = diff(tmpt);
-            dtmpy = diff(tmpy);
-            grad = dtmpy ./ dtmpt;
-            
-            % Check if we need to regenerate the vertex
+            % Check gradient of parabola time points
+            grad = diff(tmpy) ./ diff(tmpt);
             if all(grad < gradbound)
-                break % Stop the while loop, this was a good random vertex
+                break % This was a good parabola
             end
         end
         
@@ -120,43 +93,12 @@ for i=1:numfeatures
         continue % Go to next feature
     end
     
-    
 end % End feature recognition
 
-subplot(2,1,1);
-plot(t,y);
 
 
-if (smoother == 1)
-    % Savitzky Golay
-    windowWidth = 49;
-    polynomialOrder = 4;
-    smoothY = sgolayfilt(y, polynomialOrder, windowWidth);
-    subplot(2,1,2);
-    plot(t,smoothY);
-elseif (smoother == 2)
-    % Convolving
-    windowWidth = 49; % Some odd number.
-    kernel = ones(1, windowWidth) / windowWidth;
-    smoothY = conv(y, kernel, 'same');
-    subplot(2,1,2);
-    plot(t,smoothY);
-elseif (smoother == 3)
-    % Moving Average w/ span of 40
-    smoothY = smooth(y, 40);
-    subplot(2,1,2);
-    plot(t,smoothY);
-elseif (smoother == 4)
-    % Savitzky Golay of order 3 w/ span of 40
-    smoothY = smooth(y, 40, 'sgolay', 3);
-    subplot(2,1,2);
-    plot(t,smoothY);
-end
-
-if (smoother ~= 0)
-    y = smoothY; % MAKE SURE TO ASSIGN SMOOTHED VALUES TO OUTPUT
-end
-
-
+% SMOOTH Y VALUES%
+% Moving Average Filter w/ a Span of 40
+y = smooth(y, 40);
 
 end

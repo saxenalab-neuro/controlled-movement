@@ -1,8 +1,8 @@
 function autographer(number)
 
 % Get data from files
-desiredstatesfile = "C:/Users/Jaxton/controlled-movement/System Identification/Motion Files/script_" + num2str(number) + ".mot"; % Assign the file name
-cmcstatesfile = "C:/Users/Jaxton/controlled-movement/System Identification/CMC_Results/cmc_" + num2str(number) + "_states.sto"; % Assign the file name
+desiredstatesfile = "C:\Users\Jaxton\controlled-movement\System Identification\Motion Files\script_" + num2str(number) + ".mot"; % Assign the file name
+cmcstatesfile = "C:\Users\Jaxton\controlled-movement\System Identification\CMC_Results\cmc_" + num2str(number) + "_states.sto"; % Assign the file name
 
 if (isfile(desiredstatesfile) && isfile(cmcstatesfile))
     desiredstates = importdata(desiredstatesfile, '\t', 14).data; % Import the data from the file

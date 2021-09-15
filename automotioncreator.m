@@ -1,63 +1,76 @@
-function [] = automotioncreator(nummotions)
+function automotioncreator(nummotions, datatype)
 
-
-motions = cell(1,nummotions); % Preallocate the function handles cell array
 
 ti = 0; % TAG: [HARDCODED]
 tf = 1; % TAG: [HARDCODED]
 dt = 0.001; % TAG: [HARDCODED]
 
-t = ti:dt:tf;
-shoulder = zeros(numel(t),1);
+% Output Parameters
+t = ti:dt:tf; % Set time array
+shoulder = zeros(numel(t),1); % Set shoulder values
 
+% Create motiondata struct
 motiondata.ti = ti;
 motiondata.tf = tf;
 motiondata.dt = dt;
 motiondata.t = t;
 
-motions(1,:) = {motiondata};
+% Create motions cell array
+motions = cell(1,nummotions); % Preallocate the motions cell array
+motions(1,:) = {motiondata}; % Assign the premade struct to each cell
 
-smoother = 3; % Moving average smoother with span of 40
 
-parfor i = 1:nummotions
+fprintf("------------MOTION FILES------------\n");
+
+% CREATE THE MOTION FILES %
+tstart = tic;
+parfor number = 1:nummotions
     tic % Begin timer
     
     % Create Motion Data and Store It
-    [t, elbow] = modularlinfunmaker(randi(4), smoother);
-    motions{i}.data = [t, shoulder, elbow];
+    [t, elbow] = modularlinfunmaker(randi(4));
+    motions{number}.data = [t, shoulder, elbow];
     
-    
-    % Motion Filename
-    motionfilename = "C:/Users/Jaxton/controlled-movement/System Identification/Motion Files/script_" + num2str(i) + ".mot";
-    
+    % Motion Filename (SSD)
+    motionSSDFilename = "C:\Users\Jaxton\controlled-movement\System Identification\" + datatype + "\Motion Files\" + lower(datatype) + "_" + num2str(number) + ".mot";
     
     % Write Motion File
-    motion_file_writer(motionfilename, motions{i});
-    fprintf("%d: motion file | %f seconds\n", i, toc); % End timer and report
+    motion_file_writer(motionSSDFilename, motions{number});
     
+    % End timer and report
+    fprintf("%d: motion file | %f seconds\n", number, toc);
 end
 
+fprintf("------------------------------------\n");
+fprintf("TOTAL creation time: %f seconds\n", toc(tstart));
+fprintf("------------------------------------\n\n");
 
-% Save motion data and date it
-datafilename = "C:/Users/Jaxton/controlled-movement/System Identification/Motion Files/motiondata.mat";
-t = now;
-date = datetime(t,'ConvertFrom','datenum');
-save(datafilename, 'date', 'motions')
+% Save motion data to Cloud
+datafilename = "System Identification\" + datatype + "\" + lower(datatype) + "_motiondata.mat";
+save(datafilename, 'motions')
 
 
-% CMC Tool
-parfor i = 1:numel(motions)
+fprintf("-------------CMC FILES--------------\n");
+
+% CREATE THE CMC FILES %
+tstart = tic;
+parfor number = 1:numel(motions)
     tic % Begin timer
     
     % Run CMC Tool
-    if (runCMCTool(i, motions{i}.ti, motions{i}.tf))
-        fprintf("%d: CMC | %f seconds\n", i, toc); % End timer and report
+    if (runCMCTool(number, datatype, motions{number}.ti, motions{number}.tf))
+        % End timer and report
+        fprintf("%d: CMC | %f seconds\n", number, toc);
     end
 end
 
+% Report total CMC time
+fprintf("------------------------------------\n");
+fprintf("TOTAL CMC time: %f seconds\n", toc(tstart));
+fprintf("------------------------------------\n\n");
 
 % Convert .sto files to .mat files
-sto2mat(nummotions);
+sto2mat(nummotions, datatype);
 
-
+fprintf("THANK GOD FOR PARALLELIZATION\n");
 end
