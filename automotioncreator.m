@@ -22,8 +22,9 @@ motions(1,:) = {motiondata}; % Assign the premade struct to each cell
 
 fprintf("------------MOTION FILES------------\n");
 
+tstart = tic; % Begin main timer
+
 % CREATE THE MOTION FILES %
-tstart = tic;
 parfor number = 1:nummotions
     tic % Begin timer
     
@@ -42,7 +43,7 @@ parfor number = 1:nummotions
 end
 
 fprintf("------------------------------------\n");
-fprintf("TOTAL creation time: %f seconds\n", toc(tstart));
+fprintf("TOTAL creation time: %f seconds\n", toc(tstart)); % End main timer
 fprintf("------------------------------------\n\n");
 
 % Save motion data to Cloud
@@ -52,8 +53,9 @@ save(datafilename, 'motions')
 
 fprintf("-------------CMC FILES--------------\n");
 
+tstart = tic; % Begin main timer
+
 % CREATE THE CMC FILES %
-tstart = tic;
 parfor number = 1:numel(motions)
     tic % Begin timer
     
@@ -66,7 +68,7 @@ end
 
 % Report total CMC time
 fprintf("------------------------------------\n");
-fprintf("TOTAL CMC time: %f seconds\n", toc(tstart));
+fprintf("TOTAL CMC time: %f seconds\n", toc(tstart)); % End main timer
 fprintf("------------------------------------\n\n");
 
 % Convert .sto files to .mat files

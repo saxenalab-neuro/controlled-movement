@@ -10,9 +10,11 @@ unconverted = zeros(1,numscripts);
 controls = cell(1,numscripts);
 states = cell(1,numscripts);
 
+tic % Begin main timer
+
 % Convert each controls and states file from the cmc tool
 parfor number = 1:numscripts
-    tic % Begin timer
+    
     
     % Set filenames
     cmccontrolsfile = "C:\Users\Jaxton\controlled-movement\System Identification\" + datatype + "\CMC_Results\" + lower(datatype) + "_" + num2str(number) + "_controls.sto";
@@ -63,7 +65,7 @@ end
 
 % Report times and errors
 fprintf("------------------------------------\n");
-fprintf("Sto2Mat Total time: %f\n", toc);
+fprintf("Sto2Mat Total time: %f\n", toc); % End main timer
 unconverted = unconverted(unconverted~=0);
 fprintf("\nNOTICE: %d files failed to convert\n", numel(unconverted));
 fprintf("------------------------------------\n\n");
