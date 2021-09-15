@@ -10,12 +10,12 @@ load 'System Identification/Data/sysIDdata.mat' data
 %sys = n4sid(data, nx);
 
 % Choose experiments for estimation
-de = getexp(data, 1:10); 
+de = getexp(data, 1:49); 
 
 % Choose experiments for validation
-dv = getexp(data, 11);
+dv = getexp(data, 25);
 
-sys = n4sid(de, 4);
+sys = n4sid(de, 1:10);
 
 
 % Compare the simulated model response with the measured output

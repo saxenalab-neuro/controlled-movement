@@ -5,15 +5,15 @@ input = cell(1,numscripts);
 output = cell(1,numscripts);
 
 % New sampling time
-Ts = 0.001; % seconds
+Ts = 0.001; % seconds % TAG: [HARDCODED]
 
 
 for number = 1:numscripts
     % Load .mat files
-    cmccontrolsfile = "System Identification/Data/controls_" + num2str(number) + ".mat";
+    cmccontrolsfile = "C:/Users/Jaxton/controlled-movement/System Identification/Data/controls_" + num2str(number) + ".mat";
     cmccontrols = load(cmccontrolsfile).cmccontrols;
 
-    cmcstatesfile = "System Identification/Data/states_" + num2str(number) + ".mat";
+    cmcstatesfile = "C:/Users/Jaxton/controlled-movement/System Identification/Data/states_" + num2str(number) + ".mat";
     cmcstates = load(cmcstatesfile).cmcstates;
 
 
@@ -49,6 +49,6 @@ data = iddata(output, input, Ts);
 set(data, 'InputName', {'TRIlong', 'TRIlat', 'TRImed', 'BIClong', 'BICshort', 'BRA', 'shoulder reserve', 'elbow reserve'});
 set(data, 'OutputName', {'shoulder value', 'shoulder speed', 'elbow value', 'elbow speed'});
 
-save('System Identification/Data/sysIDdata.mat', 'data');
+save('C:/Users/Jaxton/controlled-movement/System Identification/Data/sysIDdata.mat', 'data');
 
 end

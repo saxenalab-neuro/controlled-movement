@@ -1,4 +1,4 @@
-function [motions] = automotioncreator(nummotions)
+function [] = automotioncreator(nummotions)
 
 
 motions = cell(1,nummotions); % Preallocate the function handles cell array
@@ -15,30 +15,38 @@ motiondata.tf = tf;
 motiondata.dt = dt;
 motiondata.t = t;
 
-for i = 1:nummotions
+motions(1,:) = {motiondata};
+
+smoother = 3; % Moving average smoother with span of 40
+
+parfor i = 1:nummotions
     tic % Begin timer
     
     % Create Motion Data and Store It
-    [t, elbow] = modularlinfunmaker(randi(6));
-    
-    motiondata.data = [t, shoulder, elbow];
-    
-    motions{i} = motiondata;
+    [t, elbow] = modularlinfunmaker(randi(4), smoother);
+    motions{i}.data = [t, shoulder, elbow];
     
     
     % Motion Filename
-    motionfilename = "System Identification\Motion Files\script_" + num2str(i) + ".mot";
-
-
+    motionfilename = "C:/Users/Jaxton/controlled-movement/System Identification/Motion Files/script_" + num2str(i) + ".mot";
+    
+    
     % Write Motion File
     motion_file_writer(motionfilename, motions{i});
     fprintf("%d: motion file | %f seconds\n", i, toc); % End timer and report
-
+    
 end
 
 
+% Save motion data and date it
+datafilename = "C:/Users/Jaxton/controlled-movement/System Identification/Motion Files/motiondata.mat";
+t = now;
+date = datetime(t,'ConvertFrom','datenum');
+save(datafilename, 'date', 'motions')
+
+
 % CMC Tool
-for i = 1:numel(motions)
+parfor i = 1:numel(motions)
     tic % Begin timer
     
     % Run CMC Tool
@@ -46,5 +54,10 @@ for i = 1:numel(motions)
         fprintf("%d: CMC | %f seconds\n", i, toc); % End timer and report
     end
 end
+
+
+% Convert .sto files to .mat files
+sto2mat(nummotions);
+
 
 end

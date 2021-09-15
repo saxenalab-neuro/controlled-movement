@@ -1,4 +1,4 @@
-function [t, y] = modularlinfunmaker(numfeatures)
+function [t, y] = modularlinfunmaker(numfeatures, smoother)
 %numfeatures = 3;
 
 % Define bounds
@@ -34,7 +34,7 @@ features = randi([0 2], 1, numfeatures); % 0 - constant, 1 - slope (+/- dependin
 
 
 % Actual parts
-t = transpose(0:.001:1);
+t = transpose(timelower:dt:timeupper);
 y = zeros(size(t));
 
 
@@ -56,8 +56,7 @@ for i=1:numfeatures
     % Generate Constant between connective points
     if (features(i) == 0)
         ry(i+1) = ry(i);
-        %ind = rt .* 1000 + 1;
-        y(ind(i):ind(i+1),1) = ry(i);
+        y(ind(i):ind(i+1),1) = ry(i); % Assign y values
         continue
     end
     
@@ -77,7 +76,6 @@ for i=1:numfeatures
     % Generate Linear Slope between connective points
     if (features(i) == 1)
         slope = linspace(ry(i), ry(i+1), ind(i+1)-ind(i)+1); % Calculate slope
-        
         y(ind(i):ind(i+1),1) = slope; % Assign y values
         continue % Go to next feature
     end
@@ -94,9 +92,6 @@ for i=1:numfeatures
             tmpx = (highbound - lowbound) .* rand(1) + lowbound;
             tmpy = (upper - lower) .* rand(1) + lower;
             
-            px = [rt(i), tmpx, rt(i+1)];
-            py = [ry(i), tmpy, ry(i+1)];
-            
             A = [rt(i)^2 rt(i) 1;
                 tmpx^2 tmpx 1;
                 rt(i+1)^2 rt(i+1) 1];
@@ -106,20 +101,7 @@ for i=1:numfeatures
             tmpt = t(ind(i):ind(i+1),1);
             tmpy = func(tmpt);
             
-%             % Fit a polynomial to the three points
-%             p = polyfit(px,py,2);
-%         
-%             % Get t and parabola y vals for the region of interest
-%             tmpt = t(ind(i):ind(i+1),1);
-%             
-%             % Evaluate the polynomial on the actual grid
-%             tmpy = polyval(p, tmpt);
-            
-            if any(tmpy > 140)
-                continue
-            end
-            
-            if any(tmpy < 0)
+            if any(tmpy > 140) || any(tmpy < 0)
                 continue
             end
             
@@ -134,52 +116,47 @@ for i=1:numfeatures
             end
         end
         
-        
-%         while true
-%             % Generate a random vertex for the parabola
-%             vertex = [(rt(i)*1.05) + (rt(i+1)*.95 - rt(i)*1.05) .* round(rand(1),3), lower + (upper - lower) .* round(rand(1),3)];
-%             
-%             tmpinput = [rt(i), (rt(i)*1.05) + (rt(i+1)*.95 - rt(i)*1.05) .* round(rand(1),3), rt(i+1)];
-%             tmpoutput = [ry(i), lower + (upper - lower) .* round(rand(1),3), ry(i+1)];
-%             
-%             p = polyfit(x,y,2);
-%             
-%             
-%             
-%             % Solve for a,b,c constants in y = ax^2 + bx + c
-%             A = [rt(i)^2, rt(i), 1;
-%                 rt(i+1)^2, rt(i+1), 1;
-%                 vertex(1)^2, vertex(1), 1];
-%                 
-% 
-%             b = [ry(i); ry(i+1); vertex(2)];
-% 
-%             vals = A\b; % Solve
-%             
-%             % Get t and parabola y vals for the region of interest
-%             tmpt = t(ind(i):ind(i+1),1);
-%             tmpy = vals(1)*tmpt.^2 + vals(2)*tmpt + vals(3);
-%             
-%             % Calculate gradient
-%             dtmpt = diff(tmpt);
-%             dtmpy = diff(tmpy);
-%             grad = dtmpy ./ dtmpt;
-%             
-%             % Check if we need to regenerate the vertex
-%             if all(grad < gradbound)
-%                 break % Stop the while loop, this was a good random vertex
-%             end
-%         end
-        
-
         y(ind(i):ind(i+1),1) = tmpy; % Assign y values
         continue % Go to next feature
     end
     
     
-    
-    
-    % Generate 
+end % End feature recognition
+
+subplot(2,1,1);
+plot(t,y);
+
+
+if (smoother == 1)
+    % Savitzky Golay
+    windowWidth = 49;
+    polynomialOrder = 4;
+    smoothY = sgolayfilt(y, polynomialOrder, windowWidth);
+    subplot(2,1,2);
+    plot(t,smoothY);
+elseif (smoother == 2)
+    % Convolving
+    windowWidth = 49; % Some odd number.
+    kernel = ones(1, windowWidth) / windowWidth;
+    smoothY = conv(y, kernel, 'same');
+    subplot(2,1,2);
+    plot(t,smoothY);
+elseif (smoother == 3)
+    % Moving Average w/ span of 40
+    smoothY = smooth(y, 40);
+    subplot(2,1,2);
+    plot(t,smoothY);
+elseif (smoother == 4)
+    % Savitzky Golay of order 3 w/ span of 40
+    smoothY = smooth(y, 40, 'sgolay', 3);
+    subplot(2,1,2);
+    plot(t,smoothY);
 end
+
+if (smoother ~= 0)
+    y = smoothY; % MAKE SURE TO ASSIGN SMOOTHED VALUES TO OUTPUT
+end
+
+
 
 end

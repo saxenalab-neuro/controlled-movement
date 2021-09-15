@@ -37,19 +37,21 @@ for i = 1:numel(motions)
     end
 end
 
-% FD Tool
-for i = 1:numel(motions)
-    tic % Begin timer
-    
-    % Run Forward Tool
-    if (runFDTool(i, motions{i}.ti, motions{i}.tf))
-        fprintf("%d: FD | %f seconds\n", i, toc); % End timer and report
-    end
-end
+% % FD Tool
+% for i = 1:numel(motions)
+%     tic % Begin timer
+%     
+%     % Run Forward Tool
+%     if (runFDTool(i, motions{i}.ti, motions{i}.tf))
+%         fprintf("%d: FD | %f seconds\n", i, toc); % End timer and report
+%     end
+% end
+% 
+% % Run Comparision Graphs
+% for i = 1:numel(motions)
+%     states_error_grapher(i);
+% end
 
-% Run Comparision Graphs
-for i = 1:numel(motions)
-    states_error_grapher(i);
-end
+sto2mat(numel(motions));
 
 end
