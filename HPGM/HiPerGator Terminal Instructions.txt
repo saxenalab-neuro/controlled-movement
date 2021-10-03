@@ -1,0 +1,26 @@
+HiPerGator Instructions for MATLAB
+
+ssh jaxtonwillman@hpg.rc.ufl.edu
+6p8RD4HNZEO$hUdT4a
+
+
+module load ufrc
+srundev --mem=4gb --time=04:00:00
+
+cd Desktop/HPGM
+
+module load matlab
+mcc -R -singleCompThread -m sysid.m
+
+sbatch sys2.sbatch
+sbatch sys4.sbatch
+sbatch sys6.sbatch
+sbatch sys8.sbatch
+sbatch sys10.sbatch
+
+
+squeue -u jaxtonwillman
+
+
+2 4 6 8 10
+100 250 750 1000 1500 2000

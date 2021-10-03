@@ -1,0 +1,7 @@
+single_step_controls
+version=1
+nRows=1
+nColumns=9
+inDegrees=no
+endheader
+time	TRIlong	TRIlat	TRImed	BIClong	BICshort	BRA	r_shoulder_elev_reserve	r_elbow_flex_reserve

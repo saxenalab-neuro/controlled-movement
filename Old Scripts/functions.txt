@@ -1,0 +1,84 @@
+#HOW TO USE THIS FILE:
+	This file defines the functions for idealized kinematic movement
+	
+	Function definition begins with the "START" keyword and ends with the "END" keyword.
+	Begin each separate function definition with the "%%%" keyword.
+	New line whitespace is just to make it more readable and doesn't affect the reading.
+	Between each component, use this delimeter " | " character to specify the separation.
+	
+	How to define functions (Example):
+		START
+		
+		%%%
+		
+		piecewise_arg1 | lowerbound | upperbound
+		piecewise_arg2 | lowerbound | upperbound
+		...
+		
+		%%%
+		
+		piecewise_arg1 | lowerbound | upperbound
+		
+		%%%
+		
+		...
+		
+		END
+	
+	That example is everything that is needed, any other text before or after START and END are superflous
+	This concludes the guide. Please reach out to JaxtonW on GitHub for any additional help or questions.
+
+#FUNCTION DEFINITIONS:
+START
+
+%%%
+
+280*t | 0 | 0.5
+-280*t+280 | 0.5 | 1
+
+%%%
+
+140*t | 0 | 1
+
+%%%
+
+-140*t+140 | 0 | 1
+
+%%%
+
+0 | 0 | 0.1
+200*t-20 | 0.1 | 0.45
+70 | 0.45 | 0.55
+200*t-40 | 0.55 | 0.9
+140 | 0.9 | 1
+
+%%%
+
+140*(1/20).^t | 0 | 1
+
+%%%
+
+65*sin(6*t)+70 | 0 | 1
+
+%%%
+
+80.^(t)+20 | 0 | 1
+
+%%%
+
+400.^(0.75*t)+20 | 0 | 1
+
+%%%
+
+400*log(t+1)+10 | 0 | 1
+
+%%%
+
+10 | 0 | 0.1
+100*sin(3*(t-0.1))+10 | 0.1 | 1
+
+%%%
+
+-400*(t-0.5).^2+120 | 0 | 1
+
+END
