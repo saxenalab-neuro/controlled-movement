@@ -1,12 +1,23 @@
-function automotioncreator(nummotions, datatype)
+ function automotioncreator(nummotions, datatype)
+
+% Check if datatype is correct
+if (~any(datatype == ["Testing", "Validation"])) % If datatype doesn't match these two, throw an error
+    error('Datatype must be equal to "Testing" or "Validation"')
+end
+
+% Ensure directories exist
+motionfiledir = "C:\Users\Jaxton\controlled-movement\System Identification\" + datatype + "\Motion Files";
+cmcfiledir = "C:\Users\Jaxton\controlled-movement\System Identification\" + datatype + "\CMC_Results";
+mkdir(motionfiledir)
+mkdir(cmcfiledir)
 
 
 ti = 0; % TAG: [HARDCODED]
-tf = 1; % TAG: [HARDCODED]
+tf = 2; % TAG: [HARDCODED]
 dt = 0.001; % TAG: [HARDCODED]
 
 % Output Parameters
-t = ti:dt:tf; % Set time array
+t = transpose(ti:dt:tf); % Set time array
 shoulder = zeros(numel(t),1); % Set shoulder values
 
 % Create motiondata struct
@@ -29,7 +40,9 @@ parfor number = 1:nummotions
     tic % Begin timer
     
     % Create Motion Data and Store It
-    [t, elbow] = modularlinfunmaker(randi(4));
+    elbow = modularlinfunmaker(randi(4), 0, 1, dt, true, 30);
+    elbow = [repmat(30,1000,1); 1 + elbow];
+    elbow = smooth(elbow, 40);
     motions{number}.data = [t, shoulder, elbow];
     
     % Motion Filename (SSD)

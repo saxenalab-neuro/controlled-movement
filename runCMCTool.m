@@ -13,7 +13,7 @@ ModelVisualizer.addDirToGeometrySearchPaths('C:\OpenSim 4.2\Geometry');
 
 
 % Set File Paths
-cmcsetup = "C:\Users\Jaxton\controlled-movement\System Identification\cmc_motiongen_setup.xml";
+cmcsetup = "C:\Users\Jaxton\controlled-movement\System Identification\cmc_HPG_setup.xml";
 motionfilename = datatype + "\Motion Files\" + lower(datatype) + "_" + num2str(run_number) + ".mot";
 resultsdir = datatype + "\CMC_Results";
 

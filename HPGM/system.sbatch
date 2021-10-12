@@ -7,7 +7,7 @@
 #SBATCH --mem-per-cpu=16gb							# Memory per processor
 #SBATCH --time=4-00:00:00							# Time limit [days-]hrs:min:sec
 #SBATCH --output=array_%A-%a.out					# Standard output and error log
-#SBATCH --array=1-20								# Array range
+#SBATCH --array=1-50								# Array range
 
 # Begin each task
 pwd; hostname; date
@@ -16,7 +16,7 @@ pwd; hostname; date
 module load matlab
 
 # Create arrays to loop through for the tasks
-numbers=(100 250 750 1000 1500 2000)
+numbers=(100 250 750 1000 1500 2000 2500 3000 4000 5000)
 orders=(2 4 6 8 10)
 
 
@@ -28,10 +28,8 @@ orderindex=$(( ($SLURM_ARRAY_TASK_ID - 1) / ${#numbers[@]} ))
 
 
 # Do task
+echo
 echo This is task $SLURM_ARRAY_TASK_ID, which will do system identification for ${numbers[$numberindex]} experiments with a system order of ${orders[$orderindex]}
 echo
 
 ./sysid ${numbers[$numberindex]} ${orders[$orderindex]}
-
-
-date
