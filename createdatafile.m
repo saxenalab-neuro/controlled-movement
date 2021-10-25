@@ -1,5 +1,5 @@
 %function createdatafile(numscripts, datatype)
-numscripts = 5000; datatype = "Testing";
+numscripts = 200; datatype = "Validation";
 tic % Begin timer
 
 % Create cell arrays
@@ -17,7 +17,7 @@ cmcstatesfile = "System Identification\" + datatype + "\" + lower(datatype) + "_
 controls = load(cmccontrolsfile).controls;
 states = load(cmcstatesfile).states;
 
-%%
+
 
 for number = 1:numscripts
     time = controls{number}(:,1);

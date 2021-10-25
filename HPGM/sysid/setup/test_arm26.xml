@@ -1,0 +1,1145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<OpenSimDocument Version="40000">
+   <Model name="arm26">
+      <Ground name="ground">
+         <FrameGeometry name="frame_geometry">
+            <socket_frame>..</socket_frame>
+            <scale_factors>0.20000000000000001 0.20000000000000001 0.20000000000000001</scale_factors>
+            <Comment>Path to a Component that satisfies the Socket 'frame' of type Frame.Scale factors in X, Y, Z directions respectively.</Comment>
+         </FrameGeometry>
+         <Comment>The geometry used to display the axes of this Frame.</Comment>
+      </Ground>
+      <gravity>0 -9.8065999999999995 0</gravity>
+      <credits>The OpenSim Development Team (Reinbolt, J; Seth, A; Habib, A; Hamner, S) adapted from a model originally created by Kate Holzbaur (11/22/04) License: Creative Commons (CCBY 3.0). You are free to distribute, remix, tweak, and build upon this work, even commercially, as long as you credit us for the original creation. http://creativecommons.org/licenses/by/3.0/</credits>
+      <publications>Holzbaur, K.R.S., Murray, W.M., Delp, S.L. A Model of the Upper Extremity for Simulating Musculoskeletal Surgery and Analyzing Neuromuscular Control. Annals of Biomedical Engineering, vol 33, pp 829–840, 2005</publications>
+      <length_units>meters</length_units>
+      <force_units>N</force_units>
+      <BodySet name="bodyset">
+         <objects>
+            <Body name="base">
+               <FrameGeometry name="frame_geometry">
+                  <socket_frame>..</socket_frame>
+                  <scale_factors>0.20000000000000001 0.20000000000000001 0.20000000000000001</scale_factors>
+                  <Comment>Path to a Component that satisfies the Socket 'frame' of type Frame.Scale factors in X, Y, Z directions respectively.</Comment>
+               </FrameGeometry>
+               <attached_geometry>
+                  <Mesh name="base_geom_1">
+                     <socket_frame>..</socket_frame>
+                     <scale_factors>1 1 1</scale_factors>
+                     <Appearance>
+                        <opacity>1</opacity>
+                        <color>1 1 1</color>
+                        <Comment>The opacity used to display the geometry between 0:transparent, 1:opaque.The color, (red, green, blue), [0, 1], used to display the geometry. </Comment>
+                     </Appearance>
+                     <Comment>Path to a Component that satisfies the Socket 'frame' of type Frame.Scale factors in X, Y, Z directions respectively.Default appearance attributes for this GeometryName of geometry file.</Comment>
+                  </Mesh>
+                  <Mesh name="base_geom_2">
+                     <socket_frame>..</socket_frame>
+                     <scale_factors>1 1 1</scale_factors>
+                     <Appearance>
+                        <opacity>1</opacity>
+                        <color>1 1 1</color>
+                        <Comment>The opacity used to display the geometry between 0:transparent, 1:opaque.The color, (red, green, blue), [0, 1], used to display the geometry. </Comment>
+                     </Appearance>
+                     <Comment>Path to a Component that satisfies the Socket 'frame' of type Frame.Scale factors in X, Y, Z directions respectively.Default appearance attributes for this GeometryName of geometry file.</Comment>
+                  </Mesh>
+                  <Mesh name="base_geom_3">
+                     <socket_frame>..</socket_frame>
+                     <scale_factors>1 1 1</scale_factors>
+                     <Appearance>
+                        <opacity>1</opacity>
+                        <color>1 1 1</color>
+                        <Comment>The opacity used to display the geometry between 0:transparent, 1:opaque.The color, (red, green, blue), [0, 1], used to display the geometry. </Comment>
+                     </Appearance>
+                     <Comment>Path to a Component that satisfies the Socket 'frame' of type Frame.Scale factors in X, Y, Z directions respectively.Default appearance attributes for this GeometryName of geometry file.</Comment>
+                  </Mesh>
+                  <Mesh name="base_geom_4">
+                     <socket_frame>..</socket_frame>
+                     <scale_factors>1 1 1</scale_factors>
+                     <Appearance>
+                        <opacity>1</opacity>
+                        <color>1 1 1</color>
+                        <Comment>The opacity used to display the geometry between 0:transparent, 1:opaque.The color, (red, green, blue), [0, 1], used to display the geometry. </Comment>
+                     </Appearance>
+                     <Comment>Path to a Component that satisfies the Socket 'frame' of type Frame.Scale factors in X, Y, Z directions respectively.Default appearance attributes for this GeometryName of geometry file.</Comment>
+                  </Mesh>
+                  <Mesh name="base_geom_5">
+                     <socket_frame>..</socket_frame>
+                     <scale_factors>1 1 1</scale_factors>
+                     <Appearance>
+                        <opacity>1</opacity>
+                        <color>1 1 1</color>
+                        <Comment>The opacity used to display the geometry between 0:transparent, 1:opaque.The color, (red, green, blue), [0, 1], used to display the geometry. </Comment>
+                     </Appearance>
+                     <Comment>Path to a Component that satisfies the Socket 'frame' of type Frame.Scale factors in X, Y, Z directions respectively.Default appearance attributes for this GeometryName of geometry file.</Comment>
+                  </Mesh>
+                  <Mesh name="base_geom_6">
+                     <socket_frame>..</socket_frame>
+                     <scale_factors>1 1 1</scale_factors>
+                     <Appearance>
+                        <opacity>1</opacity>
+                        <color>1 1 1</color>
+                        <Comment>The opacity used to display the geometry between 0:transparent, 1:opaque.The color, (red, green, blue), [0, 1], used to display the geometry. </Comment>
+                     </Appearance>
+                     <Comment>Path to a Component that satisfies the Socket 'frame' of type Frame.Scale factors in X, Y, Z directions respectively.Default appearance attributes for this GeometryName of geometry file.</Comment>
+                  </Mesh>
+               </attached_geometry>
+               <WrapObjectSet name="wrapobjectset">
+                  <objects>
+                     <WrapCylinder name="TRIlongglen">
+                        <active>true</active>
+                        <xyz_body_rotation>1.3753200000000001 -0.29461199999999999 2.4359600000000001</xyz_body_rotation>
+                        <translation>-0.043905 -0.0038999999999999998 0.14779999999999999</translation>
+                        <quadrant>x</quadrant>
+                        <radius>0.0030000000000000001</radius>
+                        <length>0.029999999999999999</length>
+                        <Comment>Whether or not the WrapObject is considered active in computing pathsBody-fixed Euler angle sequence for the orientation of the WrapObjectTranslation of the WrapObject.The name of quadrant over which the wrap object is active. For example, '+x' or '-y' to set the sidedness of the wrapping.The radius of the cylinder.The length of the cylinder.</Comment>
+                     </WrapCylinder>
+                  </objects>
+                  <groups/>
+               </WrapObjectSet>
+               <mass>0</mass>
+               <mass_center>0 0 0</mass_center>
+               <inertia>0 0 0 0 0 0</inertia>
+               <Comment>The geometry used to display the axes of this Frame.List of geometry attached to this Frame. Note, the geometry are treated as fixed to the frame and they share the transform of the frame when visualizedSet of wrap objects fixed to this body that GeometryPaths can wrap over.This property used to be a member of Body but was moved up with the introduction of Frames.The mass of the body (kg)The location (Vec3) of the mass center in the body frame.The elements of the inertia tensor (Vec6) as [Ixx Iyy Izz Ixy Ixz Iyz] measured about the mass_center and not the body origin.</Comment>
+            </Body>
+            <Body name="r_humerus">
+               <FrameGeometry name="frame_geometry">
+                  <socket_frame>..</socket_frame>
+                  <scale_factors>0.20000000000000001 0.20000000000000001 0.20000000000000001</scale_factors>
+                  <Comment>Path to a Component that satisfies the Socket 'frame' of type Frame.Scale factors in X, Y, Z directions respectively.</Comment>
+               </FrameGeometry>
+               <attached_geometry>
+                  <Mesh name="r_humerus_geom_1">
+                     <socket_frame>..</socket_frame>
+                     <scale_factors>1 1 1</scale_factors>
+                     <Appearance>
+                        <opacity>1</opacity>
+                        <color>1 1 1</color>
+                        <Comment>The opacity used to display the geometry between 0:transparent, 1:opaque.The color, (red, green, blue), [0, 1], used to display the geometry. </Comment>
+                     </Appearance>
+                     <Comment>Path to a Component that satisfies the Socket 'frame' of type Frame.Scale factors in X, Y, Z directions respectively.Default appearance attributes for this GeometryName of geometry file.</Comment>
+                  </Mesh>
+               </attached_geometry>
+               <WrapObjectSet name="wrapobjectset">
+                  <objects>
+                     <WrapEllipsoid name="TRIlonghh">
+                        <active>true</active>
+                        <xyz_body_rotation>3.00162 -0.85346599999999995 2.5741900000000002</xyz_body_rotation>
+                        <translation>-0.0077999999999999996 -0.0041000000000000003 -0.0014</translation>
+                        <quadrant>z</quadrant>
+                        <dimensions>0.035000000000000003 0.02 0.02</dimensions>
+                        <Comment>Whether or not the WrapObject is considered active in computing pathsBody-fixed Euler angle sequence for the orientation of the WrapObjectTranslation of the WrapObject.The name of quadrant over which the wrap object is active. For example, '+x' or '-y' to set the sidedness of the wrapping.The length of the radii of the ellipsoid.</Comment>
+                     </WrapEllipsoid>
+                     <WrapEllipsoid name="BIClonghh">
+                        <active>true</active>
+                        <xyz_body_rotation>-2.00434 -1.0016400000000001 0.97546500000000003</xyz_body_rotation>
+                        <translation>0.0033 0.0073000000000000001 0.00029999999999999997</translation>
+                        <quadrant>-y</quadrant>
+                        <dimensions>0.025000000000000001 0.02 0.02</dimensions>
+                        <Comment>Whether or not the WrapObject is considered active in computing pathsBody-fixed Euler angle sequence for the orientation of the WrapObjectTranslation of the WrapObject.The name of quadrant over which the wrap object is active. For example, '+x' or '-y' to set the sidedness of the wrapping.The length of the radii of the ellipsoid.</Comment>
+                     </WrapEllipsoid>
+                     <WrapCylinder name="TRI">
+                        <active>true</active>
+                        <xyz_body_rotation>-0.14015 -0.0062831900000000001 0.15498500000000001</xyz_body_rotation>
+                        <translation>0.0028 -0.29189999999999999 -0.0068999999999999999</translation>
+                        <quadrant>all</quadrant>
+                        <radius>0.016</radius>
+                        <length>0.050000000000000003</length>
+                        <Comment>Whether or not the WrapObject is considered active in computing pathsBody-fixed Euler angle sequence for the orientation of the WrapObjectTranslation of the WrapObject.The name of quadrant over which the wrap object is active. For example, '+x' or '-y' to set the sidedness of the wrapping.The radius of the cylinder.The length of the cylinder.</Comment>
+                     </WrapCylinder>
+                  </objects>
+                  <groups/>
+               </WrapObjectSet>
+               <mass>1.8645719999999999</mass>
+               <mass_center>0 -0.18049599999999999 0</mass_center>
+               <inertia>0.01481 0.0045510000000000004 0.013193 0 0 0</inertia>
+               <Comment>The geometry used to display the axes of this Frame.List of geometry attached to this Frame. Note, the geometry are treated as fixed to the frame and they share the transform of the frame when visualizedSet of wrap objects fixed to this body that GeometryPaths can wrap over.This property used to be a member of Body but was moved up with the introduction of Frames.The mass of the body (kg)The location (Vec3) of the mass center in the body frame.The elements of the inertia tensor (Vec6) as [Ixx Iyy Izz Ixy Ixz Iyz] measured about the mass_center and not the body origin.</Comment>
+            </Body>
+            <Body name="r_ulna_radius_hand">
+               <FrameGeometry name="frame_geometry">
+                  <socket_frame>..</socket_frame>
+                  <scale_factors>0.20000000000000001 0.20000000000000001 0.20000000000000001</scale_factors>
+                  <Comment>Path to a Component that satisfies the Socket 'frame' of type Frame.Scale factors in X, Y, Z directions respectively.</Comment>
+               </FrameGeometry>
+               <attached_geometry>
+                  <Mesh name="r_ulna_radius_hand_geom_1">
+                     <socket_frame>..</socket_frame>
+                     <scale_factors>1 1 1</scale_factors>
+                     <Appearance>
+                        <opacity>1</opacity>
+                        <color>1 1 1</color>
+                        <Comment>The opacity used to display the geometry between 0:transparent, 1:opaque.The color, (red, green, blue), [0, 1], used to display the geometry. </Comment>
+                     </Appearance>
+                     <Comment>Path to a Component that satisfies the Socket 'frame' of type Frame.Scale factors in X, Y, Z directions respectively.Default appearance attributes for this GeometryName of geometry file.</Comment>
+                  </Mesh>
+                  <Mesh name="r_ulna_radius_hand_geom_2">
+                     <socket_frame>..</socket_frame>
+                     <scale_factors>1 1 1</scale_factors>
+                     <Appearance>
+                        <opacity>1</opacity>
+                        <color>1 1 1</color>
+                        <Comment>The opacity used to display the geometry between 0:transparent, 1:opaque.The color, (red, green, blue), [0, 1], used to display the geometry. </Comment>
+                     </Appearance>
+                     <Comment>Path to a Component that satisfies the Socket 'frame' of type Frame.Scale factors in X, Y, Z directions respectively.Default appearance attributes for this GeometryName of geometry file.</Comment>
+                  </Mesh>
+                  <Mesh name="r_ulna_radius_hand_geom_3">
+                     <socket_frame>..</socket_frame>
+                     <scale_factors>1 1 1</scale_factors>
+                     <Appearance>
+                        <opacity>1</opacity>
+                        <color>1 1 1</color>
+                        <Comment>The opacity used to display the geometry between 0:transparent, 1:opaque.The color, (red, green, blue), [0, 1], used to display the geometry. </Comment>
+                     </Appearance>
+                     <Comment>Path to a Component that satisfies the Socket 'frame' of type Frame.Scale factors in X, Y, Z directions respectively.Default appearance attributes for this GeometryName of geometry file.</Comment>
+                  </Mesh>
+                  <Mesh name="r_ulna_radius_hand_geom_4">
+                     <socket_frame>..</socket_frame>
+                     <scale_factors>1 1 1</scale_factors>
+                     <Appearance>
+                        <opacity>1</opacity>
+                        <color>1 1 1</color>
+                        <Comment>The opacity used to display the geometry between 0:transparent, 1:opaque.The color, (red, green, blue), [0, 1], used to display the geometry. </Comment>
+                     </Appearance>
+                     <Comment>Path to a Component that satisfies the Socket 'frame' of type Frame.Scale factors in X, Y, Z directions respectively.Default appearance attributes for this GeometryName of geometry file.</Comment>
+                  </Mesh>
+                  <Mesh name="r_ulna_radius_hand_geom_5">
+                     <socket_frame>..</socket_frame>
+                     <scale_factors>1 1 1</scale_factors>
+                     <Appearance>
+                        <opacity>1</opacity>
+                        <color>1 1 1</color>
+                        <Comment>The opacity used to display the geometry between 0:transparent, 1:opaque.The color, (red, green, blue), [0, 1], used to display the geometry. </Comment>
+                     </Appearance>
+                     <Comment>Path to a Component that satisfies the Socket 'frame' of type Frame.Scale factors in X, Y, Z directions respectively.Default appearance attributes for this GeometryName of geometry file.</Comment>
+                  </Mesh>
+                  <Mesh name="r_ulna_radius_hand_geom_6">
+                     <socket_frame>..</socket_frame>
+                     <scale_factors>1 1 1</scale_factors>
+                     <Appearance>
+                        <opacity>1</opacity>
+                        <color>1 1 1</color>
+                        <Comment>The opacity used to display the geometry between 0:transparent, 1:opaque.The color, (red, green, blue), [0, 1], used to display the geometry. </Comment>
+                     </Appearance>
+                     <Comment>Path to a Component that satisfies the Socket 'frame' of type Frame.Scale factors in X, Y, Z directions respectively.Default appearance attributes for this GeometryName of geometry file.</Comment>
+                  </Mesh>
+                  <Mesh name="r_ulna_radius_hand_geom_7">
+                     <socket_frame>..</socket_frame>
+                     <scale_factors>1 1 1</scale_factors>
+                     <Appearance>
+                        <opacity>1</opacity>
+                        <color>1 1 1</color>
+                        <Comment>The opacity used to display the geometry between 0:transparent, 1:opaque.The color, (red, green, blue), [0, 1], used to display the geometry. </Comment>
+                     </Appearance>
+                     <Comment>Path to a Component that satisfies the Socket 'frame' of type Frame.Scale factors in X, Y, Z directions respectively.Default appearance attributes for this GeometryName of geometry file.</Comment>
+                  </Mesh>
+                  <Mesh name="r_ulna_radius_hand_geom_8">
+                     <socket_frame>..</socket_frame>
+                     <scale_factors>1 1 1</scale_factors>
+                     <Appearance>
+                        <opacity>1</opacity>
+                        <color>1 1 1</color>
+                        <Comment>The opacity used to display the geometry between 0:transparent, 1:opaque.The color, (red, green, blue), [0, 1], used to display the geometry. </Comment>
+                     </Appearance>
+                     <Comment>Path to a Component that satisfies the Socket 'frame' of type Frame.Scale factors in X, Y, Z directions respectively.Default appearance attributes for this GeometryName of geometry file.</Comment>
+                  </Mesh>
+                  <Mesh name="r_ulna_radius_hand_geom_9">
+                     <socket_frame>..</socket_frame>
+                     <scale_factors>1 1 1</scale_factors>
+                     <Appearance>
+                        <opacity>1</opacity>
+                        <color>1 1 1</color>
+                        <Comment>The opacity used to display the geometry between 0:transparent, 1:opaque.The color, (red, green, blue), [0, 1], used to display the geometry. </Comment>
+                     </Appearance>
+                     <Comment>Path to a Component that satisfies the Socket 'frame' of type Frame.Scale factors in X, Y, Z directions respectively.Default appearance attributes for this GeometryName of geometry file.</Comment>
+                  </Mesh>
+                  <Mesh name="r_ulna_radius_hand_geom_10">
+                     <socket_frame>..</socket_frame>
+                     <scale_factors>1 1 1</scale_factors>
+                     <Appearance>
+                        <opacity>1</opacity>
+                        <color>1 1 1</color>
+                        <Comment>The opacity used to display the geometry between 0:transparent, 1:opaque.The color, (red, green, blue), [0, 1], used to display the geometry. </Comment>
+                     </Appearance>
+                     <Comment>Path to a Component that satisfies the Socket 'frame' of type Frame.Scale factors in X, Y, Z directions respectively.Default appearance attributes for this GeometryName of geometry file.</Comment>
+                  </Mesh>
+                  <Mesh name="r_ulna_radius_hand_geom_11">
+                     <socket_frame>..</socket_frame>
+                     <scale_factors>1 1 1</scale_factors>
+                     <Appearance>
+                        <opacity>1</opacity>
+                        <color>1 1 1</color>
+                        <Comment>The opacity used to display the geometry between 0:transparent, 1:opaque.The color, (red, green, blue), [0, 1], used to display the geometry. </Comment>
+                     </Appearance>
+                     <Comment>Path to a Component that satisfies the Socket 'frame' of type Frame.Scale factors in X, Y, Z directions respectively.Default appearance attributes for this GeometryName of geometry file.</Comment>
+                  </Mesh>
+                  <Mesh name="r_ulna_radius_hand_geom_12">
+                     <socket_frame>..</socket_frame>
+                     <scale_factors>1 1 1</scale_factors>
+                     <Appearance>
+                        <opacity>1</opacity>
+                        <color>1 1 1</color>
+                        <Comment>The opacity used to display the geometry between 0:transparent, 1:opaque.The color, (red, green, blue), [0, 1], used to display the geometry. </Comment>
+                     </Appearance>
+                     <Comment>Path to a Component that satisfies the Socket 'frame' of type Frame.Scale factors in X, Y, Z directions respectively.Default appearance attributes for this GeometryName of geometry file.</Comment>
+                  </Mesh>
+                  <Mesh name="r_ulna_radius_hand_geom_13">
+                     <socket_frame>..</socket_frame>
+                     <scale_factors>1 1 1</scale_factors>
+                     <Appearance>
+                        <opacity>1</opacity>
+                        <color>1 1 1</color>
+                        <Comment>The opacity used to display the geometry between 0:transparent, 1:opaque.The color, (red, green, blue), [0, 1], used to display the geometry. </Comment>
+                     </Appearance>
+                     <Comment>Path to a Component that satisfies the Socket 'frame' of type Frame.Scale factors in X, Y, Z directions respectively.Default appearance attributes for this GeometryName of geometry file.</Comment>
+                  </Mesh>
+                  <Mesh name="r_ulna_radius_hand_geom_14">
+                     <socket_frame>..</socket_frame>
+                     <scale_factors>1 1 1</scale_factors>
+                     <Appearance>
+                        <opacity>1</opacity>
+                        <color>1 1 1</color>
+                        <Comment>The opacity used to display the geometry between 0:transparent, 1:opaque.The color, (red, green, blue), [0, 1], used to display the geometry. </Comment>
+                     </Appearance>
+                     <Comment>Path to a Component that satisfies the Socket 'frame' of type Frame.Scale factors in X, Y, Z directions respectively.Default appearance attributes for this GeometryName of geometry file.</Comment>
+                  </Mesh>
+                  <Mesh name="r_ulna_radius_hand_geom_15">
+                     <socket_frame>..</socket_frame>
+                     <scale_factors>1 1 1</scale_factors>
+                     <Appearance>
+                        <opacity>1</opacity>
+                        <color>1 1 1</color>
+                        <Comment>The opacity used to display the geometry between 0:transparent, 1:opaque.The color, (red, green, blue), [0, 1], used to display the geometry. </Comment>
+                     </Appearance>
+                     <Comment>Path to a Component that satisfies the Socket 'frame' of type Frame.Scale factors in X, Y, Z directions respectively.Default appearance attributes for this GeometryName of geometry file.</Comment>
+                  </Mesh>
+                  <Mesh name="r_ulna_radius_hand_geom_16">
+                     <socket_frame>..</socket_frame>
+                     <scale_factors>1 1 1</scale_factors>
+                     <Appearance>
+                        <opacity>1</opacity>
+                        <color>1 1 1</color>
+                        <Comment>The opacity used to display the geometry between 0:transparent, 1:opaque.The color, (red, green, blue), [0, 1], used to display the geometry. </Comment>
+                     </Appearance>
+                     <Comment>Path to a Component that satisfies the Socket 'frame' of type Frame.Scale factors in X, Y, Z directions respectively.Default appearance attributes for this GeometryName of geometry file.</Comment>
+                  </Mesh>
+                  <Mesh name="r_ulna_radius_hand_geom_17">
+                     <socket_frame>..</socket_frame>
+                     <scale_factors>1 1 1</scale_factors>
+                     <Appearance>
+                        <opacity>1</opacity>
+                        <color>1 1 1</color>
+                        <Comment>The opacity used to display the geometry between 0:transparent, 1:opaque.The color, (red, green, blue), [0, 1], used to display the geometry. </Comment>
+                     </Appearance>
+                     <Comment>Path to a Component that satisfies the Socket 'frame' of type Frame.Scale factors in X, Y, Z directions respectively.Default appearance attributes for this GeometryName of geometry file.</Comment>
+                  </Mesh>
+                  <Mesh name="r_ulna_radius_hand_geom_18">
+                     <socket_frame>..</socket_frame>
+                     <scale_factors>1 1 1</scale_factors>
+                     <Appearance>
+                        <opacity>1</opacity>
+                        <color>1 1 1</color>
+                        <Comment>The opacity used to display the geometry between 0:transparent, 1:opaque.The color, (red, green, blue), [0, 1], used to display the geometry. </Comment>
+                     </Appearance>
+                     <Comment>Path to a Component that satisfies the Socket 'frame' of type Frame.Scale factors in X, Y, Z directions respectively.Default appearance attributes for this GeometryName of geometry file.</Comment>
+                  </Mesh>
+                  <Mesh name="r_ulna_radius_hand_geom_19">
+                     <socket_frame>..</socket_frame>
+                     <scale_factors>1 1 1</scale_factors>
+                     <Appearance>
+                        <opacity>1</opacity>
+                        <color>1 1 1</color>
+                        <Comment>The opacity used to display the geometry between 0:transparent, 1:opaque.The color, (red, green, blue), [0, 1], used to display the geometry. </Comment>
+                     </Appearance>
+                     <Comment>Path to a Component that satisfies the Socket 'frame' of type Frame.Scale factors in X, Y, Z directions respectively.Default appearance attributes for this GeometryName of geometry file.</Comment>
+                  </Mesh>
+                  <Mesh name="r_ulna_radius_hand_geom_20">
+                     <socket_frame>..</socket_frame>
+                     <scale_factors>1 1 1</scale_factors>
+                     <Appearance>
+                        <opacity>1</opacity>
+                        <color>1 1 1</color>
+                        <Comment>The opacity used to display the geometry between 0:transparent, 1:opaque.The color, (red, green, blue), [0, 1], used to display the geometry. </Comment>
+                     </Appearance>
+                     <Comment>Path to a Component that satisfies the Socket 'frame' of type Frame.Scale factors in X, Y, Z directions respectively.Default appearance attributes for this GeometryName of geometry file.</Comment>
+                  </Mesh>
+                  <Mesh name="r_ulna_radius_hand_geom_21">
+                     <socket_frame>..</socket_frame>
+                     <scale_factors>1 1 1</scale_factors>
+                     <Appearance>
+                        <opacity>1</opacity>
+                        <color>1 1 1</color>
+                        <Comment>The opacity used to display the geometry between 0:transparent, 1:opaque.The color, (red, green, blue), [0, 1], used to display the geometry. </Comment>
+                     </Appearance>
+                     <Comment>Path to a Component that satisfies the Socket 'frame' of type Frame.Scale factors in X, Y, Z directions respectively.Default appearance attributes for this GeometryName of geometry file.</Comment>
+                  </Mesh>
+                  <Mesh name="r_ulna_radius_hand_geom_22">
+                     <socket_frame>..</socket_frame>
+                     <scale_factors>1 1 1</scale_factors>
+                     <Appearance>
+                        <opacity>1</opacity>
+                        <color>1 1 1</color>
+                        <Comment>The opacity used to display the geometry between 0:transparent, 1:opaque.The color, (red, green, blue), [0, 1], used to display the geometry. </Comment>
+                     </Appearance>
+                     <Comment>Path to a Component that satisfies the Socket 'frame' of type Frame.Scale factors in X, Y, Z directions respectively.Default appearance attributes for this GeometryName of geometry file.</Comment>
+                  </Mesh>
+                  <Mesh name="r_ulna_radius_hand_geom_23">
+                     <socket_frame>..</socket_frame>
+                     <scale_factors>1 1 1</scale_factors>
+                     <Appearance>
+                        <opacity>1</opacity>
+                        <color>1 1 1</color>
+                        <Comment>The opacity used to display the geometry between 0:transparent, 1:opaque.The color, (red, green, blue), [0, 1], used to display the geometry. </Comment>
+                     </Appearance>
+                     <Comment>Path to a Component that satisfies the Socket 'frame' of type Frame.Scale factors in X, Y, Z directions respectively.Default appearance attributes for this GeometryName of geometry file.</Comment>
+                  </Mesh>
+                  <Mesh name="r_ulna_radius_hand_geom_24">
+                     <socket_frame>..</socket_frame>
+                     <scale_factors>1 1 1</scale_factors>
+                     <Appearance>
+                        <opacity>1</opacity>
+                        <color>1 1 1</color>
+                        <Comment>The opacity used to display the geometry between 0:transparent, 1:opaque.The color, (red, green, blue), [0, 1], used to display the geometry. </Comment>
+                     </Appearance>
+                     <Comment>Path to a Component that satisfies the Socket 'frame' of type Frame.Scale factors in X, Y, Z directions respectively.Default appearance attributes for this GeometryName of geometry file.</Comment>
+                  </Mesh>
+                  <Mesh name="r_ulna_radius_hand_geom_25">
+                     <socket_frame>..</socket_frame>
+                     <scale_factors>1 1 1</scale_factors>
+                     <Appearance>
+                        <opacity>1</opacity>
+                        <color>1 1 1</color>
+                        <Comment>The opacity used to display the geometry between 0:transparent, 1:opaque.The color, (red, green, blue), [0, 1], used to display the geometry. </Comment>
+                     </Appearance>
+                     <Comment>Path to a Component that satisfies the Socket 'frame' of type Frame.Scale factors in X, Y, Z directions respectively.Default appearance attributes for this GeometryName of geometry file.</Comment>
+                  </Mesh>
+                  <Mesh name="r_ulna_radius_hand_geom_26">
+                     <socket_frame>..</socket_frame>
+                     <scale_factors>1 1 1</scale_factors>
+                     <Appearance>
+                        <opacity>1</opacity>
+                        <color>1 1 1</color>
+                        <Comment>The opacity used to display the geometry between 0:transparent, 1:opaque.The color, (red, green, blue), [0, 1], used to display the geometry. </Comment>
+                     </Appearance>
+                     <Comment>Path to a Component that satisfies the Socket 'frame' of type Frame.Scale factors in X, Y, Z directions respectively.Default appearance attributes for this GeometryName of geometry file.</Comment>
+                  </Mesh>
+                  <Mesh name="r_ulna_radius_hand_geom_27">
+                     <socket_frame>..</socket_frame>
+                     <scale_factors>1 1 1</scale_factors>
+                     <Appearance>
+                        <opacity>1</opacity>
+                        <color>1 1 1</color>
+                        <Comment>The opacity used to display the geometry between 0:transparent, 1:opaque.The color, (red, green, blue), [0, 1], used to display the geometry. </Comment>
+                     </Appearance>
+                     <Comment>Path to a Component that satisfies the Socket 'frame' of type Frame.Scale factors in X, Y, Z directions respectively.Default appearance attributes for this GeometryName of geometry file.</Comment>
+                  </Mesh>
+                  <Mesh name="r_ulna_radius_hand_geom_28">
+                     <socket_frame>..</socket_frame>
+                     <scale_factors>1 1 1</scale_factors>
+                     <Appearance>
+                        <opacity>1</opacity>
+                        <color>1 1 1</color>
+                        <Comment>The opacity used to display the geometry between 0:transparent, 1:opaque.The color, (red, green, blue), [0, 1], used to display the geometry. </Comment>
+                     </Appearance>
+                     <Comment>Path to a Component that satisfies the Socket 'frame' of type Frame.Scale factors in X, Y, Z directions respectively.Default appearance attributes for this GeometryName of geometry file.</Comment>
+                  </Mesh>
+                  <Mesh name="r_ulna_radius_hand_geom_29">
+                     <socket_frame>..</socket_frame>
+                     <scale_factors>1 1 1</scale_factors>
+                     <Appearance>
+                        <opacity>1</opacity>
+                        <color>1 1 1</color>
+                        <Comment>The opacity used to display the geometry between 0:transparent, 1:opaque.The color, (red, green, blue), [0, 1], used to display the geometry. </Comment>
+                     </Appearance>
+                     <Comment>Path to a Component that satisfies the Socket 'frame' of type Frame.Scale factors in X, Y, Z directions respectively.Default appearance attributes for this GeometryName of geometry file.</Comment>
+                  </Mesh>
+               </attached_geometry>
+               <WrapObjectSet name="wrapobjectset">
+                  <objects/>
+                  <groups/>
+               </WrapObjectSet>
+               <mass>1.5343150000000001</mass>
+               <mass_center>0 -0.181479 0</mass_center>
+               <inertia>0.019281 0.0015709999999999999 0.020062 0 0 0</inertia>
+               <Comment>The geometry used to display the axes of this Frame.List of geometry attached to this Frame. Note, the geometry are treated as fixed to the frame and they share the transform of the frame when visualizedSet of wrap objects fixed to this body that GeometryPaths can wrap over.This property used to be a member of Body but was moved up with the introduction of Frames.The mass of the body (kg)The location (Vec3) of the mass center in the body frame.The elements of the inertia tensor (Vec6) as [Ixx Iyy Izz Ixy Ixz Iyz] measured about the mass_center and not the body origin.</Comment>
+            </Body>
+         </objects>
+         <groups/>
+      </BodySet>
+      <JointSet name="jointset">
+         <objects>
+            <WeldJoint name="offset">
+               <socket_parent_frame>ground_offset</socket_parent_frame>
+               <socket_child_frame>base_offset</socket_child_frame>
+               <frames>
+                  <PhysicalOffsetFrame name="ground_offset">
+                     <FrameGeometry name="frame_geometry">
+                        <socket_frame>..</socket_frame>
+                        <scale_factors>0.20000000000000001 0.20000000000000001 0.20000000000000001</scale_factors>
+                        <Comment>Path to a Component that satisfies the Socket 'frame' of type Frame.Scale factors in X, Y, Z directions respectively.</Comment>
+                     </FrameGeometry>
+                     <socket_parent>/ground</socket_parent>
+                     <translation>0 0.80000000000000004 0</translation>
+                     <orientation>0 0 0</orientation>
+                     <Comment>The geometry used to display the axes of this Frame.Path to a Component that satisfies the Socket 'parent' of type C (description: The parent frame to this frame.).Translational offset (in meters) of this frame's origin from the parent frame's origin, expressed in the parent frame.Orientation offset (in radians) of this frame in its parent frame, expressed as a frame-fixed x-y-z rotation sequence.</Comment>
+                  </PhysicalOffsetFrame>
+                  <PhysicalOffsetFrame name="base_offset">
+                     <FrameGeometry name="frame_geometry">
+                        <socket_frame>..</socket_frame>
+                        <scale_factors>0.20000000000000001 0.20000000000000001 0.20000000000000001</scale_factors>
+                        <Comment>Path to a Component that satisfies the Socket 'frame' of type Frame.Scale factors in X, Y, Z directions respectively.</Comment>
+                     </FrameGeometry>
+                     <socket_parent>/bodyset/base</socket_parent>
+                     <translation>0 0 0</translation>
+                     <orientation>0 0 0</orientation>
+                     <Comment>The geometry used to display the axes of this Frame.Path to a Component that satisfies the Socket 'parent' of type C (description: The parent frame to this frame.).Translational offset (in meters) of this frame's origin from the parent frame's origin, expressed in the parent frame.Orientation offset (in radians) of this frame in its parent frame, expressed as a frame-fixed x-y-z rotation sequence.</Comment>
+                  </PhysicalOffsetFrame>
+               </frames>
+               <Comment>Path to a Component that satisfies the Socket 'parent_frame' of type PhysicalFrame (description: The parent frame for the joint.).Path to a Component that satisfies the Socket 'child_frame' of type PhysicalFrame (description: The child frame for the joint.).Physical offset frames owned by the Joint that are typically used to satisfy the owning Joint's parent and child frame connections (sockets). PhysicalOffsetFrames are often used to describe the fixed transformation from a Body's origin to another location of interest on the Body (e.g., the joint center). When the joint is deleted, so are the PhysicalOffsetFrame components in this list.</Comment>
+            </WeldJoint>
+            <CustomJoint name="r_shoulder">
+               <socket_parent_frame>base_offset</socket_parent_frame>
+               <socket_child_frame>r_humerus_offset</socket_child_frame>
+               <coordinates>
+                  <Coordinate name="r_shoulder_elev">
+                     <default_value>0</default_value>
+                     <default_speed_value>0</default_speed_value>
+                     <range>-1.5707963300000001 3.1415926500000002</range>
+                     <clamped>false</clamped>
+                     <locked>false</locked>
+                     <prescribed_function/>
+                     <Comment>The value of this coordinate before any value has been set. Rotational coordinate value is in radians and Translational in meters.The speed value of this coordinate before any value has been set. Rotational coordinate value is in rad/s and Translational in m/s.The minimum and maximum values that the coordinate can range between. Rotational coordinate range in radians and Translational in meters.Flag indicating whether or not the values of the coordinates should be limited to the range, above.Flag indicating whether or not the values of the coordinates should be constrained to the current (e.g. default) value, above.If specified, the coordinate can be prescribed by a function of time. It can be any OpenSim Function with valid second order derivatives.</Comment>
+                  </Coordinate>
+               </coordinates>
+               <frames>
+                  <PhysicalOffsetFrame name="base_offset">
+                     <FrameGeometry name="frame_geometry">
+                        <socket_frame>..</socket_frame>
+                        <scale_factors>0.20000000000000001 0.20000000000000001 0.20000000000000001</scale_factors>
+                        <Comment>Path to a Component that satisfies the Socket 'frame' of type Frame.Scale factors in X, Y, Z directions respectively.</Comment>
+                     </FrameGeometry>
+                     <socket_parent>/bodyset/base</socket_parent>
+                     <translation>-0.017545000000000002 -0.0070000000000000001 0.17000000000000001</translation>
+                     <orientation>0 0 0</orientation>
+                     <Comment>The geometry used to display the axes of this Frame.Path to a Component that satisfies the Socket 'parent' of type C (description: The parent frame to this frame.).Translational offset (in meters) of this frame's origin from the parent frame's origin, expressed in the parent frame.Orientation offset (in radians) of this frame in its parent frame, expressed as a frame-fixed x-y-z rotation sequence.</Comment>
+                  </PhysicalOffsetFrame>
+                  <PhysicalOffsetFrame name="r_humerus_offset">
+                     <FrameGeometry name="frame_geometry">
+                        <socket_frame>..</socket_frame>
+                        <scale_factors>0.20000000000000001 0.20000000000000001 0.20000000000000001</scale_factors>
+                        <Comment>Path to a Component that satisfies the Socket 'frame' of type Frame.Scale factors in X, Y, Z directions respectively.</Comment>
+                     </FrameGeometry>
+                     <socket_parent>/bodyset/r_humerus</socket_parent>
+                     <translation>0 0 0</translation>
+                     <orientation>0 0 0</orientation>
+                     <Comment>The geometry used to display the axes of this Frame.Path to a Component that satisfies the Socket 'parent' of type C (description: The parent frame to this frame.).Translational offset (in meters) of this frame's origin from the parent frame's origin, expressed in the parent frame.Orientation offset (in radians) of this frame in its parent frame, expressed as a frame-fixed x-y-z rotation sequence.</Comment>
+                  </PhysicalOffsetFrame>
+               </frames>
+               <SpatialTransform>
+                  <TransformAxis name="rotation1">
+                     <coordinates>r_shoulder_elev</coordinates>
+                     <axis>-0.058898020000000002 0.0023 0.99826135999999999</axis>
+                     <LinearFunction name="function">
+                        <coefficients> 1 0</coefficients>
+                     </LinearFunction>
+                     <Comment>Names of the coordinates that serve as the independent variables of the transform function.Rotation or translation axis for the transform.Transform function of the generalized coordinates used to represent the amount of displacement along a specified axis.</Comment>
+                  </TransformAxis>
+                  <TransformAxis name="rotation2">
+                     <coordinates/>
+                     <axis>0 1 0</axis>
+                     <Constant name="function">
+                        <value>0</value>
+                     </Constant>
+                     <Comment>Names of the coordinates that serve as the independent variables of the transform function.Rotation or translation axis for the transform.Transform function of the generalized coordinates used to represent the amount of displacement along a specified axis.</Comment>
+                  </TransformAxis>
+                  <TransformAxis name="rotation3">
+                     <coordinates/>
+                     <axis>0.99826135999999999 -0 0.058898020000000002</axis>
+                     <Constant name="function">
+                        <value>0</value>
+                     </Constant>
+                     <Comment>Names of the coordinates that serve as the independent variables of the transform function.Rotation or translation axis for the transform.Transform function of the generalized coordinates used to represent the amount of displacement along a specified axis.</Comment>
+                  </TransformAxis>
+                  <TransformAxis name="translation1">
+                     <coordinates/>
+                     <axis>1 0 0</axis>
+                     <Constant name="function">
+                        <value>0</value>
+                     </Constant>
+                     <Comment>Names of the coordinates that serve as the independent variables of the transform function.Rotation or translation axis for the transform.Transform function of the generalized coordinates used to represent the amount of displacement along a specified axis.</Comment>
+                  </TransformAxis>
+                  <TransformAxis name="translation2">
+                     <coordinates/>
+                     <axis>0 1 0</axis>
+                     <Constant name="function">
+                        <value>0</value>
+                     </Constant>
+                     <Comment>Names of the coordinates that serve as the independent variables of the transform function.Rotation or translation axis for the transform.Transform function of the generalized coordinates used to represent the amount of displacement along a specified axis.</Comment>
+                  </TransformAxis>
+                  <TransformAxis name="translation3">
+                     <coordinates/>
+                     <axis>0 0 1</axis>
+                     <Constant name="function">
+                        <value>0</value>
+                     </Constant>
+                     <Comment>Names of the coordinates that serve as the independent variables of the transform function.Rotation or translation axis for the transform.Transform function of the generalized coordinates used to represent the amount of displacement along a specified axis.</Comment>
+                  </TransformAxis>
+                  <Comment>3 Axes for rotations are listed first.3 Axes for translations are listed next.</Comment>
+               </SpatialTransform>
+               <Comment>Path to a Component that satisfies the Socket 'parent_frame' of type PhysicalFrame (description: The parent frame for the joint.).Path to a Component that satisfies the Socket 'child_frame' of type PhysicalFrame (description: The child frame for the joint.).List containing the generalized coordinates (q's) that parameterize this joint.Physical offset frames owned by the Joint that are typically used to satisfy the owning Joint's parent and child frame connections (sockets). PhysicalOffsetFrames are often used to describe the fixed transformation from a Body's origin to another location of interest on the Body (e.g., the joint center). When the joint is deleted, so are the PhysicalOffsetFrame components in this list.Defines how the child body moves with respect to the parent as a function of the generalized coordinates.</Comment>
+            </CustomJoint>
+            <CustomJoint name="r_elbow">
+               <socket_parent_frame>r_humerus_offset</socket_parent_frame>
+               <socket_child_frame>r_ulna_radius_hand_offset</socket_child_frame>
+               <coordinates>
+                  <Coordinate name="r_elbow_flex">
+                     <default_value>0</default_value>
+                     <default_speed_value>0</default_speed_value>
+                     <range>0 2.2689280300000001</range>
+                     <clamped>false</clamped>
+                     <locked>false</locked>
+                     <prescribed_function/>
+                     <Comment>The value of this coordinate before any value has been set. Rotational coordinate value is in radians and Translational in meters.The speed value of this coordinate before any value has been set. Rotational coordinate value is in rad/s and Translational in m/s.The minimum and maximum values that the coordinate can range between. Rotational coordinate range in radians and Translational in meters.Flag indicating whether or not the values of the coordinates should be limited to the range, above.Flag indicating whether or not the values of the coordinates should be constrained to the current (e.g. default) value, above.If specified, the coordinate can be prescribed by a function of time. It can be any OpenSim Function with valid second order derivatives.</Comment>
+                  </Coordinate>
+               </coordinates>
+               <frames>
+                  <PhysicalOffsetFrame name="r_humerus_offset">
+                     <FrameGeometry name="frame_geometry">
+                        <socket_frame>..</socket_frame>
+                        <scale_factors>0.20000000000000001 0.20000000000000001 0.20000000000000001</scale_factors>
+                        <Comment>Path to a Component that satisfies the Socket 'frame' of type Frame.Scale factors in X, Y, Z directions respectively.</Comment>
+                     </FrameGeometry>
+                     <socket_parent>/bodyset/r_humerus</socket_parent>
+                     <translation>0.0061000000000000004 -0.29039999999999999 -0.0123</translation>
+                     <orientation>0 0 0</orientation>
+                     <Comment>The geometry used to display the axes of this Frame.Path to a Component that satisfies the Socket 'parent' of type C (description: The parent frame to this frame.).Translational offset (in meters) of this frame's origin from the parent frame's origin, expressed in the parent frame.Orientation offset (in radians) of this frame in its parent frame, expressed as a frame-fixed x-y-z rotation sequence.</Comment>
+                  </PhysicalOffsetFrame>
+                  <PhysicalOffsetFrame name="r_ulna_radius_hand_offset">
+                     <FrameGeometry name="frame_geometry">
+                        <socket_frame>..</socket_frame>
+                        <scale_factors>0.20000000000000001 0.20000000000000001 0.20000000000000001</scale_factors>
+                        <Comment>Path to a Component that satisfies the Socket 'frame' of type Frame.Scale factors in X, Y, Z directions respectively.</Comment>
+                     </FrameGeometry>
+                     <socket_parent>/bodyset/r_ulna_radius_hand</socket_parent>
+                     <translation>0 0 0</translation>
+                     <orientation>0 0 0</orientation>
+                     <Comment>The geometry used to display the axes of this Frame.Path to a Component that satisfies the Socket 'parent' of type C (description: The parent frame to this frame.).Translational offset (in meters) of this frame's origin from the parent frame's origin, expressed in the parent frame.Orientation offset (in radians) of this frame in its parent frame, expressed as a frame-fixed x-y-z rotation sequence.</Comment>
+                  </PhysicalOffsetFrame>
+               </frames>
+               <SpatialTransform>
+                  <TransformAxis name="rotation1">
+                     <coordinates>r_elbow_flex</coordinates>
+                     <axis>0.049400010000000001 0.036600010000000002 0.99810825000000003</axis>
+                     <LinearFunction name="function">
+                        <coefficients> 1 0</coefficients>
+                     </LinearFunction>
+                     <Comment>Names of the coordinates that serve as the independent variables of the transform function.Rotation or translation axis for the transform.Transform function of the generalized coordinates used to represent the amount of displacement along a specified axis.</Comment>
+                  </TransformAxis>
+                  <TransformAxis name="rotation2">
+                     <coordinates/>
+                     <axis>0 1 0</axis>
+                     <Constant name="function">
+                        <value>0</value>
+                     </Constant>
+                     <Comment>Names of the coordinates that serve as the independent variables of the transform function.Rotation or translation axis for the transform.Transform function of the generalized coordinates used to represent the amount of displacement along a specified axis.</Comment>
+                  </TransformAxis>
+                  <TransformAxis name="rotation3">
+                     <coordinates/>
+                     <axis>0.99810825000000003 0 -0.049400010000000001</axis>
+                     <Constant name="function">
+                        <value>0</value>
+                     </Constant>
+                     <Comment>Names of the coordinates that serve as the independent variables of the transform function.Rotation or translation axis for the transform.Transform function of the generalized coordinates used to represent the amount of displacement along a specified axis.</Comment>
+                  </TransformAxis>
+                  <TransformAxis name="translation1">
+                     <coordinates/>
+                     <axis>1 0 0</axis>
+                     <Constant name="function">
+                        <value>0</value>
+                     </Constant>
+                     <Comment>Names of the coordinates that serve as the independent variables of the transform function.Rotation or translation axis for the transform.Transform function of the generalized coordinates used to represent the amount of displacement along a specified axis.</Comment>
+                  </TransformAxis>
+                  <TransformAxis name="translation2">
+                     <coordinates/>
+                     <axis>0 1 0</axis>
+                     <Constant name="function">
+                        <value>0</value>
+                     </Constant>
+                     <Comment>Names of the coordinates that serve as the independent variables of the transform function.Rotation or translation axis for the transform.Transform function of the generalized coordinates used to represent the amount of displacement along a specified axis.</Comment>
+                  </TransformAxis>
+                  <TransformAxis name="translation3">
+                     <coordinates/>
+                     <axis>0 0 1</axis>
+                     <Constant name="function">
+                        <value>0</value>
+                     </Constant>
+                     <Comment>Names of the coordinates that serve as the independent variables of the transform function.Rotation or translation axis for the transform.Transform function of the generalized coordinates used to represent the amount of displacement along a specified axis.</Comment>
+                  </TransformAxis>
+                  <Comment>3 Axes for rotations are listed first.3 Axes for translations are listed next.</Comment>
+               </SpatialTransform>
+               <Comment>Path to a Component that satisfies the Socket 'parent_frame' of type PhysicalFrame (description: The parent frame for the joint.).Path to a Component that satisfies the Socket 'child_frame' of type PhysicalFrame (description: The child frame for the joint.).List containing the generalized coordinates (q's) that parameterize this joint.Physical offset frames owned by the Joint that are typically used to satisfy the owning Joint's parent and child frame connections (sockets). PhysicalOffsetFrames are often used to describe the fixed transformation from a Body's origin to another location of interest on the Body (e.g., the joint center). When the joint is deleted, so are the PhysicalOffsetFrame components in this list.Defines how the child body moves with respect to the parent as a function of the generalized coordinates.</Comment>
+            </CustomJoint>
+         </objects>
+      </JointSet>
+      <ControllerSet name="controllerset">
+         <objects/>
+         <groups/>
+      </ControllerSet>
+      <ConstraintSet name="constraintset">
+         <objects/>
+         <groups/>
+      </ConstraintSet>
+      <ForceSet name="forceset">
+         <objects>
+            <Thelen2003Muscle name="TRIlong">
+               <appliesForce>true</appliesForce>
+               <GeometryPath name="geometrypath">
+                  <PathPointSet>
+                     <objects>
+                        <PathPoint name="TRIlong-P1">
+                           <socket_parent_frame>/bodyset/base</socket_parent_frame>
+                           <location>-0.053650000000000003 -0.013729999999999999 0.14723</location>
+                           <Comment>Path to a Component that satisfies the Socket 'parent_frame' of type PhysicalFrame (description: The frame in which this path point is defined.).The fixed location of the path point expressed in its parent frame.</Comment>
+                        </PathPoint>
+                        <PathPoint name="TRIlong-P2">
+                           <socket_parent_frame>/bodyset/r_humerus</socket_parent_frame>
+                           <location>-0.027140000000000001 -0.11441 -0.0066400000000000001</location>
+                           <Comment>Path to a Component that satisfies the Socket 'parent_frame' of type PhysicalFrame (description: The frame in which this path point is defined.).The fixed location of the path point expressed in its parent frame.</Comment>
+                        </PathPoint>
+                        <PathPoint name="TRIlong-P3">
+                           <socket_parent_frame>/bodyset/r_humerus</socket_parent_frame>
+                           <location>-0.03184 -0.22636999999999999 -0.01217</location>
+                           <Comment>Path to a Component that satisfies the Socket 'parent_frame' of type PhysicalFrame (description: The frame in which this path point is defined.).The fixed location of the path point expressed in its parent frame.</Comment>
+                        </PathPoint>
+                        <PathPoint name="TRIlong-P4">
+                           <socket_parent_frame>/bodyset/r_humerus</socket_parent_frame>
+                           <location>-0.017430000000000001 -0.26756999999999997 -0.01208</location>
+                           <Comment>Path to a Component that satisfies the Socket 'parent_frame' of type PhysicalFrame (description: The frame in which this path point is defined.).The fixed location of the path point expressed in its parent frame.</Comment>
+                        </PathPoint>
+                        <PathPoint name="TRIlong-P5">
+                           <socket_parent_frame>/bodyset/r_ulna_radius_hand</socket_parent_frame>
+                           <location>-0.021899999999999999 0.010460000000000001 -0.00077999999999999999</location>
+                           <Comment>Path to a Component that satisfies the Socket 'parent_frame' of type PhysicalFrame (description: The frame in which this path point is defined.).The fixed location of the path point expressed in its parent frame.</Comment>
+                        </PathPoint>
+                     </objects>
+                     <groups/>
+                  </PathPointSet>
+                  <PathWrapSet>
+                     <objects>
+                        <PathWrap name="TRIlong-wrap-cylinder1">
+                           <wrap_object>TRI</wrap_object>
+                           <method>hybrid</method>
+                           <range>-1 -1</range>
+                           <Comment>A WrapObject that this PathWrap interacts with.The wrapping method used to solve the path around the wrap object.The range of indices to use to compute the path over the wrap object.</Comment>
+                        </PathWrap>
+                        <PathWrap name="TRIlong-wrap-ellipsoid">
+                           <wrap_object>TRIlonghh</wrap_object>
+                           <method>hybrid</method>
+                           <range>-1 -1</range>
+                           <Comment>A WrapObject that this PathWrap interacts with.The wrapping method used to solve the path around the wrap object.The range of indices to use to compute the path over the wrap object.</Comment>
+                        </PathWrap>
+                        <PathWrap name="TRIlong-wrap-cylinder2">
+                           <wrap_object>TRIlongglen</wrap_object>
+                           <method>hybrid</method>
+                           <range>-1 -1</range>
+                           <Comment>A WrapObject that this PathWrap interacts with.The wrapping method used to solve the path around the wrap object.The range of indices to use to compute the path over the wrap object.</Comment>
+                        </PathWrap>
+                     </objects>
+                     <groups/>
+                  </PathWrapSet>
+                  <Appearance>
+                     <color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+                     <Comment>The color, (red, green, blue), [0, 1], used to display the geometry. </Comment>
+                  </Appearance>
+                  <Comment>The set of points defining the pathThe wrap objects that are associated with this pathDefault appearance attributes for this GeometryPath</Comment>
+               </GeometryPath>
+               <optimal_force>1</optimal_force>
+               <max_isometric_force>798.51999999999998</max_isometric_force>
+               <optimal_fiber_length>0.13400000000000001</optimal_fiber_length>
+               <tendon_slack_length>0.14299999999999999</tendon_slack_length>
+               <pennation_angle_at_optimal>0.20943951</pennation_angle_at_optimal>
+               <max_contraction_velocity>10</max_contraction_velocity>
+               <FmaxTendonStrain>0.033000000000000002</FmaxTendonStrain>
+               <FmaxMuscleStrain>0.59999999999999998</FmaxMuscleStrain>
+               <KshapeActive>0.5</KshapeActive>
+               <KshapePassive>4</KshapePassive>
+               <Af>0.29999999999999999</Af>
+               <Flen>1.8</Flen>
+               <activation_time_constant>0.01</activation_time_constant>
+               <deactivation_time_constant>0.040000000000000001</deactivation_time_constant>
+               <Comment>Flag indicating whether the force is applied or not. If true the forceis applied to the MultibodySystem otherwise the force is not applied.NOTE: Prior to OpenSim 4.0, this behavior was controlled by the 'isDisabled' property, where 'true' meant that force was not being applied. Thus, if 'isDisabled' is true, then 'appliesForce` is false.The set of points defining the path of the actuator.The maximum force this actuator can produce.Maximum isometric force that the fibers can generateOptimal length of the muscle fibersResting length of the tendonAngle between tendon and fibers at optimal fiber length expressed in radiansMaximum contraction velocity of the fibers, in optimal fiberlengths/secondtendon strain at maximum isometric muscle forcepassive muscle strain at maximum isometric muscle forceshape factor for Gaussian active muscle force-length relationshipexponential shape factor for passive force-length relationshipforce-velocity shape factormaximum normalized lengthening forceActivation time constant, in secondsDeactivation time constant, in seconds</Comment>
+            </Thelen2003Muscle>
+            <Thelen2003Muscle name="TRIlat">
+               <appliesForce>true</appliesForce>
+               <GeometryPath name="geometrypath">
+                  <PathPointSet>
+                     <objects>
+                        <PathPoint name="TRIlat-P1">
+                           <socket_parent_frame>/bodyset/r_humerus</socket_parent_frame>
+                           <location>-0.0059899999999999997 -0.12645999999999999 0.00428</location>
+                           <Comment>Path to a Component that satisfies the Socket 'parent_frame' of type PhysicalFrame (description: The frame in which this path point is defined.).The fixed location of the path point expressed in its parent frame.</Comment>
+                        </PathPoint>
+                        <PathPoint name="TRIlat-P2">
+                           <socket_parent_frame>/bodyset/r_humerus</socket_parent_frame>
+                           <location>-0.023439999999999999 -0.14527999999999999 0.0092800000000000001</location>
+                           <Comment>Path to a Component that satisfies the Socket 'parent_frame' of type PhysicalFrame (description: The frame in which this path point is defined.).The fixed location of the path point expressed in its parent frame.</Comment>
+                        </PathPoint>
+                        <PathPoint name="TRIlat-P3">
+                           <socket_parent_frame>/bodyset/r_humerus</socket_parent_frame>
+                           <location>-0.03184 -0.22636999999999999 -0.01217</location>
+                           <Comment>Path to a Component that satisfies the Socket 'parent_frame' of type PhysicalFrame (description: The frame in which this path point is defined.).The fixed location of the path point expressed in its parent frame.</Comment>
+                        </PathPoint>
+                        <PathPoint name="TRIlat-P4">
+                           <socket_parent_frame>/bodyset/r_humerus</socket_parent_frame>
+                           <location>-0.017430000000000001 -0.26756999999999997 -0.01208</location>
+                           <Comment>Path to a Component that satisfies the Socket 'parent_frame' of type PhysicalFrame (description: The frame in which this path point is defined.).The fixed location of the path point expressed in its parent frame.</Comment>
+                        </PathPoint>
+                        <PathPoint name="TRIlat-P5">
+                           <socket_parent_frame>/bodyset/r_ulna_radius_hand</socket_parent_frame>
+                           <location>-0.021899999999999999 0.010460000000000001 -0.00077999999999999999</location>
+                           <Comment>Path to a Component that satisfies the Socket 'parent_frame' of type PhysicalFrame (description: The frame in which this path point is defined.).The fixed location of the path point expressed in its parent frame.</Comment>
+                        </PathPoint>
+                     </objects>
+                     <groups/>
+                  </PathPointSet>
+                  <PathWrapSet>
+                     <objects>
+                        <PathWrap name="pathwrap">
+                           <wrap_object>TRI</wrap_object>
+                           <method>hybrid</method>
+                           <range>-1 -1</range>
+                           <Comment>A WrapObject that this PathWrap interacts with.The wrapping method used to solve the path around the wrap object.The range of indices to use to compute the path over the wrap object.</Comment>
+                        </PathWrap>
+                     </objects>
+                     <groups/>
+                  </PathWrapSet>
+                  <Appearance>
+                     <color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+                     <Comment>The color, (red, green, blue), [0, 1], used to display the geometry. </Comment>
+                  </Appearance>
+                  <Comment>The set of points defining the pathThe wrap objects that are associated with this pathDefault appearance attributes for this GeometryPath</Comment>
+               </GeometryPath>
+               <optimal_force>1</optimal_force>
+               <max_isometric_force>624.29999999999995</max_isometric_force>
+               <optimal_fiber_length>0.1138</optimal_fiber_length>
+               <tendon_slack_length>0.098000000000000004</tendon_slack_length>
+               <pennation_angle_at_optimal>0.15707963</pennation_angle_at_optimal>
+               <max_contraction_velocity>10</max_contraction_velocity>
+               <FmaxTendonStrain>0.033000000000000002</FmaxTendonStrain>
+               <FmaxMuscleStrain>0.59999999999999998</FmaxMuscleStrain>
+               <KshapeActive>0.5</KshapeActive>
+               <KshapePassive>4</KshapePassive>
+               <Af>0.29999999999999999</Af>
+               <Flen>1.8</Flen>
+               <activation_time_constant>0.01</activation_time_constant>
+               <deactivation_time_constant>0.040000000000000001</deactivation_time_constant>
+               <Comment>Flag indicating whether the force is applied or not. If true the forceis applied to the MultibodySystem otherwise the force is not applied.NOTE: Prior to OpenSim 4.0, this behavior was controlled by the 'isDisabled' property, where 'true' meant that force was not being applied. Thus, if 'isDisabled' is true, then 'appliesForce` is false.The set of points defining the path of the actuator.The maximum force this actuator can produce.Maximum isometric force that the fibers can generateOptimal length of the muscle fibersResting length of the tendonAngle between tendon and fibers at optimal fiber length expressed in radiansMaximum contraction velocity of the fibers, in optimal fiberlengths/secondtendon strain at maximum isometric muscle forcepassive muscle strain at maximum isometric muscle forceshape factor for Gaussian active muscle force-length relationshipexponential shape factor for passive force-length relationshipforce-velocity shape factormaximum normalized lengthening forceActivation time constant, in secondsDeactivation time constant, in seconds</Comment>
+            </Thelen2003Muscle>
+            <Thelen2003Muscle name="TRImed">
+               <appliesForce>true</appliesForce>
+               <GeometryPath name="geometrypath">
+                  <PathPointSet>
+                     <objects>
+                        <PathPoint name="TRImed-P1">
+                           <socket_parent_frame>/bodyset/r_humerus</socket_parent_frame>
+                           <location>-0.0083800000000000003 -0.13694999999999999 -0.0090600000000000003</location>
+                           <Comment>Path to a Component that satisfies the Socket 'parent_frame' of type PhysicalFrame (description: The frame in which this path point is defined.).The fixed location of the path point expressed in its parent frame.</Comment>
+                        </PathPoint>
+                        <PathPoint name="TRImed-P2">
+                           <socket_parent_frame>/bodyset/r_humerus</socket_parent_frame>
+                           <location>-0.026009999999999998 -0.15139 -0.010800000000000001</location>
+                           <Comment>Path to a Component that satisfies the Socket 'parent_frame' of type PhysicalFrame (description: The frame in which this path point is defined.).The fixed location of the path point expressed in its parent frame.</Comment>
+                        </PathPoint>
+                        <PathPoint name="TRImed-P3">
+                           <socket_parent_frame>/bodyset/r_humerus</socket_parent_frame>
+                           <location>-0.03184 -0.22636999999999999 -0.01217</location>
+                           <Comment>Path to a Component that satisfies the Socket 'parent_frame' of type PhysicalFrame (description: The frame in which this path point is defined.).The fixed location of the path point expressed in its parent frame.</Comment>
+                        </PathPoint>
+                        <PathPoint name="TRImed-P4">
+                           <socket_parent_frame>/bodyset/r_humerus</socket_parent_frame>
+                           <location>-0.017430000000000001 -0.26756999999999997 -0.01208</location>
+                           <Comment>Path to a Component that satisfies the Socket 'parent_frame' of type PhysicalFrame (description: The frame in which this path point is defined.).The fixed location of the path point expressed in its parent frame.</Comment>
+                        </PathPoint>
+                        <PathPoint name="TRImed-P5">
+                           <socket_parent_frame>/bodyset/r_ulna_radius_hand</socket_parent_frame>
+                           <location>-0.021899999999999999 0.010460000000000001 -0.00077999999999999999</location>
+                           <Comment>Path to a Component that satisfies the Socket 'parent_frame' of type PhysicalFrame (description: The frame in which this path point is defined.).The fixed location of the path point expressed in its parent frame.</Comment>
+                        </PathPoint>
+                     </objects>
+                     <groups/>
+                  </PathPointSet>
+                  <PathWrapSet>
+                     <objects>
+                        <PathWrap name="pathwrap">
+                           <wrap_object>TRI</wrap_object>
+                           <method>hybrid</method>
+                           <range>-1 -1</range>
+                           <Comment>A WrapObject that this PathWrap interacts with.The wrapping method used to solve the path around the wrap object.The range of indices to use to compute the path over the wrap object.</Comment>
+                        </PathWrap>
+                     </objects>
+                     <groups/>
+                  </PathWrapSet>
+                  <Appearance>
+                     <color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+                     <Comment>The color, (red, green, blue), [0, 1], used to display the geometry. </Comment>
+                  </Appearance>
+                  <Comment>The set of points defining the pathThe wrap objects that are associated with this pathDefault appearance attributes for this GeometryPath</Comment>
+               </GeometryPath>
+               <optimal_force>1</optimal_force>
+               <max_isometric_force>624.29999999999995</max_isometric_force>
+               <optimal_fiber_length>0.1138</optimal_fiber_length>
+               <tendon_slack_length>0.090800000000000006</tendon_slack_length>
+               <pennation_angle_at_optimal>0.15707963</pennation_angle_at_optimal>
+               <max_contraction_velocity>10</max_contraction_velocity>
+               <FmaxTendonStrain>0.033000000000000002</FmaxTendonStrain>
+               <FmaxMuscleStrain>0.59999999999999998</FmaxMuscleStrain>
+               <KshapeActive>0.5</KshapeActive>
+               <KshapePassive>4</KshapePassive>
+               <Af>0.29999999999999999</Af>
+               <Flen>1.8</Flen>
+               <activation_time_constant>0.01</activation_time_constant>
+               <deactivation_time_constant>0.040000000000000001</deactivation_time_constant>
+               <Comment>Flag indicating whether the force is applied or not. If true the forceis applied to the MultibodySystem otherwise the force is not applied.NOTE: Prior to OpenSim 4.0, this behavior was controlled by the 'isDisabled' property, where 'true' meant that force was not being applied. Thus, if 'isDisabled' is true, then 'appliesForce` is false.The set of points defining the path of the actuator.The maximum force this actuator can produce.Maximum isometric force that the fibers can generateOptimal length of the muscle fibersResting length of the tendonAngle between tendon and fibers at optimal fiber length expressed in radiansMaximum contraction velocity of the fibers, in optimal fiberlengths/secondtendon strain at maximum isometric muscle forcepassive muscle strain at maximum isometric muscle forceshape factor for Gaussian active muscle force-length relationshipexponential shape factor for passive force-length relationshipforce-velocity shape factormaximum normalized lengthening forceActivation time constant, in secondsDeactivation time constant, in seconds</Comment>
+            </Thelen2003Muscle>
+            <Thelen2003Muscle name="BIClong">
+               <appliesForce>true</appliesForce>
+               <GeometryPath name="geometrypath">
+                  <PathPointSet>
+                     <objects>
+                        <PathPoint name="BIClong-P1">
+                           <socket_parent_frame>/bodyset/base</socket_parent_frame>
+                           <location>-0.039234999999999999 0.00347 0.14795</location>
+                           <Comment>Path to a Component that satisfies the Socket 'parent_frame' of type PhysicalFrame (description: The frame in which this path point is defined.).The fixed location of the path point expressed in its parent frame.</Comment>
+                        </PathPoint>
+                        <PathPoint name="BIClong-P2">
+                           <socket_parent_frame>/bodyset/base</socket_parent_frame>
+                           <location>-0.028944999999999999 0.01391 0.15639</location>
+                           <Comment>Path to a Component that satisfies the Socket 'parent_frame' of type PhysicalFrame (description: The frame in which this path point is defined.).The fixed location of the path point expressed in its parent frame.</Comment>
+                        </PathPoint>
+                        <PathPoint name="BIClong-P3">
+                           <socket_parent_frame>/bodyset/r_humerus</socket_parent_frame>
+                           <location>0.021309999999999999 0.017930000000000001 0.010279999999999999</location>
+                           <Comment>Path to a Component that satisfies the Socket 'parent_frame' of type PhysicalFrame (description: The frame in which this path point is defined.).The fixed location of the path point expressed in its parent frame.</Comment>
+                        </PathPoint>
+                        <PathPoint name="BIClong-P4">
+                           <socket_parent_frame>/bodyset/r_humerus</socket_parent_frame>
+                           <location>0.023779999999999999 -0.00511 0.01201</location>
+                           <Comment>Path to a Component that satisfies the Socket 'parent_frame' of type PhysicalFrame (description: The frame in which this path point is defined.).The fixed location of the path point expressed in its parent frame.</Comment>
+                        </PathPoint>
+                        <PathPoint name="BIClong-P5">
+                           <socket_parent_frame>/bodyset/r_humerus</socket_parent_frame>
+                           <location>0.01345 -0.02827 0.0013600000000000001</location>
+                           <Comment>Path to a Component that satisfies the Socket 'parent_frame' of type PhysicalFrame (description: The frame in which this path point is defined.).The fixed location of the path point expressed in its parent frame.</Comment>
+                        </PathPoint>
+                        <PathPoint name="BIClong-P6">
+                           <socket_parent_frame>/bodyset/r_humerus</socket_parent_frame>
+                           <location>0.01068 -0.077359999999999998 -0.00165</location>
+                           <Comment>Path to a Component that satisfies the Socket 'parent_frame' of type PhysicalFrame (description: The frame in which this path point is defined.).The fixed location of the path point expressed in its parent frame.</Comment>
+                        </PathPoint>
+                        <PathPoint name="BIClong-P7">
+                           <socket_parent_frame>/bodyset/r_humerus</socket_parent_frame>
+                           <location>0.01703 -0.12125 0.00024000000000000001</location>
+                           <Comment>Path to a Component that satisfies the Socket 'parent_frame' of type PhysicalFrame (description: The frame in which this path point is defined.).The fixed location of the path point expressed in its parent frame.</Comment>
+                        </PathPoint>
+                        <PathPoint name="BIClong-P8">
+                           <socket_parent_frame>/bodyset/r_humerus</socket_parent_frame>
+                           <location>0.022800000000000001 -0.1754 -0.0063</location>
+                           <Comment>Path to a Component that satisfies the Socket 'parent_frame' of type PhysicalFrame (description: The frame in which this path point is defined.).The fixed location of the path point expressed in its parent frame.</Comment>
+                        </PathPoint>
+                        <PathPoint name="BIClong-P9">
+                           <socket_parent_frame>/bodyset/r_ulna_radius_hand</socket_parent_frame>
+                           <location>0.0075100000000000002 -0.048390000000000002 0.02179</location>
+                           <Comment>Path to a Component that satisfies the Socket 'parent_frame' of type PhysicalFrame (description: The frame in which this path point is defined.).The fixed location of the path point expressed in its parent frame.</Comment>
+                        </PathPoint>
+                     </objects>
+                     <groups/>
+                  </PathPointSet>
+                  <PathWrapSet>
+                     <objects>
+                        <PathWrap name="pathwrap">
+                           <wrap_object>BIClonghh</wrap_object>
+                           <method>hybrid</method>
+                           <range>2 3</range>
+                           <Comment>A WrapObject that this PathWrap interacts with.The wrapping method used to solve the path around the wrap object.The range of indices to use to compute the path over the wrap object.</Comment>
+                        </PathWrap>
+                     </objects>
+                     <groups/>
+                  </PathWrapSet>
+                  <Appearance>
+                     <color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+                     <Comment>The color, (red, green, blue), [0, 1], used to display the geometry. </Comment>
+                  </Appearance>
+                  <Comment>The set of points defining the pathThe wrap objects that are associated with this pathDefault appearance attributes for this GeometryPath</Comment>
+               </GeometryPath>
+               <optimal_force>1</optimal_force>
+               <max_isometric_force>624.29999999999995</max_isometric_force>
+               <optimal_fiber_length>0.1157</optimal_fiber_length>
+               <tendon_slack_length>0.27229999999999999</tendon_slack_length>
+               <pennation_angle_at_optimal>0</pennation_angle_at_optimal>
+               <max_contraction_velocity>10</max_contraction_velocity>
+               <FmaxTendonStrain>0.033000000000000002</FmaxTendonStrain>
+               <FmaxMuscleStrain>0.59999999999999998</FmaxMuscleStrain>
+               <KshapeActive>0.5</KshapeActive>
+               <KshapePassive>4</KshapePassive>
+               <Af>0.29999999999999999</Af>
+               <Flen>1.8</Flen>
+               <activation_time_constant>0.01</activation_time_constant>
+               <deactivation_time_constant>0.040000000000000001</deactivation_time_constant>
+               <Comment>Flag indicating whether the force is applied or not. If true the forceis applied to the MultibodySystem otherwise the force is not applied.NOTE: Prior to OpenSim 4.0, this behavior was controlled by the 'isDisabled' property, where 'true' meant that force was not being applied. Thus, if 'isDisabled' is true, then 'appliesForce` is false.The set of points defining the path of the actuator.The maximum force this actuator can produce.Maximum isometric force that the fibers can generateOptimal length of the muscle fibersResting length of the tendonAngle between tendon and fibers at optimal fiber length expressed in radiansMaximum contraction velocity of the fibers, in optimal fiberlengths/secondtendon strain at maximum isometric muscle forcepassive muscle strain at maximum isometric muscle forceshape factor for Gaussian active muscle force-length relationshipexponential shape factor for passive force-length relationshipforce-velocity shape factormaximum normalized lengthening forceActivation time constant, in secondsDeactivation time constant, in seconds</Comment>
+            </Thelen2003Muscle>
+            <Thelen2003Muscle name="BICshort">
+               <appliesForce>true</appliesForce>
+               <GeometryPath name="geometrypath">
+                  <PathPointSet>
+                     <objects>
+                        <PathPoint name="BICshort-P1">
+                           <socket_parent_frame>/bodyset/base</socket_parent_frame>
+                           <location>0.0046750000000000003 -0.01231 0.13475000000000001</location>
+                           <Comment>Path to a Component that satisfies the Socket 'parent_frame' of type PhysicalFrame (description: The frame in which this path point is defined.).The fixed location of the path point expressed in its parent frame.</Comment>
+                        </PathPoint>
+                        <PathPoint name="BICshort-P2">
+                           <socket_parent_frame>/bodyset/base</socket_parent_frame>
+                           <location>-0.0070749999999999997 -0.040039999999999999 0.14507</location>
+                           <Comment>Path to a Component that satisfies the Socket 'parent_frame' of type PhysicalFrame (description: The frame in which this path point is defined.).The fixed location of the path point expressed in its parent frame.</Comment>
+                        </PathPoint>
+                        <PathPoint name="BICshort-P3">
+                           <socket_parent_frame>/bodyset/r_humerus</socket_parent_frame>
+                           <location>0.011169999999999999 -0.075759999999999994 -0.011010000000000001</location>
+                           <Comment>Path to a Component that satisfies the Socket 'parent_frame' of type PhysicalFrame (description: The frame in which this path point is defined.).The fixed location of the path point expressed in its parent frame.</Comment>
+                        </PathPoint>
+                        <PathPoint name="BICshort-P4">
+                           <socket_parent_frame>/bodyset/r_humerus</socket_parent_frame>
+                           <location>0.01703 -0.12125 -0.010789999999999999</location>
+                           <Comment>Path to a Component that satisfies the Socket 'parent_frame' of type PhysicalFrame (description: The frame in which this path point is defined.).The fixed location of the path point expressed in its parent frame.</Comment>
+                        </PathPoint>
+                        <PathPoint name="BICshort-P5">
+                           <socket_parent_frame>/bodyset/r_humerus</socket_parent_frame>
+                           <location>0.022800000000000001 -0.1754 -0.0063</location>
+                           <Comment>Path to a Component that satisfies the Socket 'parent_frame' of type PhysicalFrame (description: The frame in which this path point is defined.).The fixed location of the path point expressed in its parent frame.</Comment>
+                        </PathPoint>
+                        <PathPoint name="BICshort-P6">
+                           <socket_parent_frame>/bodyset/r_ulna_radius_hand</socket_parent_frame>
+                           <location>0.0075100000000000002 -0.048390000000000002 0.02179</location>
+                           <Comment>Path to a Component that satisfies the Socket 'parent_frame' of type PhysicalFrame (description: The frame in which this path point is defined.).The fixed location of the path point expressed in its parent frame.</Comment>
+                        </PathPoint>
+                     </objects>
+                     <groups/>
+                  </PathPointSet>
+                  <PathWrapSet>
+                     <objects/>
+                     <groups/>
+                  </PathWrapSet>
+                  <Appearance>
+                     <color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+                     <Comment>The color, (red, green, blue), [0, 1], used to display the geometry. </Comment>
+                  </Appearance>
+                  <Comment>The set of points defining the pathThe wrap objects that are associated with this pathDefault appearance attributes for this GeometryPath</Comment>
+               </GeometryPath>
+               <optimal_force>1</optimal_force>
+               <max_isometric_force>435.56</max_isometric_force>
+               <optimal_fiber_length>0.1321</optimal_fiber_length>
+               <tendon_slack_length>0.1923</tendon_slack_length>
+               <pennation_angle_at_optimal>0</pennation_angle_at_optimal>
+               <max_contraction_velocity>10</max_contraction_velocity>
+               <FmaxTendonStrain>0.033000000000000002</FmaxTendonStrain>
+               <FmaxMuscleStrain>0.59999999999999998</FmaxMuscleStrain>
+               <KshapeActive>0.5</KshapeActive>
+               <KshapePassive>4</KshapePassive>
+               <Af>0.29999999999999999</Af>
+               <Flen>1.8</Flen>
+               <activation_time_constant>0.01</activation_time_constant>
+               <deactivation_time_constant>0.040000000000000001</deactivation_time_constant>
+               <Comment>Flag indicating whether the force is applied or not. If true the forceis applied to the MultibodySystem otherwise the force is not applied.NOTE: Prior to OpenSim 4.0, this behavior was controlled by the 'isDisabled' property, where 'true' meant that force was not being applied. Thus, if 'isDisabled' is true, then 'appliesForce` is false.The set of points defining the path of the actuator.The maximum force this actuator can produce.Maximum isometric force that the fibers can generateOptimal length of the muscle fibersResting length of the tendonAngle between tendon and fibers at optimal fiber length expressed in radiansMaximum contraction velocity of the fibers, in optimal fiberlengths/secondtendon strain at maximum isometric muscle forcepassive muscle strain at maximum isometric muscle forceshape factor for Gaussian active muscle force-length relationshipexponential shape factor for passive force-length relationshipforce-velocity shape factormaximum normalized lengthening forceActivation time constant, in secondsDeactivation time constant, in seconds</Comment>
+            </Thelen2003Muscle>
+            <Thelen2003Muscle name="BRA">
+               <appliesForce>true</appliesForce>
+               <GeometryPath name="geometrypath">
+                  <PathPointSet>
+                     <objects>
+                        <PathPoint name="BRA-P1">
+                           <socket_parent_frame>/bodyset/r_humerus</socket_parent_frame>
+                           <location>0.0067999999999999996 -0.1739 -0.0035999999999999999</location>
+                           <Comment>Path to a Component that satisfies the Socket 'parent_frame' of type PhysicalFrame (description: The frame in which this path point is defined.).The fixed location of the path point expressed in its parent frame.</Comment>
+                        </PathPoint>
+                        <PathPoint name="BRA-P2">
+                           <socket_parent_frame>/bodyset/r_ulna_radius_hand</socket_parent_frame>
+                           <location>-0.0032000000000000002 -0.023900000000000001 0.00089999999999999998</location>
+                           <Comment>Path to a Component that satisfies the Socket 'parent_frame' of type PhysicalFrame (description: The frame in which this path point is defined.).The fixed location of the path point expressed in its parent frame.</Comment>
+                        </PathPoint>
+                     </objects>
+                     <groups/>
+                  </PathPointSet>
+                  <PathWrapSet>
+                     <objects>
+                        <PathWrap name="pathwrap">
+                           <wrap_object>TRI</wrap_object>
+                           <method>hybrid</method>
+                           <range>-1 -1</range>
+                           <Comment>A WrapObject that this PathWrap interacts with.The wrapping method used to solve the path around the wrap object.The range of indices to use to compute the path over the wrap object.</Comment>
+                        </PathWrap>
+                     </objects>
+                     <groups/>
+                  </PathWrapSet>
+                  <Appearance>
+                     <color>0.80000000000000004 0.10000000000000001 0.10000000000000001</color>
+                     <Comment>The color, (red, green, blue), [0, 1], used to display the geometry. </Comment>
+                  </Appearance>
+                  <Comment>The set of points defining the pathThe wrap objects that are associated with this pathDefault appearance attributes for this GeometryPath</Comment>
+               </GeometryPath>
+               <optimal_force>1</optimal_force>
+               <max_isometric_force>987.25999999999999</max_isometric_force>
+               <optimal_fiber_length>0.085800000000000001</optimal_fiber_length>
+               <tendon_slack_length>0.053499999999999999</tendon_slack_length>
+               <pennation_angle_at_optimal>0</pennation_angle_at_optimal>
+               <max_contraction_velocity>10</max_contraction_velocity>
+               <FmaxTendonStrain>0.033000000000000002</FmaxTendonStrain>
+               <FmaxMuscleStrain>0.59999999999999998</FmaxMuscleStrain>
+               <KshapeActive>0.5</KshapeActive>
+               <KshapePassive>4</KshapePassive>
+               <Af>0.29999999999999999</Af>
+               <Flen>1.8</Flen>
+               <activation_time_constant>0.01</activation_time_constant>
+               <deactivation_time_constant>0.040000000000000001</deactivation_time_constant>
+               <Comment>Flag indicating whether the force is applied or not. If true the forceis applied to the MultibodySystem otherwise the force is not applied.NOTE: Prior to OpenSim 4.0, this behavior was controlled by the 'isDisabled' property, where 'true' meant that force was not being applied. Thus, if 'isDisabled' is true, then 'appliesForce` is false.The set of points defining the path of the actuator.The maximum force this actuator can produce.Maximum isometric force that the fibers can generateOptimal length of the muscle fibersResting length of the tendonAngle between tendon and fibers at optimal fiber length expressed in radiansMaximum contraction velocity of the fibers, in optimal fiberlengths/secondtendon strain at maximum isometric muscle forcepassive muscle strain at maximum isometric muscle forceshape factor for Gaussian active muscle force-length relationshipexponential shape factor for passive force-length relationshipforce-velocity shape factormaximum normalized lengthening forceActivation time constant, in secondsDeactivation time constant, in seconds</Comment>
+            </Thelen2003Muscle>
+         </objects>
+         <groups/>
+      </ForceSet>
+      <MarkerSet name="markerset">
+         <objects>
+            <Marker name="r_acromion">
+               <socket_parent_frame>/bodyset/base</socket_parent_frame>
+               <location>-0.01256 0.040000000000000001 0.17000000000000001</location>
+               <fixed>false</fixed>
+               <Comment>Path to a Component that satisfies the Socket 'parent_frame' of type PhysicalFrame (description: The frame to which this station is fixed.).The fixed location of the station expressed in its parent frame.Flag (true or false) specifying whether the marker is fixed in its parent frame during the marker placement step of scaling. If false, the marker is free to move within its parent Frame to match its experimental counterpart.</Comment>
+            </Marker>
+            <Marker name="r_humerus_epicondyle">
+               <socket_parent_frame>/bodyset/r_humerus</socket_parent_frame>
+               <location>0.0050000000000000001 -0.29039999999999999 0.029999999999999999</location>
+               <fixed>false</fixed>
+               <Comment>Path to a Component that satisfies the Socket 'parent_frame' of type PhysicalFrame (description: The frame to which this station is fixed.).The fixed location of the station expressed in its parent frame.Flag (true or false) specifying whether the marker is fixed in its parent frame during the marker placement step of scaling. If false, the marker is free to move within its parent Frame to match its experimental counterpart.</Comment>
+            </Marker>
+            <Marker name="r_radius_styloid">
+               <socket_parent_frame>/bodyset/r_ulna_radius_hand</socket_parent_frame>
+               <location>-0.0011000000000000001 -0.23558999999999999 0.094299999999999995</location>
+               <fixed>false</fixed>
+               <Comment>Path to a Component that satisfies the Socket 'parent_frame' of type PhysicalFrame (description: The frame to which this station is fixed.).The fixed location of the station expressed in its parent frame.Flag (true or false) specifying whether the marker is fixed in its parent frame during the marker placement step of scaling. If false, the marker is free to move within its parent Frame to match its experimental counterpart.</Comment>
+            </Marker>
+         </objects>
+         <groups/>
+      </MarkerSet>
+      <ContactGeometrySet name="contactgeometryset">
+         <objects/>
+         <groups/>
+      </ContactGeometrySet>
+      <ProbeSet name="probeset">
+         <objects/>
+         <groups/>
+      </ProbeSet>
+      <ComponentSet name="componentset">
+         <objects/>
+         <groups/>
+      </ComponentSet>
+      <Comment>The model's ground reference frame.Acceleration due to gravity, expressed in ground.Credits (e.g., model author names) associated with the model.Publications and references associated with the model.Units for all lengths.Units for all forces.List of bodies that make up this model.List of joints that connect the bodies.Controllers that provide the control inputs for Actuators.Constraints in the model.Forces in the model (includes Actuators).Markers in the model.Geometry to be used in contact forces.Probes in the model.Additional components in the model.</Comment>
+   </Model>
+</OpenSimDocument>

@@ -6,8 +6,8 @@ if (~any(datatype == ["Testing", "Validation"])) % If datatype doesn't match the
 end
 
 % Ensure directories exist
-motionfiledir = "C:\Users\Jaxton\controlled-movement\System Identification\" + datatype + "\Motion Files";
-cmcfiledir = "C:\Users\Jaxton\controlled-movement\System Identification\" + datatype + "\CMC_Results";
+motionfiledir = "C:/Users/Jaxton/controlled-movement/System Identification/" + datatype + "/Motion Files";
+cmcfiledir = "C:/Users/Jaxton/controlled-movement/System Identification/" + datatype + "/CMC_Results";
 mkdir(motionfiledir)
 mkdir(cmcfiledir)
 
@@ -41,12 +41,12 @@ parfor number = 1:nummotions
     
     % Create Motion Data and Store It
     elbow = modularlinfunmaker(randi(4), 0, 1, dt, true, 30);
-    elbow = [repmat(30,1000,1); 1 + elbow];
+    elbow = [repmat(30,100,1); 0.1 + elbow];
     elbow = smooth(elbow, 40);
     motions{number}.data = [t, shoulder, elbow];
     
     % Motion Filename (SSD)
-    motionSSDFilename = "C:\Users\Jaxton\controlled-movement\System Identification\" + datatype + "\Motion Files\" + lower(datatype) + "_" + num2str(number) + ".mot";
+    motionSSDFilename = "C:/Users/Jaxton/controlled-movement/System Identification/" + datatype + "/Motion Files/" + lower(datatype) + "_" + num2str(number) + ".mot";
     
     % Write Motion File
     motion_file_writer(motionSSDFilename, motions{number});
@@ -60,7 +60,7 @@ fprintf("TOTAL creation time: %f seconds\n", toc(tstart)); % End main timer
 fprintf("------------------------------------\n\n");
 
 % Save motion data to Cloud
-datafilename = "System Identification\" + datatype + "\" + lower(datatype) + "_motiondata.mat";
+datafilename = "System Identification/" + datatype + "/" + lower(datatype) + "_motiondata.mat";
 save(datafilename, 'motions')
 
 

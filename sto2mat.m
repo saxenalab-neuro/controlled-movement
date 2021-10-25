@@ -49,17 +49,21 @@ if (~all(cellfun('isempty', controls)) || ~all(cellfun('isempty', states)))
     % Save controls to Cloud and to SSD
     controlsCloudFilename = append("System Identification\", datatype, "\", lower(datatype), "_controls.mat");
     controlsSSDFilename = append("C:\Users\Jaxton\controlled-movement\System Identification\", datatype, "\", lower(datatype), "_controls.mat");
+    controlsHPGFilename = append("C:\Users\Jaxton\controlled-movement\HPGM\", lower(datatype), "_states.mat");
     
     save(controlsCloudFilename, 'controls')
     save(controlsSSDFilename, 'controls')
+    save(controlsHPGFilename, 'controls')
     
     
     % Save states to Cloud and to SSD
     statesCloudFilename = append("System Identification\", datatype, "\", lower(datatype), "_states.mat");
     statesSSDFilename = append("C:\Users\Jaxton\controlled-movement\System Identification\", datatype, "\", lower(datatype), "_states.mat");
-
+    statesHPGFilename = append("C:\Users\Jaxton\controlled-movement\HPGM\", lower(datatype), "_states.mat");
+    
     save(statesCloudFilename, 'states')
     save(statesSSDFilename, 'states')
+    save(statesHPGFilename, 'states')
 end
 
 
