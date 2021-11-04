@@ -69,7 +69,7 @@ if (~all(cellfun('isempty', controls)) || ~all(cellfun('isempty', states)))
     fprintf("Saved the controls!\n");
         
     % Save states
-    statesfilename = HPGMdir + "sysid/" + datatype + "/" + lower(datatype) + "_controls.mat";
+    statesfilename = HPGMdir + "sysid/" + datatype + "/" + lower(datatype) + "_states.mat";
     save(statesfilename, 'states')
     fprintf("Saved the states!\n");
 end

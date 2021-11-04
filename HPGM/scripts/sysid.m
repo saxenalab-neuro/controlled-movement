@@ -1,4 +1,10 @@
-function sysid(number, order)
+function sysid(datatype, number, order)
+
+% Check if datatype is correct
+if (~any(datatype == ["Testing", "Validation"])) % If datatype doesn't match these two, throw an error
+    error('Datatype must be equal to "Testing" or "Validation"')
+end
+
 
 HPGMdir = "/home/jaxtonwillman/Desktop/HPGM/";
 systemdatafile = HPGMdir + "sysid/" + datatype + "/" + lower(datatype) + "_sysiddata.mat";

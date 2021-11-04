@@ -9,11 +9,13 @@
 #SBATCH --output=output/sidp1_%j.out				# Standard output and error log
 pwd; hostname; date;
 
+# Passing in $datatype
+
 
 # Load MATLAB 2020b module
 module load matlab
 
-datatype="Testing"
+
 
 scripts/createdatafile $datatype
 

@@ -13,6 +13,8 @@ pwd; hostname; date;
 # Load MATLAB 2020b module
 module load matlab
 
+
+
 scripts/compareallsystems
 
 date

@@ -7,17 +7,15 @@
 #SBATCH --mem-per-cpu=1gb							# Memory per processor
 #SBATCH --time=4-00:00:00							# Time limit [days-]hrs:min:sec
 #SBATCH --output=output/mcp2_%A-%a.out				# Standard output and error log
-#SBATCH --array=1-200								# Array range
 pwd; hostname; date;
+
+# Passing in $datatype
+# Passing in $PER_TASK
 
 
 # Load OpenSim 4.3 module
 module load opensim
 
-
-
-#Set the number of runs that each SLURM task should do
-PER_TASK=25
 
 
 # Calculate the starting and ending values for this task based on the SLURM task and the number of runs per task.
