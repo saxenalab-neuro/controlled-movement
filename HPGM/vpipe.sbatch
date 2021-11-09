@@ -6,7 +6,7 @@
 #SBATCH --ntasks=1									# Run a single task
 #SBATCH --mem-per-cpu=2gb							# Memory per processor
 #SBATCH --time=1-00:00:00							# Time limit [days-]hrs:min:sec
-#SBATCH --output=output/vpipe_%j.out				# Standard output and error log
+#SBATCH --output=output/vpipe.out					# Standard output and error log
 pwd; hostname; date;
 
 # Passing in $datatype and $number

@@ -4,14 +4,16 @@
 #SBATCH --mail-user=jaxtonwillman@ufl.edu			# Where to send mail	
 #SBATCH --nodes=1									# Use one node
 #SBATCH --ntasks=1									# Run a single task
-#SBATCH --mem-per-cpu=16gb							# Memory per processor
+#SBATCH --mem-per-cpu=8gb							# Memory per processor
 #SBATCH --time=4-00:00:00							# Time limit [days-]hrs:min:sec
 #SBATCH --output=output/sidp2_%a.out				# Standard output and error log
+#SBATCH --array=1-24
 pwd; hostname; date;
 
-# Passing in $datatype
-# Passing in $numbers
-# Passing in $orders
+datatype="Testing"
+number=5000
+numbers=($((number / 10)) $((number / 5)) $((number / 2)) $number)
+orders=(10 11 12 13 14 15)
 
 
 # Load MATLAB 2020b module
@@ -39,3 +41,4 @@ echo This is task $SLURM_ARRAY_TASK_ID, which will do system identification for 
 echo
 
 scripts/sysid $datatype ${numbers[$numberindex]} ${orders[$orderindex]}
+

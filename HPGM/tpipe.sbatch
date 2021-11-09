@@ -6,7 +6,7 @@
 #SBATCH --ntasks=1									# Run a single task
 #SBATCH --mem-per-cpu=2gb							# Memory per processor
 #SBATCH --time=1-00:00:00							# Time limit [days-]hrs:min:sec
-#SBATCH --output=output/tpipe_%j.out				# Standard output and error log
+#SBATCH --output=output/tpipe.out					# Standard output and error log
 pwd; hostname; date;
 
 # Passing in $datatype and $number
@@ -46,11 +46,10 @@ echo $jid4
 numbers=($((number / 10)) $((number / 5)) $((number / 2)) $number)
 orders=(10 11 12 13 14 15)
 arrmax=$(( ${#numbers[@]} * ${#orders[@]} ))
---array=1-$arrmax --export=datatype=$datatype,numbers=$numbers,orders=$orders
 
 
 # System identification
-jid5=$(sbatch --dependency=afterok:$jid4 sidp2.sbatch | head -n1 | cut -d " " -f4)
+jid5=$(sbatch --array=1-$arrmax --export=datatype=$datatype,numbers=$numbers,orders=$orders --dependency=afterok:$jid4 sidp2.sbatch | head -n1 | cut -d " " -f4)
 echo $jid5
 
 

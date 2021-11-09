@@ -7,16 +7,17 @@ ssh jaxtonwillman@hpg.rc.ufl.edu
 
 
 module load ufrc
-srundev --mem=4gb --time=06:00:00
+srundev --time=06:00:00
 cd Desktop/HPGM
 module load matlab
 module load opensim
+ss="sysid/Testing/SavedSystems/"
 ls -l
 
 
 
 
-cd scripts && mcc -R -singleCompThread -m motioncreatorp1.m && cd ..
+cd scripts && mcc -R -singleCompThread -m compareallsystems.m && cd ..
 
 
 
