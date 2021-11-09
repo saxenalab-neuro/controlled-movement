@@ -43,13 +43,12 @@ echo $jid4
 
 
 # For system order identification
-numbers=($((number / 10)) $((number / 5)) $((number / 2)) $number)
 orders=(10 11 12 13 14 15)
-arrmax=$(( ${#numbers[@]} * ${#orders[@]} ))
+arrmax=${#orders[@]}
 
 
 # System identification
-jid5=$(sbatch --array=1-$arrmax --export=datatype=$datatype,numbers=$numbers,orders=$orders --dependency=afterok:$jid4 sidp2.sbatch | head -n1 | cut -d " " -f4)
+jid5=$(sbatch --array=1-$arrmax --export=datatype=$datatype,number=$number,orders=$orders --dependency=afterok:$jid4 sidp2.sbatch | head -n1 | cut -d " " -f4)
 echo $jid5
 
 
