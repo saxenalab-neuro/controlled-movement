@@ -1,6 +1,6 @@
 #!/bin/sh
 #SBATCH --job-name=sidp1							# Job name
-#SBATCH --mail-type=NONE							# Mail events (NONE, BEGIN, END, FAIL, ALL, ARRAY_TASKS)
+#SBATCH --mail-type=FAIL							# Mail events (NONE, BEGIN, END, FAIL, ALL, ARRAY_TASKS)
 #SBATCH --mail-user=jaxtonwillman@ufl.edu			# Where to send mail	
 #SBATCH --nodes=1									# Use one node
 #SBATCH --ntasks=1									# Run a single task
@@ -14,7 +14,6 @@ pwd; hostname; date;
 
 # Load MATLAB 2020b module
 module load matlab
-
 
 
 scripts/createdatafile $datatype

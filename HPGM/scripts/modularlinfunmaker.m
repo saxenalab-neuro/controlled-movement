@@ -1,4 +1,7 @@
-function [y] = modularlinfunmaker(numfeatures, timelower, timeupper, dt, setinitial, initial)
+function [error, y] = modularlinfunmaker(numfeatures, timelower, timeupper, dt, setinitial, initial)
+
+tic
+error = 0;
 
 % Define bounds
 anglelower = 0; % degrees
@@ -84,7 +87,12 @@ for i=1:numfeatures
             
             % Make sure no values are larger than 140 and smaller than 0
             if any(tmpy > 140) || any(tmpy < 0)
-                continue
+                if (toc > 5)
+                    error = 1;
+                    break % get out of this asap
+                end
+                
+                continue % bad parabola, let's try again
             end
             
             % Check gradient of parabola time points

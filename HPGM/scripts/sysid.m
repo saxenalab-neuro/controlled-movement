@@ -5,18 +5,6 @@ if (~any(datatype == ["Testing", "Validation"])) % If datatype doesn't match the
     error('Datatype must be equal to "Testing" or "Validation"')
 end
 
-
-HPGMdir = "/home/jaxtonwillman/Desktop/HPGM/";
-systemdatafile = HPGMdir + "sysid/" + datatype + "/" + lower(datatype) + "_sysiddata.mat";
-
-
-warning('off', 'Ident:estimation:transientDataCorrection') % Turn off annoying warning
-
-% Load the input-output data, which is stored in an iddata object
-data = load(systemdatafile).data;
-fprintf("I loaded the data\n");
-
-
 % Convert HiPerGator terminal strings to proper numbers, ugh
 if (ischar(number))
     number = str2num(number);
@@ -25,6 +13,18 @@ end
 if (ischar(order))
     order = str2num(order);
 end
+
+
+
+HPGMdir = "/home/jaxtonwillman/Desktop/HPGM/";
+systemdatafile = HPGMdir + "sysid/Testing/SavedSystems/testing_sysiddata.mat";
+
+
+warning('off', 'Ident:estimation:transientDataCorrection') % Turn off annoying warning
+
+% Load the input-output data, which is stored in an iddata object
+data = load(systemdatafile).data;
+fprintf("I loaded the data\n");
 
 
 % Pull out a specific number of experiments

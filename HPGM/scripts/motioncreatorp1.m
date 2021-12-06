@@ -1,4 +1,4 @@
-function motioncreatorp1(number, datatype)
+function motioncreatorp1(startnum, endnum, datatype)
 
 
 % Check if datatype is correct
@@ -6,6 +6,14 @@ if (~any(datatype == ["Testing", "Validation"])) % If datatype doesn't match the
     error('Datatype must be equal to "Testing" or "Validation"')
 end
 
+% Convert HiPerGator terminal strings to proper numbers, ugh
+if (ischar(startnum))
+    startnum = str2num(startnum);
+end
+
+if (ischar(endnum))
+    endnum = str2num(endnum);
+end
 
 HPGMdir = "/home/jaxtonwillman/Desktop/HPGM/";
 
@@ -27,88 +35,88 @@ motion.t = t;
 
 
 %%% ----- CREATE THE MOTION FILE ----- %%%
-
-%fprintf("------------MOTION FILES------------\n");
-tic % Begin timer
-
-% Create Motion Data and store it
-elbow = modularlinfunmaker(randi(4), 0, 1, dt, true, 30);
-elbow = [repmat(30,100,1); 0.1 + elbow]; % TODO: Fix jank
-elbow = smooth(elbow, 40);
-motion.data = [t, shoulder, elbow];
-
-
-% --- Save as motion file ---- %
-% Motion File directory and filename
-motionfiledir = HPGMdir + "sysid/" + datatype + "/motions/";
-desiredkinematicsfilename = motionfiledir + lower(datatype) + "_" + num2str(number) + ".mot";
-
-% Check if directory exists, if not, mkdir
-if not(isfolder(motionfiledir))
-    mkdir(motionfiledir)
-end
-
-% Write Motion File
-motion_file_writer(desiredkinematicsfilename, motion);
-
-% End timer and report
-fprintf("%d: motion file | %f seconds\n", number, toc);
+seed = (tic-1.637e15)/10000;
+fprintf("SEED: %d\n", seed);
+rng(seed)
+for number = startnum:endnum
+    tic
+    
+    % Create Motion Data and store it
+    [error, elbow] = modularlinfunmaker(randi(4), 0, 1, dt, true, 30);
+    
+    % Keep going till we get good functions
+    while error == 1
+        [error, elbow] = modularlinfunmaker(randi(4), 0, 1, dt, true, 30);
+    end
+    
+    elbow = [repmat(30,100,1); 0.1 + elbow]; % TODO: Fix jank
+    elbow = smooth(elbow, 40);
+    motion.data = [t, shoulder, elbow];
 
 
-% --- Save motion to .mat file to compile later --- %
-tempdir = HPGMdir + "sysid/" + datatype + "/temp/";
-tempfilename = tempdir + lower(datatype) + "_" + num2str(number) + ".mat";
+    % --- Save as motion file ---- %
+    % Motion File directory and filename
+    motionfiledir = HPGMdir + "sysid/" + datatype + "/motions/";
+    desiredkinematicsfilename = motionfiledir + lower(datatype) + "_" + num2str(number) + ".mot";
 
-% Check if directory exists, if not, mkdir
-if not(isfolder(tempdir))
-    mkdir(tempdir)
-end
+    % Check if directory exists, if not, mkdir
+    if not(isfolder(motionfiledir))
+        mkdir(motionfiledir)
+    end
 
-% Write Motion File
-save(tempfilename, 'motion');
+    % Write Motion File
+    motion_file_writer(desiredkinematicsfilename, motion);
+
+    
 
 
+    % --- Save motion to .mat file to compile later --- %
+    tempdir = HPGMdir + "sysid/" + datatype + "/temp/";
+    tempfilename = tempdir + lower(datatype) + "_" + num2str(number) + ".mat";
 
+    % Check if directory exists, if not, mkdir
+    if not(isfolder(tempdir))
+        mkdir(tempdir)
+    end
 
-%%% ----- CREATE THE CMC SETUP FILE ----- %%%
-OS = "HPG"; % For testing purposes
+    % Write Motion File
+    save(tempfilename, 'motion');
 
-% Set File Paths
-if (OS == "HPG")
+    
+    
+    
     cmcsetupinitialfilename = HPGMdir + "sysid/setup/cmc_setup.xml";
     cmcsetupfinalfilename = HPGMdir + "sysid/setup/" + num2str(number) + ".xml";
-    desiredkinematicsfilename = "../" + datatype + "/motions/" + lower(datatype) + "_" + num2str(number) + ".mot";
-    resultsdir = "../" + datatype + "/cmc";
+    desiredkinematicsfilename = HPGMdir + "sysid/" + datatype + "/motions/" + lower(datatype) + "_" + num2str(number) + ".mot";
+    resultsdir = HPGMdir + "sysid/" + datatype + "/cmc";
+    
+
+    % Check if directory exists, if not, mkdir
+    if not(isfolder(resultsdir))
+        mkdir(resultsdir)
+    end
+
+
+    % Load xml file
+    setup = xml2struct(cmcsetupinitialfilename);
+
+    % Remove comment field
+    setup.OpenSimDocument.CMCTool = rmfield(setup.OpenSimDocument.CMCTool, 'Comment');
+
+    % Modify properties
+    setup.OpenSimDocument.CMCTool.Attributes.name = convertStringsToChars(lower(datatype) + "_" + num2str(number));
+    setup.OpenSimDocument.CMCTool.desired_kinematics_file.Text = convertStringsToChars(desiredkinematicsfilename);
+    setup.OpenSimDocument.CMCTool.results_directory.Text = convertStringsToChars(resultsdir);
+    setup.OpenSimDocument.CMCTool.initial_time.Text = num2str(ti);
+    setup.OpenSimDocument.CMCTool.final_time.Text = num2str(tf);
+
+    % Save to xml file
+    struct2xml(setup, cmcsetupfinalfilename);
+    
+    % End timer and report
+    fprintf("%d: motion file | %f seconds\n", number, toc);
+
 end
 
-if (OS == "Windows")
-    cmcsetupinitialfilename = "../sysid/setup/cmc_setup.xml";
-    cmcsetupfinalfilename = "../sysid/setup/" + num2str(number) + ".xml";
-    desiredkinematicsfilename = "../" + datatype + "/motions/" + lower(datatype) + "_" + num2str(number) + ".mot";
-    resultsdir = "../" + datatype + "/cmc";
-end
-
-
-% Check if directory exists, if not, mkdir
-if not(isfolder(resultsdir))
-    mkdir(resultsdir)
-end
-
-
-% Load xml file
-setup = xml2struct(cmcsetupinitialfilename);
-
-% Remove comment field
-setup.OpenSimDocument.CMCTool = rmfield(setup.OpenSimDocument.CMCTool, 'Comment');
-
-% Modify properties
-setup.OpenSimDocument.CMCTool.Attributes.name = convertStringsToChars(lower(datatype) + "_" + num2str(number));
-setup.OpenSimDocument.CMCTool.desired_kinematics_file.Text = convertStringsToChars(desiredkinematicsfilename);
-setup.OpenSimDocument.CMCTool.results_directory.Text = convertStringsToChars(resultsdir);
-setup.OpenSimDocument.CMCTool.initial_time.Text = num2str(ti);
-setup.OpenSimDocument.CMCTool.final_time.Text = num2str(tf);
-
-% Save to xml file
-struct2xml(setup, cmcsetupfinalfilename);
 
 end

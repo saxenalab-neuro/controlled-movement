@@ -6,13 +6,14 @@ ssh jaxtonwillman@hpg.rc.ufl.edu
 
 
 
-module load ufrc
 srundev --time=06:00:00
 cd Desktop/HPGM
 module load matlab
 module load opensim
 ss="sysid/Testing/SavedSystems/"
+sq="squeue -u jaxtonwillman"
 ls -l
+eval $sq
 
 
 
@@ -23,5 +24,6 @@ cd scripts && mcc -R -singleCompThread -m compareallsystems.m && cd ..
 
 squeue -u jaxtonwillman
 
+scancel --state=PENDING --user=jaxtonwillman
 
-
+scontrol update job=12341427 dependency=""

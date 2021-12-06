@@ -60,11 +60,11 @@ set(data, 'InputName', {'TRIlong', 'TRIlat', 'TRImed', 'BIClong', 'BICshort', 'B
 set(data, 'OutputName', {'shoulder value', 'shoulder speed', 'elbow value', 'elbow speed'});
 
 % Saved System File directory and filename
-iddatafilename = HPGMdir + "sysid/" + datatype + "/" + lower(datatype) + "_sysiddata.mat";
+iddatafilename = HPGMdir + "sysid/Testing/SavedSystems/" + lower(datatype) + "_sysiddata.mat";
 save(iddatafilename, 'data');
 
 
 % Report
 fprintf("\nExperiment data file creation took %f seconds\n", toc);
 
-%end
+end
