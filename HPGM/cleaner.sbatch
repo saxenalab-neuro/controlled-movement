@@ -11,24 +11,29 @@ pwd; hostname; date;
 
 echo Beginning Cleaning *sweep* *sweep*
 
-# Clean OpenSim log
+
+# Wipe working directories
 rm opensim.log
 echo Removed OpenSim log
 
-# Clean output folder
-rm output/*
+rm -rf output
 echo Removed job outputs
 
+rm -rf systems/*
+echo Removed saved systems
 
-# Clean the Testing and Validation folders
-rm -rf sysid/Testing/*
-rm -rf sysid/Validation/*
-echo Removed testing and validation directories
+rm -rf training/*
+echo Removed training directories
+
+rm -rf validation/*
+echo Removed validation directories
 
 
-# Make new directories in Testing and Validation
-mkdir -p sysid/Testing/{cmc,motions,SavedSystems,temp}
-mkdir -p sysid/Validation/{cmc,motions,temp}
+# Make new directories
+mkdir -p {output,setup,systems,training,validation}
+mkdir -p training/{cmc,motions,temp}
+mkdir -p validation/{cmc,motions,temp}
+
 echo Remade directories
 
 

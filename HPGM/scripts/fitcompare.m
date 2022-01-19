@@ -6,7 +6,7 @@ if (ischar(number))
 end
 
 HPGMdir = "/home/jaxtonwillman/Desktop/HPGM/";
-savedsystemsdir = "../sysid/Testing/SavedSystems/";
+savedsystemsdir = "../sysid/training/SavedSystems/";
 
 fit = load(savedsystemsdir + "compare/testing_fit_" + num2str(number) + ".mat").fit;
 

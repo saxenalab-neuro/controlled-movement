@@ -18,37 +18,33 @@ pwd; hostname; date;
 ### CLEANER ###
 
 # Clean up last results
-#jid1=$(sbatch cleaner.sbatch | head -n1 | cut -d " " -f4)
-#echo $jid1
+jid1=$(sbatch cleaner.sbatch | head -n1 | cut -d " " -f4)
+echo $jid1
 
 
 
 
-### TESTING DATA ###
+### TRAINING DATA ###
 
-# Run Testing for 50000 experiments
+# Run training for 5000 experiments
 
 # Initialize properties
-datatype="Testing"
+datatype="training"
 number=5000
-PER_TASK=$(( $number/$arrmax ))
 arrmax=50
+PER_TASK=$(( $number/$arrmax ))
 
 # Motion file creation
-jid2=$(sbatch --array=1-$arrmax --export=datatype=$datatype,PER_TASK=$PER_TASK mcp1.sbatch | head -n1 | cut -d " " -f4)
+jid2=$(sbatch --array=1-$arrmax --export=datatype=$datatype,PER_TASK=$PER_TASK --dependency=afterok:$jid1 motionmaker.sbatch | head -n1 | cut -d " " -f4)
 echo $jid2
 
 # CMC
-jid3=$(sbatch --array=1-$arrmax --export=datatype=$datatype,PER_TASK=$PER_TASK --dependency=afterok:$jid2 mcp2.sbatch | head -n1 | cut -d " " -f4)
+jid3=$(sbatch --array=1-$arrmax --export=datatype=$datatype,PER_TASK=$PER_TASK --dependency=afterok:$jid2 cmc.sbatch | head -n1 | cut -d " " -f4)
 echo $jid3
 
 # Collect files and turn them into .mat files
-jid4=$(sbatch --export=datatype=$datatype --dependency=afterok:$jid3 mcp3.sbatch | head -n1 | cut -d " " -f4)
+jid4=$(sbatch --export=datatype=$datatype --dependency=afterok:$jid3 datawrangle.sbatch | head -n1 | cut -d " " -f4)
 echo $jid4
-
-# Create data file
-jid5=$(sbatch --export=datatype=$datatype --dependency=afterok:$jid4 sidp1.sbatch | head -n1 | cut -d " " -f4)
-echo $jid5
 
 # For system order identification
 numbers=( $(($number/10)) $(($number/4)) $(($number/2)) $(($number*3/4)) $(($number)) )
@@ -56,37 +52,33 @@ orders=(8 9 10 11 12 14 15)
 arrmax=$(( ${#numbers[@]} * ${#orders[@]} ))
 
 # System identification
-jid6=$(sbatch --array=1-$arrmax --export=datatype=$datatype,number=$number --dependency=afterok:$jid5 sidp2.sbatch | head -n1 | cut -d " " -f4)
-echo $jid6
+jid5=$(sbatch --array=1-$arrmax --export=datatype=$datatype,number=$number --dependency=afterok:$jid4 sysid.sbatch | head -n1 | cut -d " " -f4)
+echo $jid5
 
 
 
 
 ### VALIDATION DATA ###
 
-# Run Validation for 500 experiments
+# Run validation for 500 experiments
 
 # Initialize properties
-datatype="Validation"
+datatype="validation"
 number=500
-PER_TASK=$(( $number/$arrmax ))
 arrmax=50
+PER_TASK=$(( $number/$arrmax ))
 
 # Motion file creation
-jid7=$(sbatch --array=1-$arrmax --export=datatype=$datatype,PER_TASK=$PER_TASK --dependency=afterok:$jid5 mcp1.sbatch | head -n1 | cut -d " " -f4)
-echo $jid7
+jid6=$(sbatch --array=1-$arrmax --export=datatype=$datatype,PER_TASK=$PER_TASK --dependency=afterok:$jid4 motionmmaker.sbatch | head -n1 | cut -d " " -f4)
+echo $jid6
 
 # CMC
-jid8=$(sbatch --array=1-$arrmax --export=datatype=$datatype,PER_TASK=$PER_TASK --dependency=afterok:$jid7 mcp2.sbatch | head -n1 | cut -d " " -f4)
+jid7=$(sbatch --array=1-$arrmax --export=datatype=$datatype,PER_TASK=$PER_TASK --dependency=afterok:$jid6 cmc.sbatch | head -n1 | cut -d " " -f4)
+echo $jid7
+
+# Collect files and turn them into .mat files among other things
+jid8=$(sbatch --export=datatype=$datatype --dependency=afterok:$jid7 datawrangling.sbatch | head -n1 | cut -d " " -f4)
 echo $jid8
-
-# Collect files and turn them into .mat files
-jid9=$(sbatch --export=datatype=$datatype --dependency=afterok:$jid8 mcp3.sbatch | head -n1 | cut -d " " -f4)
-echo $jid9
-
-# Create data file
-jid10=$(sbatch --export=datatype=$datatype --dependency=afterok:$jid9 sidp1.sbatch | head -n1 | cut -d " " -f4)
-echo $jid10
 
 
 
@@ -94,8 +86,8 @@ echo $jid10
 ### SYSTEM COMPARISON ###
 
 # Compare the systems and save .figs
-jid11=$(sbatch --array=1-${#numbers[@]} --export=number=$number --dependency=afterok:$jid6:$jid10 comparesystems.sbatch | head -n1 | cut -d " " -f4)
-echo $jid11
+#jid11=$(sbatch --array=1-${#numbers[@]} --export=number=$number --dependency=afterok:$jid6:$jid10 comparesystems.sbatch | head -n1 | cut -d " " -f4)
+#echo $jid11
 
 
 

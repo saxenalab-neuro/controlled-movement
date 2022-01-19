@@ -1,6 +1,13 @@
 # Custom #
 *.asv
 opensim.log
+HPGM/training/cmc/*
+HPGM/training/motions/*
+HPGM/training/temp/*
+HPGM/validation/cmc/*
+HPGM/validation/motions/*
+HPGM/validation/temp/*
+*.mat
 
 
 ### Some Common .gitignore Configurations ###
@@ -42,6 +49,3 @@ opensim.log
 .Trashes
 ehthumbs.db
 Thumbs.db
-HPGM/testing_sysiddata.mat
-HPGM/validation_sysiddata.mat
-*.mat

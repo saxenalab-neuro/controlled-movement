@@ -19,11 +19,11 @@ expnumber=${numbers[$numberindex]}
 echo $numberindex $expnumber
 
 # Run subtask
-#jid1=$(sbatch --job-name=syscomp_$expnumber --output=output/syscomp_$expnumber.out --export=number=$expnumber sidp3.sbatch | head -n1 | cut -d " " -f4)
-#echo $jid1
+jid1=$(sbatch --job-name=syscomp_$expnumber --output=output/syscomp_$expnumber.out --export=number=$expnumber sidp3.sbatch | head -n1 | cut -d " " -f4)
+echo $jid1
 
-# Compare the of the system orders  --dependency=afterok:$jid1
-jid2=$(sbatch --job-name=fit_$expnumber --output=output/fitcompare_$expnumber.out --export=number=$expnumber fitcompare.sbatch | head -n1 | cut -d " " -f4)
+# Compare the of the system orders
+jid2=$(sbatch --job-name=fit_$expnumber --output=output/fitcompare_$expnumber.out --export=number=$expnumber --dependency=afterok:$jid1 fitcompare.sbatch | head -n1 | cut -d " " -f4)
 echo $jid2
 
 date

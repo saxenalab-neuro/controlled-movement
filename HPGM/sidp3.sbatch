@@ -14,7 +14,7 @@ pwd; hostname; date;
 module load matlab
 
 
-datatypes=("Testing" "Validation")
+datatypes=("training" "validation")
 
 # Convert task ID to array index
 datatypeindex=$(( $SLURM_ARRAY_TASK_ID - 1 ))
@@ -22,6 +22,6 @@ datatype=${datatypes[$datatypeindex]}
 echo $datatypeindex $datatype
 
 
-scripts/compareallsystems $number
+scripts/comparesystems $number
 
 date

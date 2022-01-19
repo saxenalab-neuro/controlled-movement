@@ -1,8 +1,10 @@
 function sysid(datatype, number, order)
 
+warning('off', 'Ident:estimation:transientDataCorrection') % Turn off annoying warning
+
 % Check if datatype is correct
-if (~any(datatype == ["Testing", "Validation"])) % If datatype doesn't match these two, throw an error
-    error('Datatype must be equal to "Testing" or "Validation"')
+if (~any(datatype == ["training", "validation"])) % If datatype doesn't match these two, throw an error
+    error('Datatype must be equal to "training" or "validation"')
 end
 
 % Convert HiPerGator terminal strings to proper numbers, ugh
@@ -17,10 +19,8 @@ end
 
 
 HPGMdir = "/home/jaxtonwillman/Desktop/HPGM/";
-systemdatafile = HPGMdir + "sysid/Testing/SavedSystems/testing_sysiddata.mat";
+systemdatafile = HPGMdir + "systems/testing_sysiddata.mat";
 
-
-warning('off', 'Ident:estimation:transientDataCorrection') % Turn off annoying warning
 
 % Load the input-output data, which is stored in an iddata object
 data = load(systemdatafile).data;
@@ -37,14 +37,7 @@ sys = n4sid(de, order);
 
 
 % Saved System File directory and filename
-savedsystemsdir = HPGMdir + "sysid/" + datatype + "/SavedSystems/";
-savedsystemfilename = savedsystemsdir + "sys_" + num2str(order) + "_" + num2str(number) + ".mat";
-
-% Check if directory exists, if not, mkdir
-if not(isfolder(savedsystemsdir))
-    mkdir(savedsystemsdir)
-end
-
+savedsystemfilename = HPGMdir + "systems/" + "sys_" + num2str(order) + "_" + num2str(number) + ".mat";
 save(savedsystemfilename, 'sys');
 fprintf("Saved system of order %d for %d experiments\n", order, number);
 

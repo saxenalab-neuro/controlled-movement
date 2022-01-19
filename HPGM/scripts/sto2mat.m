@@ -2,8 +2,8 @@ function [unconverted] = sto2mat(datatype)
 
 
 % Check if datatype is correct
-if (~any(datatype == ["Testing", "Validation"])) % If datatype doesn't match these two, throw an error
-    error('Datatype must be equal to "Testing" or "Validation"')
+if (~any(datatype == ["training", "validation"])) % If datatype doesn't match these two, throw an error
+    error('Datatype must be equal to "training" or "validation"')
 end
 
 
@@ -11,9 +11,35 @@ HPGMdir = "/home/jaxtonwillman/Desktop/HPGM/";
 
 
 
+
+% --- COMBINE MOTION DATA --- %
+
+tempdir = HPGMdir + datatype + "/temp/";
+
+files = dir(fullfile(tempdir, '*.mat'));
+
+motions = cell(1,numel(files)); % Preallocate the motions cell array
+
+
+for number=1:numel(files)
+    tempfilename = tempdir + files(number).name;
+    motions{number} = load(tempfilename).motion;
+end
+
+
+% Save motion data
+datafilename = HPGMdir + datatype + "/" + datatype + "_motiondata.mat";
+save(datafilename, 'motions')
+fprintf("The motions are saved!\n");
+
+
+
+
+% --- CONVERT STO FILES TO MAT FILES --- %
+
 % Convert each controls and states file from the cmc tool
 
-cmcresultsdir = HPGMdir + "sysid/" + datatype + "/cmc/";
+cmcresultsdir = HPGMdir + datatype + "/cmc/";
 
 controlsfiles = dir(fullfile(cmcresultsdir, "*_controls.sto"));
 statesfiles = dir(fullfile(cmcresultsdir, "*_states.sto"));
@@ -45,8 +71,8 @@ for number = 1:numscripts
     
     % Import and convert data
     cmccontrols = importdata(cmccontrolsfile, '\t', 7).data; % Import the data from the file
-    cmcstates = importdata(cmcstatesfile, ' ', 7).data(:,1:5); % Import the data from the file
-    cmcstates(:, 2:5) = rad2deg(cmcstates(:, 2:5)); % Convert radians to degrees
+    cmcstates = importdata(cmcstatesfile, ' ', 7).data(:,[1,4,5]); % Import the data from the file - just the elbow value and speed
+    cmcstates(:, 2:end) = rad2deg(cmcstates(:, 2:end)); % Convert radians to degrees
     
     % Compare sizes of time arrays, there SHOULD be no discrepency
     if (numel(cmccontrols(:,1)) ~= numel(cmcstates(:,1)))
@@ -64,12 +90,12 @@ end
 % Save controls and states each as a group
 if (~all(cellfun('isempty', controls)) || ~all(cellfun('isempty', states)))
     % Save controls
-    controlsfilename = HPGMdir + "sysid/" + datatype + "/" + lower(datatype) + "_controls.mat";
+    controlsfilename = HPGMdir + datatype + "/" + datatype + "_controls.mat";
     save(controlsfilename, 'controls')
     fprintf("Saved the controls!\n");
         
     % Save states
-    statesfilename = HPGMdir + "sysid/" + datatype + "/" + lower(datatype) + "_states.mat";
+    statesfilename = HPGMdir + datatype + "/" + datatype + "_states.mat";
     save(statesfilename, 'states')
     fprintf("Saved the states!\n");
 end

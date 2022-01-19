@@ -1,8 +1,8 @@
 function createdatafile(datatype)
 
 % Check if datatype is correct
-if (~any(datatype == ["Testing", "Validation"])) % If datatype doesn't match these two, throw an error
-    error('Datatype must be equal to "Testing" or "Validation"')
+if (~any(datatype == ["training", "validation"])) % If datatype doesn't match these two, throw an error
+    error('Datatype must be equal to "training" or "validation"')
 end
 
 
@@ -13,8 +13,8 @@ HPGMdir = "/home/jaxtonwillman/Desktop/HPGM/";
 tic % Begin timer
 
 % Load controls and states data
-cmccontrolsfile = HPGMdir + "sysid/" + datatype + "/" + lower(datatype) + "_controls.mat";
-cmcstatesfile = HPGMdir + "sysid/" + datatype + "/" + lower(datatype) + "_states.mat";
+cmccontrolsfile = HPGMdir + datatype + "/" + datatype + "_controls.mat";
+cmcstatesfile = HPGMdir + datatype + "/" + datatype + "_states.mat";
 controls = load(cmccontrolsfile).controls;
 states = load(cmcstatesfile).states;
 
@@ -45,8 +45,8 @@ for number = 1:numexperiments
     end
     
     % Assign new interpolated data to input and output cell arrays
-    input{number} = interp1(time, controls{number}(:,2:9), newTime); % Interpolated  input data
-    output{number} = interp1(time, states{number}(:,2:5), newTime); % Interpolated  output data
+    input{number} = interp1(time, controls{number}(:,2:end), newTime); % Interpolated  input data
+    output{number} = interp1(time, states{number}(:,2:end), newTime); % Interpolated  output data
 end
 
 
@@ -57,10 +57,10 @@ data = iddata(output, input, Ts);
 
 % Set input and output names
 set(data, 'InputName', {'TRIlong', 'TRIlat', 'TRImed', 'BIClong', 'BICshort', 'BRA', 'shoulder reserve', 'elbow reserve'});
-set(data, 'OutputName', {'shoulder value', 'shoulder speed', 'elbow value', 'elbow speed'});
+set(data, 'OutputName', {'elbow value', 'elbow speed'});
 
 % Saved System File directory and filename
-iddatafilename = HPGMdir + "sysid/Testing/SavedSystems/" + lower(datatype) + "_sysiddata.mat";
+iddatafilename = HPGMdir + "systems/" + datatype + "_sysiddata.mat";
 save(iddatafilename, 'data');
 
 

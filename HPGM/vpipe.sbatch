@@ -4,34 +4,62 @@
 #SBATCH --mail-user=jaxtonwillman@ufl.edu			# Where to send mail	
 #SBATCH --nodes=1									# Use one node
 #SBATCH --ntasks=1									# Run a single task
-#SBATCH --mem-per-cpu=100mb							# Memory per processor
-#SBATCH --time=1-00:00:00							# Time limit [days-]hrs:min:sec
+#SBATCH --mem-per-cpu=500mb							# Memory per processor
+#SBATCH --time=0-01:00:00							# Time limit [days-]hrs:min:sec
 #SBATCH --output=output/vpipe.out					# Standard output and error log
 pwd; hostname; date;
 
 
 
+
+### CLEAN UP LAST RESULTS ###
+echo Beginning Cleaning *sweep* *sweep*
+
+
+# Wipe working directories
+rm opensim.log
+echo Removed OpenSim log
+
+rm -rf output
+echo Removed job outputs
+
+rm systems/validation*
+echo Removed system files
+
+rm -rf validation/*
+echo Removed validation directories
+
+
+# Make new directories
+mkdir output
+mkdir -p validation/{cmc,motions,temp}
+
+echo Remade directories
+
+
+
+
+### VALIDATION DATA ###
+
+# Run validation for 500 experiments
+
 # Initialize properties
-datatype="Validation"
-number=500
-arrmax=50
+datatype="validation"
+number=50
+arrmax=10
 PER_TASK=$(( $number/$arrmax ))
 
 # Motion file creation
-jid7=$(sbatch --array=1-$arrmax --export=datatype=$datatype,PER_TASK=$PER_TASK mcp1.sbatch | head -n1 | cut -d " " -f4)
-echo $jid7
+jid6=$(sbatch --array=1-$arrmax --export=datatype=$datatype,PER_TASK=$PER_TASK motionmaker.sbatch | head -n1 | cut -d " " -f4)
+echo $jid6
 
 # CMC
-jid8=$(sbatch --array=1-$arrmax --export=datatype=$datatype,PER_TASK=$PER_TASK --dependency=afterok:$jid7 mcp2.sbatch | head -n1 | cut -d " " -f4)
+jid7=$(sbatch --array=1-$arrmax --export=datatype=$datatype,PER_TASK=$PER_TASK --dependency=afterok:$jid6 cmc.sbatch | head -n1 | cut -d " " -f4)
+echo $jid7
+
+# Collect files and turn them into .mat files among other things
+jid8=$(sbatch --export=datatype=$datatype --dependency=afterok:$jid7 datawrangle.sbatch | head -n1 | cut -d " " -f4)
 echo $jid8
-
-# Collect files and turn them into .mat files
-jid9=$(sbatch --export=datatype=$datatype,number=$number --dependency=afterok:$jid8 mcp3.sbatch | head -n1 | cut -d " " -f4)
-echo $jid9
-
-# Create data file
-jid10=$(sbatch --export=datatype=$datatype --dependency=afterok:$jid9 sidp1.sbatch | head -n1 | cut -d " " -f4)
-echo $jid10
 
 
 

@@ -1,25 +1,25 @@
 function autographer(datatype)
 
 % Check if datatype is correct
-if (~any(datatype == ["Testing", "Validation"])) % If datatype doesn't match these two, throw an error
-    error('Datatype must be equal to "Testing" or "Validation"')
+if (~any(datatype == ["training", "validation"])) % If datatype doesn't match these two, throw an error
+    error('Datatype must be equal to "training" or "validation"')
 end
 
 
 HPGMdir = "/home/jaxtonwillman/Desktop/HPGM/";
 
-savedsystemsdir = HPGMdir + "sysid/Testing/SavedSystems/";
-filenamestarter = HPGMdir + "sysid/" + datatype + "/" + lower(datatype) + "_";
+savedsystemsdir = HPGMdir + "systems/";
+filenamestarter = HPGMdir + datatype + "/" + datatype + "_";
 
 motions = load(filenamestarter + "motiondata.mat").motions;
 states = load(filenamestarter + "states.mat").states;
-controls = load(filenamestarter + "controls.mat").controls;
+%controls = load(filenamestarter + "controls.mat").controls;
 
-figurename = datatype + " Motion Graph";
+figurename = datatype + " motion graph";
 mg = figure('Name', figurename);
 
 
-if numel(motions) < 500
+if (numel(motions) < 500)
     number = numel(motions);
 else
     number = 500;
@@ -44,7 +44,7 @@ hold off
 for i=1:number
     
     t = states{i}(:,1);
-    pos = states{i}(:,4);
+    pos = states{i}(:,2); % 1 - time, 2 - elbow pos, 3 - elbow speed
     
     subplot(2,1,2);
     plot(t, pos);
@@ -57,6 +57,7 @@ hold off
 
 
 saveas(mg, savedsystemsdir + figurename + ".fig") % Save figure for further use
+close all % Close all figures so the program can exit with success
 fprintf("Motion figure is saved!\n");
 
 end
