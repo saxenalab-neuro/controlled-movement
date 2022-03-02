@@ -50,15 +50,15 @@ arrmax=50
 PER_TASK=$(( $number/$arrmax ))
 
 # Motion file creation
-jid2=$(sbatch --array=1-$arrmax --export=datatype=$datatype,PER_TASK=$PER_TASK motionmaker.sbatch | head -n1 | cut -d " " -f4)
+jid2=$(sbatch --job-name=t_mm --array=1-$arrmax --export=datatype=$datatype,PER_TASK=$PER_TASK motionmaker.sbatch | head -n1 | cut -d " " -f4)
 echo $jid2
 
 # CMC
-jid3=$(sbatch --array=1-$arrmax --export=datatype=$datatype,PER_TASK=$PER_TASK --dependency=afterok:$jid2 cmc.sbatch | head -n1 | cut -d " " -f4)
+jid3=$(sbatch --job-name=t_cmc --array=1-$arrmax --export=datatype=$datatype,PER_TASK=$PER_TASK --dependency=afterok:$jid2 cmc.sbatch | head -n1 | cut -d " " -f4)
 echo $jid3
 
 # Collect files and turn them into .mat files
-jid4=$(sbatch --export=datatype=$datatype --dependency=afterok:$jid3 datawrangle.sbatch | head -n1 | cut -d " " -f4)
+jid4=$(sbatch --job-name=t_wrangle --export=datatype=$datatype --dependency=afterok:$jid3 datawrangle.sbatch | head -n1 | cut -d " " -f4)
 echo $jid4
 
 # For system order identification
@@ -67,7 +67,7 @@ orders=(8 9 10 11 12 14 15)
 arrmax=$(( ${#numbers[@]} * ${#orders[@]} ))
 
 # System identification
-jid5=$(sbatch --array=1-$arrmax --export=datatype=$datatype,number=$number --dependency=afterok:$jid4 sysid.sbatch | head -n1 | cut -d " " -f4)
+jid5=$(sbatch --job-name=t_sysid --array=1-$arrmax --export=number=$number --dependency=afterok:$jid4 sysid.sbatch | head -n1 | cut -d " " -f4)
 echo $jid5
 
 

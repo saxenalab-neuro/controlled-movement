@@ -35,24 +35,24 @@ arrmax=50
 PER_TASK=$(( $number/$arrmax ))
 
 # Motion file creation
-jid2=$(sbatch --array=1-$arrmax --export=datatype=$datatype,PER_TASK=$PER_TASK --dependency=afterok:$jid1 motionmaker.sbatch | head -n1 | cut -d " " -f4)
+jid2=$(sbatch --job-name=t_mm --array=1-$arrmax --export=datatype=$datatype,PER_TASK=$PER_TASK --dependency=afterok:$jid1 motionmaker.sbatch | head -n1 | cut -d " " -f4)
 echo $jid2
 
 # CMC
-jid3=$(sbatch --array=1-$arrmax --export=datatype=$datatype,PER_TASK=$PER_TASK --dependency=afterok:$jid2 cmc.sbatch | head -n1 | cut -d " " -f4)
+jid3=$(sbatch --job-name=t_cmc --array=1-$arrmax --export=datatype=$datatype,PER_TASK=$PER_TASK --dependency=afterok:$jid2 cmc.sbatch | head -n1 | cut -d " " -f4)
 echo $jid3
 
-# Collect files and turn them into .mat files
-jid4=$(sbatch --export=datatype=$datatype --dependency=afterok:$jid3 datawrangle.sbatch | head -n1 | cut -d " " -f4)
+# Collect files and turn them into .mat files and iddata files
+jid4=$(sbatch --job-name=t_wrangle --export=datatype=$datatype --dependency=afterok:$jid3 datawrangle.sbatch | head -n1 | cut -d " " -f4)
 echo $jid4
 
-# For system order identification
+# Initialize properties for system identification
 numbers=( $(($number/10)) $(($number/4)) $(($number/2)) $(($number*3/4)) $(($number)) )
-orders=(8 9 10 11 12 14 15)
+orders=(2 3 4 5 6 7 8 9 10 11 12 13 14 15)
 arrmax=$(( ${#numbers[@]} * ${#orders[@]} ))
 
 # System identification
-jid5=$(sbatch --array=1-$arrmax --export=datatype=$datatype,number=$number --dependency=afterok:$jid4 sysid.sbatch | head -n1 | cut -d " " -f4)
+jid5=$(sbatch --job-name=t_sysid --array=1-$arrmax --export=number=$number --dependency=afterok:$jid4 sysid.sbatch | head -n1 | cut -d " " -f4)
 echo $jid5
 
 
@@ -69,15 +69,15 @@ arrmax=50
 PER_TASK=$(( $number/$arrmax ))
 
 # Motion file creation
-jid6=$(sbatch --array=1-$arrmax --export=datatype=$datatype,PER_TASK=$PER_TASK --dependency=afterok:$jid4 motionmmaker.sbatch | head -n1 | cut -d " " -f4)
+jid6=$(sbatch --job-name=v_mm --array=1-$arrmax --export=datatype=$datatype,PER_TASK=$PER_TASK --dependency=afterok:$jid4 motionmaker.sbatch | head -n1 | cut -d " " -f4)
 echo $jid6
 
 # CMC
-jid7=$(sbatch --array=1-$arrmax --export=datatype=$datatype,PER_TASK=$PER_TASK --dependency=afterok:$jid6 cmc.sbatch | head -n1 | cut -d " " -f4)
+jid7=$(sbatch --job-name=v_cmc --array=1-$arrmax --export=datatype=$datatype,PER_TASK=$PER_TASK --dependency=afterok:$jid6 cmc.sbatch | head -n1 | cut -d " " -f4)
 echo $jid7
 
-# Collect files and turn them into .mat files among other things
-jid8=$(sbatch --export=datatype=$datatype --dependency=afterok:$jid7 datawrangling.sbatch | head -n1 | cut -d " " -f4)
+# Collect files and turn them into .mat files and iddata files
+jid8=$(sbatch --job-name=v_wrangle --export=datatype=$datatype --dependency=afterok:$jid7 datawrangle.sbatch | head -n1 | cut -d " " -f4)
 echo $jid8
 
 
@@ -85,9 +85,14 @@ echo $jid8
 
 ### SYSTEM COMPARISON ###
 
-# Compare the systems and save .figs
-#jid11=$(sbatch --array=1-${#numbers[@]} --export=number=$number --dependency=afterok:$jid6:$jid10 comparesystems.sbatch | head -n1 | cut -d " " -f4)
-#echo $jid11
+# Initialize properties
+number=5000
+numbers=( $(($number/10)) $(($number/4)) $(($number/2)) $(($number*3/4)) $(($number)) )
+orders=(2 3 4 5 6 7 8 9 10 11 12 13 14 15)
+
+# Compare the systems and compute the MSE for each system
+jid9=$(sbatch --array=1-${#numbers[@]} --export=number=$number --dependency=afterok:$jid5:$jid8 comparesystems.sbatch | head -n1 | cut -d " " -f4)
+echo $jid9
 
 
 

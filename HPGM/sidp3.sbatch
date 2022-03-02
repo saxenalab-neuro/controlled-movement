@@ -22,6 +22,6 @@ datatype=${datatypes[$datatypeindex]}
 echo $datatypeindex $datatype
 
 
-scripts/comparesystems $number
+scripts/comparesystems $number $datatype
 
 date

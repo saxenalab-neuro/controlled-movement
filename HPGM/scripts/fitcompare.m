@@ -8,7 +8,7 @@ end
 HPGMdir = "/home/jaxtonwillman/Desktop/HPGM/";
 savedsystemsdir = "../sysid/training/SavedSystems/";
 
-fit = load(savedsystemsdir + "compare/testing_fit_" + num2str(number) + ".mat").fit;
+fit = load(savedsystemsdir + "compare/training_fit_" + num2str(number) + ".mat").fit;
 
 [orders, experiments] = size(fit);
 
@@ -38,6 +38,6 @@ bestorder = find(NRMSE(:,3) == min(NRMSE(:,3)));
 fprintf("A system of order %d is the most optimal for elbow value tracking\n", bestorder);
 
 
-save(savedsystemsdir + "compare/testing_NRMSE_" + num2str(number) + ".mat", 'NRMSE')
+save(savedsystemsdir + "compare/training_NRMSE_" + num2str(number) + ".mat", 'NRMSE')
 
 end

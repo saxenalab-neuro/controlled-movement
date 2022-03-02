@@ -11,9 +11,8 @@ pwd; hostname; date;
 
 # Passing in number
 
-datatype="training"
-numbers=( $(($number/10)) $(($number/4)) $(($number/2)) $(($number*3/4)) $(($number)) ) # numbers=(1000 2500 5000 7500 10000)
-orders=(8 9 10 11 12 14 15)
+numbers=( $(($number/10)) $(($number/4)) $(($number/2)) $(($number*3/4)) $(($number)) ) # numbers=(500 1250 2500 3750 5000)
+orders=(2 3 4 5 6 7 8 9 10 11 12 13 14 15)
 
 
 # Load MATLAB 2020b module
@@ -21,7 +20,7 @@ module load matlab
 
 
 echo
-echo $datatype $SLURM_ARRAY_TASK_ID
+echo $SLURM_ARRAY_TASK_ID
 echo "${numbers[@]}"
 echo "${orders[@]}"
 echo
@@ -42,6 +41,6 @@ echo This is task $SLURM_ARRAY_TASK_ID, which will do system identification for 
 echo
 
 # Run System Identification
-scripts/sysid $datatype $expnumber $order
+scripts/sysid $expnumber $order
 
 date

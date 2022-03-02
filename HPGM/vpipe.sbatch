@@ -50,15 +50,15 @@ arrmax=10
 PER_TASK=$(( $number/$arrmax ))
 
 # Motion file creation
-jid6=$(sbatch --array=1-$arrmax --export=datatype=$datatype,PER_TASK=$PER_TASK motionmaker.sbatch | head -n1 | cut -d " " -f4)
+jid6=$(sbatch --job-name=v_mm --array=1-$arrmax --export=datatype=$datatype,PER_TASK=$PER_TASK motionmaker.sbatch | head -n1 | cut -d " " -f4)
 echo $jid6
 
 # CMC
-jid7=$(sbatch --array=1-$arrmax --export=datatype=$datatype,PER_TASK=$PER_TASK --dependency=afterok:$jid6 cmc.sbatch | head -n1 | cut -d " " -f4)
+jid7=$(sbatch --job-name=v_cmc --array=1-$arrmax --export=datatype=$datatype,PER_TASK=$PER_TASK --dependency=afterok:$jid6 cmc.sbatch | head -n1 | cut -d " " -f4)
 echo $jid7
 
 # Collect files and turn them into .mat files among other things
-jid8=$(sbatch --export=datatype=$datatype --dependency=afterok:$jid7 datawrangle.sbatch | head -n1 | cut -d " " -f4)
+jid8=$(sbatch --job-name=v_wrangle --export=datatype=$datatype --dependency=afterok:$jid7 datawrangle.sbatch | head -n1 | cut -d " " -f4)
 echo $jid8
 
 

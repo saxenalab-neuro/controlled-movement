@@ -44,7 +44,7 @@ for i = 1:controlsrows-1
     
     % Set initial and final times
     forwardTool.setInitialTime(ti);
-    forwardTool.setFinalTime(tf);    
+    forwardTool.setFinalTime(tf);
     
     % Outputs the time states to keep track of the program
     fprintf("Integrating from I = %s to F = %s\n", num2str(forwardTool.getInitialTime(), '%0.6f'), num2str(forwardTool.getFinalTime(), '%0.6f'));
@@ -55,7 +55,7 @@ for i = 1:controlsrows-1
     else
         fprintf("\nCRIT_ERR: ForwardTool failed to run!\n");
         fprintf("At i = %d, time = %d\n", i, ti);
-    end    
+    end
     
     % Copy output data into motion file
     updatemotionfile(i);

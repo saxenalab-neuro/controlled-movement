@@ -1,0 +1,117 @@
+System Characteristics:
+The system is controllable
+The system is observable
+
+Final: Failed to enforce closed-loop stability (max |z| = 1)
+Failed to stabilize closed-loop system. Try different initial values or increase the number of random starts using "systuneOptions".
+Decoupler =
+ 
+  D = 
+             u1        u2
+   y1     1.094    0.6666
+   y2    0.3097    0.2601
+   y3   -0.2633    0.1218
+   y4    -0.351    0.6966
+   y5    -0.105    0.4764
+   y6   -0.3242  -0.09756
+   y7     0.796     1.029
+   y8    0.2022   0.05678
+ 
+Name: Decoupler
+Static gain.
+-----------------------------------
+PI1 =
+ 
+              Ts  
+  Kp + Ki * ------
+              z-1 
+
+  with Kp = -0.385, Ki = -0.958, Ts = 0.001
+ 
+Name: PI1
+Sample time: 0.001 seconds
+Discrete-time PI controller in parallel form.
+-----------------------------------
+PI2 =
+ 
+              Ts  
+  Kp + Ki * ------
+              z-1 
+
+  with Kp = 0.0215, Ki = -0.0795, Ts = 0.001
+ 
+Name: PI2
+Sample time: 0.001 seconds
+Discrete-time PI controller in parallel form.
+-----------------------------------
+PI3 =
+ 
+              Ts  
+  Kp + Ki * ------
+              z-1 
+
+  with Kp = 0.117, Ki = 0.232, Ts = 0.001
+ 
+Name: PI3
+Sample time: 0.001 seconds
+Discrete-time PI controller in parallel form.
+-----------------------------------
+PI4 =
+ 
+              Ts  
+  Kp + Ki * ------
+              z-1 
+
+  with Kp = -1.99, Ki = -2.96, Ts = 0.001
+ 
+Name: PI4
+Sample time: 0.001 seconds
+Discrete-time PI controller in parallel form.
+-----------------------------------
+PI5 =
+ 
+              Ts  
+  Kp + Ki * ------
+              z-1 
+
+  with Kp = 0.286, Ki = -0.516, Ts = 0.001
+ 
+Name: PI5
+Sample time: 0.001 seconds
+Discrete-time PI controller in parallel form.
+-----------------------------------
+PI6 =
+ 
+              Ts  
+  Kp + Ki * ------
+              z-1 
+
+  with Kp = -0.0726, Ki = -0.206, Ts = 0.001
+ 
+Name: PI6
+Sample time: 0.001 seconds
+Discrete-time PI controller in parallel form.
+-----------------------------------
+PI7 =
+ 
+              Ts  
+  Kp + Ki * ------
+              z-1 
+
+  with Kp = 0.112, Ki = -1.79, Ts = 0.001
+ 
+Name: PI7
+Sample time: 0.001 seconds
+Discrete-time PI controller in parallel form.
+-----------------------------------
+PI8 =
+ 
+              Ts  
+  Kp + Ki * ------
+              z-1 
+
+  with Kp = 0.0417, Ki = -0.331, Ts = 0.001
+ 
+Name: PI8
+Sample time: 0.001 seconds
+Discrete-time PI controller in parallel form.

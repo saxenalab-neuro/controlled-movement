@@ -1,0 +1,8 @@
+single_step_states
+version=1
+nRows=1
+nColumns=17
+inDegrees=no
+endheader
+time	/jointset/r_shoulder/r_shoulder_elev/value	/jointset/r_shoulder/r_shoulder_elev/speed	/jointset/r_elbow/r_elbow_flex/value	/jointset/r_elbow/r_elbow_flex/speed	/forceset/TRIlong/activation	/forceset/TRIlong/fiber_length	/forceset/TRIlat/activation	/forceset/TRIlat/fiber_length	/forceset/TRImed/activation	/forceset/TRImed/fiber_length	/forceset/BIClong/activation	/forceset/BIClong/fiber_length	/forceset/BICshort/activation	/forceset/BICshort/fiber_length	/forceset/BRA/activation	/forceset/BRA/fiber_length
+0.08000001	     -0.00000000	     -0.00000024	     -0.00000000	     -0.00001472	      0.04999999	      0.10001099	      0.04999999	      0.10000000	      0.04999999	      0.10000000	29949118364275822134982679088332140699232053420931772067062804923595028605664946823787782673937081619266390214063292829141790076730518303611764539219459314982844048080896.00000000	      0.10000166	54198852288689918979448261949618000466397335920872994793876781567594007460071971848236422595388339076348886397004140261854477646492241551075311616.00000000	      0.10000289	      0.04999999	      0.09999999

@@ -1,0 +1,14 @@
+bicep_curl
+version=1
+nRows=680
+nColumns=17
+inDegrees=yes
+
+# SIMM Motion File Header:
+name bicep_curl
+datacolumns 17
+datarows 680
+otherdata 1
+range 0.03 0.489000
+endheader
+time	/jointset/r_shoulder/r_shoulder_elev/value	/jointset/r_shoulder/r_shoulder_elev/speed	/jointset/r_elbow/r_elbow_flex/value	/jointset/r_elbow/r_elbow_flex/speed	/forceset/TRIlong/activation	/forceset/TRIlong/fiber_length	/forceset/TRIlat/activation	/forceset/TRIlat/fiber_length	/forceset/TRImed/activation	/forceset/TRImed/fiber_length	/forceset/BIClong/activation	/forceset/BIClong/fiber_length	/forceset/BICshort/activation	/forceset/BICshort/fiber_length	/forceset/BRA/activation	/forceset/BRA/fiber_length

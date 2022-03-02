@@ -27,16 +27,16 @@ sys15 = load(savedsystemsdir + "sys_15_" + num2str(number) + ".mat").sys;
 fprintf("Loaded the systems\n");
 
 if (datatype == "training")
-    % Load testing data
-    testingdatafilename = savedsystemsdir + "testing_sysiddata.mat";
-    testingdata = load(testingdatafilename).data;
-    fprintf("Loaded the testing data\n");
+    % Load training data
+    trainingdatafilename = savedsystemsdir + "training_sysiddata.mat";
+    trainingdata = load(trainingdatafilename).data;
+    fprintf("Loaded the training data\n");
     
     % Compare against training data
     figurename = num2str(number) + "_training";
     ft = figure('Name', figurename, 'NumberTitle', 'off');
-    fprintf("Created the testing figure\n");
-    compare(testingdata, sys8, sys9, sys10, sys11, sys12, sys14, sys15);
+    fprintf("Created the training figure\n");
+    compare(trainingdata, sys8, sys9, sys10, sys11, sys12, sys14, sys15);
     saveas(ft, strcat(savedsystemsdir, figurename, '.fig')) % Save figure for further use
     fprintf("Saved training Figure\n");
 

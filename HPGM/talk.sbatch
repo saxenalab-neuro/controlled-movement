@@ -4,21 +4,21 @@
 #SBATCH --mail-user=jaxtonwillman@ufl.edu			# Where to send mail	
 #SBATCH --nodes=1									# Use one node
 #SBATCH --ntasks=1									# Run a single task
-#SBATCH --mem-per-cpu=100mb							# Memory per processor
+#SBATCH --mem-per-cpu=500mb							# Memory per processor
 #SBATCH --time=0-00:10:00							# Time limit [days-]hrs:min:sec
-#SBATCH --array=1-100                 				# Array range
 #SBATCH --output=output/talk.out					# Standard output and error log
 pwd; hostname; date;
 
 
-echo Something dumb
 
-echo also
+orders=(8 9 10 11 12 14 15)
 
-while :
-do
-	echo "Press [CTRL+C] to stop.."
-	sleep 1
-done
+
+# Load MATLAB 2020b module
+module load matlab
+
+
+# Run System Identification
+scripts/testarray $orders
 
 date

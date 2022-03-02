@@ -1,11 +1,6 @@
-function sysid(datatype, number, order)
+function sysid(number, order)
 
 warning('off', 'Ident:estimation:transientDataCorrection') % Turn off annoying warning
-
-% Check if datatype is correct
-if (~any(datatype == ["training", "validation"])) % If datatype doesn't match these two, throw an error
-    error('Datatype must be equal to "training" or "validation"')
-end
 
 % Convert HiPerGator terminal strings to proper numbers, ugh
 if (ischar(number))
@@ -19,7 +14,7 @@ end
 
 
 HPGMdir = "/home/jaxtonwillman/Desktop/HPGM/";
-systemdatafile = HPGMdir + "systems/testing_sysiddata.mat";
+systemdatafile = HPGMdir + "systems/training_sysiddata.mat";
 
 
 % Load the input-output data, which is stored in an iddata object
@@ -34,7 +29,7 @@ fprintf("About to run the system\n");
 
 % Generate and save system
 sys = n4sid(de, order);
-
+sys.Name = "sys" + order;
 
 % Saved System File directory and filename
 savedsystemfilename = HPGMdir + "systems/" + "sys_" + num2str(order) + "_" + num2str(number) + ".mat";

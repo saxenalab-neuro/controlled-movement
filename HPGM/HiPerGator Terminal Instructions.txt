@@ -33,6 +33,7 @@ scontrol update job=12341427 dependency=""
 
 
 showQos shreya.saxena output
+
 squeue -A shreya.saxena
 
 

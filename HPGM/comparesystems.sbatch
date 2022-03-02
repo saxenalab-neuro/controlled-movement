@@ -11,19 +11,26 @@ pwd; hostname; date;
 
 # Passing in number
 
-numbers=( $(($number/10)) $(($number/4)) $(($number/2)) $(($number*3/4)) $(($number)) ) # numbers=(1000 2500 5000 7500 10000)
+
+numbers=( $(($number/10)) $(($number/4)) $(($number/2)) $(($number*3/4)) $(($number)) ) # numbers=(500 1250 2500 3750 5000)
 
 # Convert task ID to array index
 numberindex=$(( ($SLURM_ARRAY_TASK_ID - 1) % ${#numbers[@]} ))
 expnumber=${numbers[$numberindex]}
 echo $numberindex $expnumber
 
-# Run subtask
-jid1=$(sbatch --job-name=syscomp_$expnumber --output=output/syscomp_$expnumber.out --export=number=$expnumber sidp3.sbatch | head -n1 | cut -d " " -f4)
+# Run system compare
+jid1=$(sbatch --job-name=comp_$expnumber --output=output/compare_$expnumber.out --export=number=$expnumber compare.sbatch | head -n1 | cut -d " " -f4)
 echo $jid1
 
-# Compare the of the system orders
-jid2=$(sbatch --job-name=fit_$expnumber --output=output/fitcompare_$expnumber.out --export=number=$expnumber --dependency=afterok:$jid1 fitcompare.sbatch | head -n1 | cut -d " " -f4)
+# Run system simulate
+jid2=$(sbatch --job-name=sim_$expnumber --output=output/simulate_$expnumber.out --export=number=$expnumber simulate.sbatch | head -n1 | cut -d " " -f4)
 echo $jid2
+
+# Run system fit
+jid3=$(sbatch --job-name=fit_$expnumber --output=output/fit_$expnumber.out --export=number=$expnumber --dependency=afterok:$jid2 fit.sbatch | head -n1 | cut -d " " -f4)
+echo $jid3
+
+
 
 date
