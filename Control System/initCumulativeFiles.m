@@ -1,4 +1,4 @@
-function [] = initCumulativeFiles(varargin)
+function initCumulativeFiles(varargin)
 
 toolspathname = "../Tools/";
 
@@ -25,8 +25,7 @@ for i = 1:numel(cumulative_filenames)
         infile = fopen(infilename, 'r'); % Open header file for reading
     else
         error("CRIT_ERR: Header file ""%s"" DNE!", infilename)
-    end
-    
+    end    
     
     buffer = '';
     for tmp = 1:headerlines(i)

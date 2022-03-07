@@ -1,10 +1,10 @@
 clear;clc;
 
-order = 9;
+order = 4;
 
 
 
-HPGMdir = "sysid/systems/";
+HPGMdir = "\\client\c$\Users\Jaxton/Desktop/sysid/systems/";
 sysfilename = HPGMdir + "sys_" + num2str(order) + "_5000" + ".mat";
 sys_idss = load(sysfilename).sys;
 

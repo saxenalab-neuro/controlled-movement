@@ -1,4 +1,4 @@
-function [coordinatevalues] = forwardtoolloop(forwardTool, controls, ti, dt)
+function [coordinatevalues] = forwardtoolloop(forwardTool, controls, ti, tf)
 
 % INPUTS
 % forwardTool - the forward dynamics tool object that was initialized outside of the runtime
@@ -12,12 +12,12 @@ function [coordinatevalues] = forwardtoolloop(forwardTool, controls, ti, dt)
 
 
 % Write the controls and states to a file for the forward tool to read
-writesingledatastep(controls);
+writebatchdata(controls);
 
 
 % Set initial and final times
 forwardTool.setInitialTime(ti);
-forwardTool.setFinalTime(ti+dt);
+forwardTool.setFinalTime(tf);
 
 
 % Run the Forward Dynamics Tool
@@ -29,11 +29,11 @@ end
 
 
 debug = 1;
-% Debug output to keep tracck of the program
+% Debug output to keep track of the program
 if (debug)
     fprintf("Integrated from I = %s to F = %s\n", num2str(forwardTool.getInitialTime(), '%0.6f'), num2str(forwardTool.getFinalTime(), '%0.6f'));
 end
 
-coordinatevalues = ss2cumulative(); % Copy output data into motion file
+coordinatevalues = ss2cumulative(); % Copy OpenSim output into cumulative files
 
 end

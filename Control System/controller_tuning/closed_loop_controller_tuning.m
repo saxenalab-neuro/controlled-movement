@@ -1,7 +1,7 @@
 clear;clc;close all;
 
 
-order = 9;
+order = 4;
 
 
 % Load ss, tf, and ss data
@@ -12,8 +12,8 @@ tffilename = "sys_" + num2str(order) + "_tf.mat";
 sys_ss = load(ssfilename).sys_ss;
 sys_tf = load(tffilename).sys_tf;
 
-sys_ss.OutputName = {'pos','vel'};
-sys_tf.OutputName = {'pos','vel'};
+sys_ss.OutputName = 'y';
+sys_tf.OutputName = 'y';
 
 
 A = sys_ss.A;
@@ -21,12 +21,15 @@ B = sys_ss.B;
 C = sys_ss.C;
 D = sys_ss.D;
 Ts = sys_ss.Ts;
+x0 = [deg2rad(30); deg2rad(0)];
 
 
 poles = eig(A);
 
-%pzmap(sys_ss);
-%pzmap(sys_tf);
+figure(1)
+pzmap(sys_ss);
+figure(2)
+pzmap(sys_tf);
 
 
 % fprintf("System Characteristics:\n");
@@ -51,7 +54,7 @@ poles = eig(A);
 
 
 G = sys_tf; % PLANT
-G.OutputName = 'y';
+%G.OutputName = 'y';
 
 numinputs = size(G.InputName, 1);
 numoutputs = size(G.OutputName, 1);
@@ -62,14 +65,14 @@ numoutputs = size(G.OutputName, 1);
 %e = cellfun(@(c)['e_' c],G.OutputName,'uni',false); % Error signal aliases
 
 
-
+% Separate inputs to pass through controllers
 D = tunableGain('Decoupler', numinputs, numoutputs); % Decoup Gain
 D.Ts = Ts;
 D.InputName = 'e'; % Error -> Decoup Gain
 D.OutputName = 'p'; % Decoup Gain -> Controller
 
 
-
+% Make all the controllers
 controllers = cell(numinputs,1); % Controller(s)
 
 for i = 1:numinputs
@@ -92,12 +95,12 @@ C0 = connect(controllers{:},D,S,{'r','y'},G.InputName);
 
 
 % Tune the control system
-wc = [0.1 0.1]; % TAG: [TODO] fix 
+wc = [0.1 100]; % TAG: [TODO] fix 
 [G,C,gam,Info] = looptune(G,C0,wc);
 
 
 % Display the tuned controller parameters
-%showTunable(C);
+showTunable(C);
 
 
 % Construct a closed-loop model of the tuned control system

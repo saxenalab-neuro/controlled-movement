@@ -1,5 +1,6 @@
 function  [excitations]  = readsinglecontrol(time_index)
 
+% READS A SINGLE CONTROL VALUE FROM A CONTROLS.XML FILE
 
 % Open controls xml file
 controlsfile = "ComputedMuscleControl/Results/cmc_output_controls.xml";

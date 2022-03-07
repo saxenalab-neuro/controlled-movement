@@ -1,5 +1,9 @@
 clear;clc;
 
+% CREATES AN XML FILE OF CUSTOM CONTROLS WITH ALL RELEVANT CONTROLS.XML PROPERTIES
+
+
+
 controlsfile = "ComputedMuscleControl/Results/cmc_output_controls.xml";
 controls = xml2struct(controlsfile);
 
