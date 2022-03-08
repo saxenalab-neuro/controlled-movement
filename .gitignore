@@ -50,3 +50,10 @@ Tools/SS_Results/*
 .Trashes
 ehthumbs.db
 Thumbs.db
+Tools/SS_Results/arm26_controls.sto
+Tools/SS_Results/arm26_states.sto
+Tools/SS_Results/arm26_states_degrees.mot
+Tools/SS_Results/cumulative_controls.sto
+Tools/SS_Results/cumulative_motion.mot
+Tools/SS_Results/cumulative_states.sto
+Tools/SS_Results/single_step_controls.sto

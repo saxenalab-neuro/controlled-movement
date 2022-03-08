@@ -1,4 +1,9 @@
+if (exist('myapp', 'var'))
+    delete(myapp)
+end
+
 clear;clc;close all
+
 
 
 toolspathname = "../Tools/";
@@ -55,6 +60,7 @@ for i=1:numel(controllers)
 end
 
 clear Blocks_cell Blocks s i
+
 
 
 
@@ -115,44 +121,57 @@ k = k + dk; % Increment time batch
 
 figure('Name', 'Output versus Reference')
 
+% Position Graph
 subplot(2,1,1)
 p_pos = plot(t(1:k-1), r_deg(1,1:k-1), t(1:k-1), y_deg(1,1:k-1));
 
 xlim([0 10])
-ylim([-90 180])
+ylim([-60 270])
 legend('Reference', 'Output')
 xlabel('Time (s)')
 ylabel('Position (degrees)')
 axis manual
 
-% p_pos(1).XDataSource = 't(1:k-1)';
-% p_pos(1).YDataSource = 'r_deg(1,1:k-1)';
-% p_pos(2).XDataSource = 't(1:k-1)';
-% p_pos(2).YDataSource = 'y_deg(1,1:k-1)';
-
-% p_pos.XDataSource = ['t(1:k-1)', 't(1:k-1)'];
-% p_pos.YDataSource = ['r_deg(1,1:k-1)', 'y_deg(1,1:k-1)'];
-
+% Velocity Graph
 subplot(2,1,2)
 p_vel = plot(t(1:k-1), r_deg(2,1:k-1), t(1:k-1), y_deg(2,1:k-1));
 
 xlim([0 10])
-ylim([-45 180])
+ylim([-90 360])
 legend('Reference', 'Output')
 xlabel('Time (s)')
 ylabel('Velocity (degrees/s)')
 axis manual
 
-% p_vel(1).XDataSource = 't(1:k-1)';
-% p_vel(1).YDataSource = 'r_deg(2,1:k-1)';
-% p_vel(2).XDataSource = 't(1:k-1)';
-% p_vel(2).YDataSource = 'y_deg(2,1:k-1)';
 
-% p_vel.XDataSource = ['t(1:k-1)', 't(1:k-1)'];
-% p_vel.YDataSource = ['r_deg(2,1:k-1)', 'y_deg(2,1:k-1)'];
+% --- RUN THE APP WITH OUR DATA STORAGE HANDLE CLASS --- %
 
-% legend('shoulder_pos', 'shoulder_vel') % Legend currently doesn't work as I'm plotting 1000's of data series and not linking and updating the plot data
-% TODO: https://www.mathworks.com/help/matlab/creating_plots/making-graphs-responsive-with-data-linking.html
+ds = DataStorage();  
+ds.dataArea.pos = 60;
+ds.dataArea.vel = 0;
+
+pos_graph.t = t(1:k-1);
+pos_graph.r = r_deg(1,1:k-1);
+pos_graph.y = y_deg(1,1:k-1);
+
+vel_graph.t = t(1:k-1);
+vel_graph.r = r_deg(2,1:k-1);
+vel_graph.y = y_deg(2,1:k-1);
+
+ds.dataArea.pos_graph = pos_graph;
+ds.dataArea.vel_graph = vel_graph;
+
+myapp = control_loop_visualizer(ds);
+
+
+fprintf(1, 'Inside your app/GUI, you selected choice "%d"\n', ds.dataArea.pos);
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% ----- RUN CONTROL LOOP!!! ----- %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 while k < numel(t)-1-dk % Do for each time batch until the end
     
@@ -164,6 +183,10 @@ while k < numel(t)-1-dk % Do for each time batch until the end
     % --- SIGNALS --- %
     
     for i=current_batch
+        % Get reference signal from app / slider
+        r(:,i) = myapp.getReference();
+        r_deg(:,i) = rad2deg(r(:,i));
+        
         % Summing Junction
         e(:,i) = r(:,i) - y(:,i-1);
 
@@ -207,8 +230,20 @@ while k < numel(t)-1-dk % Do for each time batch until the end
     drawnow
     
     
+    % Change app graphs
+    pos_graph.t = t(current_batch);
+    pos_graph.r = r_deg(1,current_batch);
+    pos_graph.y = y_deg(1,current_batch);
+    
+    vel_graph.t = t(current_batch);
+    vel_graph.r = r_deg(2,current_batch);
+    vel_graph.y = y_deg(2,current_batch);
+    
+    myapp.updateGraphs(pos_graph, vel_graph)
+    
+    
     k = k + dk; % Onto the next time step!
 end
 
 
-% Write cumulative results to file
+% [TAG] TODO: Write final signals to file
