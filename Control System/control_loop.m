@@ -77,28 +77,32 @@ current_batch = k:k-1+dk;
 
 % --- INITIAL CONDITIONS --- %
 
-despos = deg2rad(60); % Desired position [rad] - reference(1)
-desvel = deg2rad(0); % Desired velocity [rad/s] - reference(2)
-initpos = deg2rad(30);
-initvel = deg2rad(0);
+despos = repmat(deg2rad(60), 1, numel(t)); % Desired position [rad] - reference(1)
+desvel = repmat(deg2rad(0), 1, numel(t)); % Desired velocity [rad/s] - reference(2)
 
 
 % --- PREALLOCATE ARRAYS --- %
 
-r = repmat([despos; desvel], 1, numel(t)); % Reference (desired)
+r = [despos; desvel]; % Reference (desired)
 y = zeros(2,numel(t)); % Output (measured)
 e = zeros(2,numel(t)); % Error
 d = zeros(8,numel(t)); % Decoupled gain
 di = zeros(8,numel(t)); % Integral error
 u = zeros(8,numel(t)); % Command signal - Muscle contractions 0 to 1
 
+% Create mirror signals, but in degrees
+r_deg = rad2deg(r);
+y_deg = rad2deg(y);
+
 
 % --- INITIALIZE SIGNALS --- %
 
 initCumulativeFiles(); % Initialize cumulative files
 
+
 % Output of plant (measured)
-y(:,current_batch) = initial_states_reader(dk, ti, Ts); % [initial position in rad, initial velocity in rad/s]
+y(:,current_batch) = initial_states_reader(dk, ti, Ts); % Get initial states
+y_deg(:,current_batch) = rad2deg(y(:,current_batch)); % Calculate degree signal
 
 % Error (difference)
 e(:,current_batch) = r(:,current_batch) - y(:,current_batch); % [position in rad, velocity in rad/s]
@@ -107,43 +111,50 @@ e(:,current_batch) = r(:,current_batch) - y(:,current_batch); % [position in rad
 k = k + dk; % Increment time batch
 
 
+% --- SET UP GRAPHS --- %
 
-% figure('Name', 'Output versus Reference')
-% 
-% subplot(2,1,1)
-% p1 = plot(t, rad2deg(r(1)));
-% p2 = plot(t, rad2deg(y(1)));
-% 
-% xlim([0 10])
-% ylim([-90 180])
-% xlabel('Time (s)')
-% ylabel('Position (degrees)')
-% axis manual
-% 
-% p1.XDataSource = 't';
-% p1.YDataSource = 'rad2deg(r(1))';
-% p2.XDataSource = 't';
-% p2.YDataSource = 'rad2deg(y(1))';
-% 
-% subplot(2,1,2)
-% p3 = plot(t, rad2deg(r(2)));
-% p4 = plot(t, rad2deg(y(2)));
-% 
-% xlim([0 10])
-% ylim([-45 90])
-% xlabel('Time (s)')
-% ylabel('Velocity (degrees/s)')
-% axis manual
-% 
-% p3.XDataSource = 't';
-% p3.YDataSource = 'rad2deg(r(2))';
-% p4.XDataSource = 't';
-% p4.YDataSource = 'rad2deg(y(2))';
+figure('Name', 'Output versus Reference')
+
+subplot(2,1,1)
+p_pos = plot(t(1:k-1), r_deg(1,1:k-1), t(1:k-1), y_deg(1,1:k-1));
+
+xlim([0 10])
+ylim([-90 180])
+legend('Reference', 'Output')
+xlabel('Time (s)')
+ylabel('Position (degrees)')
+axis manual
+
+% p_pos(1).XDataSource = 't(1:k-1)';
+% p_pos(1).YDataSource = 'r_deg(1,1:k-1)';
+% p_pos(2).XDataSource = 't(1:k-1)';
+% p_pos(2).YDataSource = 'y_deg(1,1:k-1)';
+
+% p_pos.XDataSource = ['t(1:k-1)', 't(1:k-1)'];
+% p_pos.YDataSource = ['r_deg(1,1:k-1)', 'y_deg(1,1:k-1)'];
+
+subplot(2,1,2)
+p_vel = plot(t(1:k-1), r_deg(2,1:k-1), t(1:k-1), y_deg(2,1:k-1));
+
+xlim([0 10])
+ylim([-45 180])
+legend('Reference', 'Output')
+xlabel('Time (s)')
+ylabel('Velocity (degrees/s)')
+axis manual
+
+% p_vel(1).XDataSource = 't(1:k-1)';
+% p_vel(1).YDataSource = 'r_deg(2,1:k-1)';
+% p_vel(2).XDataSource = 't(1:k-1)';
+% p_vel(2).YDataSource = 'y_deg(2,1:k-1)';
+
+% p_vel.XDataSource = ['t(1:k-1)', 't(1:k-1)'];
+% p_vel.YDataSource = ['r_deg(2,1:k-1)', 'y_deg(2,1:k-1)'];
 
 % legend('shoulder_pos', 'shoulder_vel') % Legend currently doesn't work as I'm plotting 1000's of data series and not linking and updating the plot data
 % TODO: https://www.mathworks.com/help/matlab/creating_plots/making-graphs-responsive-with-data-linking.html
 
-while true % For each time batch
+while k < numel(t)-1-dk % Do for each time batch until the end
     
     previous_batch = current_batch;
     current_batch = k:k-1+dk;
@@ -172,14 +183,28 @@ while true % For each time batch
     
     % Run Forward Tool for this time step
     y(:,next_batch) = forwardtoolloop(forwardTool, transpose(u(:,current_batch)), t(k+1), t(k+dk));
+    y_deg(:,next_batch) = rad2deg(y(:,next_batch)); % Calculate degree signal
     
     
     % --- RESULTS --- %
     
-%     refreshdata
-%     drawnow
-    plot(t(current_batch), rad2deg(r(1,current_batch)), t(current_batch), rad2deg(y(1,current_batch))) % Plot elbow position: output versus reference
-    hold on
+    % Position graph data
+    p_pos(1).XData = t(1:k-1);
+    p_pos(1).YData = r_deg(1,1:k-1);
+    
+    p_pos(2).XData = t(1:k-1);
+    p_pos(2).YData = y_deg(1,1:k-1);
+    
+    % Velocity graph data
+    p_vel(1).XData = t(1:k-1);
+    p_vel(1).YData = r_deg(2,1:k-1);
+    
+    p_vel(2).XData = t(1:k-1);
+    p_vel(2).YData = y_deg(2,1:k-1);
+    
+    
+    % Refresh graphs
+    drawnow
     
     
     k = k + dk; % Onto the next time step!
