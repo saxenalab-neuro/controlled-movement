@@ -1,4 +1,6 @@
-function [coordinatevalues] = ss2cumulative(varargin)
+function [t, pos, vel] = ss2cumulative(varargin)
+
+
 
 toolspathname = "../Tools/";
 
@@ -10,6 +12,7 @@ if nargin == 2
 end
 
 
+% --- FILEPATHS --- %
 
 SSResultspathname = toolspathname + "SS_Results/";
 
@@ -18,6 +21,8 @@ cumulative_filenames = [SSResultspathname + "cumulative_controls.sto", SSResults
 headerlines = [7, 7, 14]; % Headerlines for each header file + 1 since we want to grab the second value
 
 
+
+% --- ADD TO CUMULATIVE FILES --- %
 
 % For each of the three files, copy down the second result and append it to the cumulative file
 for i = 1:numel(cumulative_filenames)
@@ -38,7 +43,11 @@ for i = 1:numel(cumulative_filenames)
     
     % Concatenate the two files
     if (numel(resultslines) > headerlines(i))
-        filelines = vertcat(cumulativelines, resultslines(headerlines(i)+1:end)); % Add the data rows from results lines to the cumulative file
+        % Num Header lines + 1 is where the data begins.
+        % And I don't want the first line as it's an exact repeat of the last state.
+        datalinebegin = headerlines(i)+1 + 1;
+        
+        filelines = vertcat(cumulativelines, resultslines(datalinebegin:end)); % Add the data rows from results lines to the cumulative file
     end
     
     
@@ -68,34 +77,17 @@ for i = 1:numel(cumulative_filenames)
     % Get states output as main function return
     if (i == 2)
         dk = numel(resultslines)-headerlines(i);
-        coordinatevalues = zeros(2,dk);
+        t = zeros(1,dk);
+        pos = zeros(1,dk);
+        vel = zeros(1,dk);
         for j=1:dk
             tmpvals = regexp(resultslines{headerlines(i)+j},'(\d+,)*\d+(\.\d*)?','match');
-            coordinatevalues(1,j) = str2double(tmpvals{4});
-            coordinatevalues(2,j) = str2double(tmpvals{5});
+            t(j) = str2double(tmpvals{1});
+            pos(j) = str2double(tmpvals{4});
+            vel(j) = str2double(tmpvals{5});
         end
     end
     
-    
-    
-%     % Read
-%     infile = fopen(infilename, 'r'); % Open computed motion states file for reading
-%     c = textscan(infile, '%s', 1, 'delimiter', '\n', 'headerlines', headerlines(i)); % Store computed motion state into buffer
-%     values = c{1,1}{1,1};
-%     
-%     if i == 3
-%         tmp = str2double(regexp(values, '\s+', 'split'));
-%         coordinatevalues = tmp(4);
-%     end
-%     
-%     fclose(infile); % Close infile for reading
-%     
-%     % Append
-%     outfile = fopen(outfilename, 'a'); % Open motion file to append computed motion state
-%     fprintf(outfile, values); % Append motion state buffer to motion file
-%     fprintf(outfile, '\n'); % Append a newline character
-%     fclose(outfile); % Close outfile for appending
-
 end
 
 end

@@ -10,8 +10,11 @@ if nargin == 2
 end
 
 
+
+% --- WRITE CONTROLS --- %
+
 headerfilename = toolspathname + "controls_header.txt";
-outputfilename = toolspathname + "SS_results/single_step_controls.sto";
+outputfilename = toolspathname + "SS_Results/single_step_controls.sto";
 
 
 % Read Header
@@ -32,6 +35,5 @@ outfile = fopen(outputfilename, 'w'); % Open outfile for writing
 fprintf(outfile, buffer); % Write header file buffer to output file
 writematrix(controls, outputfilename, 'FileType', 'text', 'Delimiter', '\t', 'WriteMode', 'append'); % Copy data from matrix into file
 fclose(outfile); % Close outfile for writing
-
 
 end

@@ -12,7 +12,7 @@ function [coordinatevalues] = forwardtoolloop(forwardTool, controls, ti, tf)
 
 
 % Write the controls and states to a file for the forward tool to read
-writebatchdata(controls);
+writecontrols(controls);
 
 
 % Set initial and final times
@@ -28,12 +28,18 @@ else
 end
 
 
-debug = 1;
+debug = true;
 % Debug output to keep track of the program
 if (debug)
     fprintf("Integrated from I = %s to F = %s\n", num2str(forwardTool.getInitialTime(), '%0.6f'), num2str(forwardTool.getFinalTime(), '%0.6f'));
 end
 
-coordinatevalues = ss2cumulative(); % Copy OpenSim output into cumulative files
+[t,pos,vel] = ss2cumulative(); % Copy OpenSim output into cumulative files
+
+% Need to make sure coordinate values is a 2-by-20 and not anything more or less. Need to interpolate to get that. A little icky but it's a bandaid for now. [TAG] TODO: Figure out better solution
+
+tq = ti:0.001:tf; % TAG [HARDCODED]: Change Ts to be dynamic
+coordinatevalues(1,:) = interp1(t, pos, tq, 'spline');
+coordinatevalues(2,:) = interp1(t, vel, tq, 'spline');
 
 end

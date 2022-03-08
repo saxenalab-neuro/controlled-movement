@@ -1,4 +1,4 @@
-clear;clc;
+clear;clc;close all
 
 
 toolspathname = "../Tools/";
@@ -27,9 +27,6 @@ fclose(fid);
 fdSetup = toolspathname + "fd_loop_setup.xml";
 forwardTool = ForwardTool(fdSetup); % Initialize Forward Tool
 
-
-forwardTool.getInitialTime()
-forwardTool.getFinalTime()
 
 
 % --- IMPORT CONTROLLERS --- %
@@ -69,61 +66,86 @@ clear Blocks_cell Blocks s i
 
 ti = 0;
 tf = 10;
-Ts = 0.001; % Time sampling
+Ts = 0.001; % Sampling time
 t = ti:Ts:tf;
 
-k = 2;
+% K acts as my time index
+k = 1;
 dk = 20;
+current_batch = k:k-1+dk;
+
+
+% --- INITIAL CONDITIONS --- %
+
+despos = deg2rad(60); % Desired position [rad] - reference(1)
+desvel = deg2rad(0); % Desired velocity [rad/s] - reference(2)
+initpos = deg2rad(30);
+initvel = deg2rad(0);
 
 
 % --- PREALLOCATE ARRAYS --- %
 
-r = zeros(2,numel(t)); % Reference
-y = zeros(2,numel(t)); % Output
+r = repmat([despos; desvel], 1, numel(t)); % Reference (desired)
+y = zeros(2,numel(t)); % Output (measured)
 e = zeros(2,numel(t)); % Error
 d = zeros(8,numel(t)); % Decoupled gain
 di = zeros(8,numel(t)); % Integral error
 u = zeros(8,numel(t)); % Command signal - Muscle contractions 0 to 1
 
 
-% --- INITIAL CONDITIONS --- %
-
-despos = deg2rad(60);
-desvel = deg2rad(0);
-initpos = deg2rad(30);
-initvel = deg2rad(0);
-
-
-% --- INITIAL SIGNALS --- %
-
-for i=1:dk
-    % Reference signal (desired)
-    r(:,i) = [despos; desvel]; % [desired position in rad, desired velocity in rad/s]
-
-    % Output of plant (measured)
-    y(:,i) = [initpos; initvel]; % [initial position in rad, initial velocity in rad/s]
-
-    % Error (difference)
-    e(:,i) = r(:,i) - y(:,i); % [position in rad, velocity in rad/s]
-end
-
-
-
-% --- SYSTEM LOOP --- %
+% --- INITIALIZE SIGNALS --- %
 
 initCumulativeFiles(); % Initialize cumulative files
 
-y(:,k:k-1+dk) = initial_states_reader(dk, ti, Ts); % Initialize states
+% Output of plant (measured)
+y(:,current_batch) = initial_states_reader(dk, ti, Ts); % [initial position in rad, initial velocity in rad/s]
 
-%figure('Name', 'Output versus Reference')
+% Error (difference)
+e(:,current_batch) = r(:,current_batch) - y(:,current_batch); % [position in rad, velocity in rad/s]
+
+
+k = k + dk; % Increment time batch
 
 
 
-% K acts as my time index
-k = k-1+dk; % Current batch
+% figure('Name', 'Output versus Reference')
+% 
+% subplot(2,1,1)
+% p1 = plot(t, rad2deg(r(1)));
+% p2 = plot(t, rad2deg(y(1)));
+% 
+% xlim([0 10])
+% ylim([-90 180])
+% xlabel('Time (s)')
+% ylabel('Position (degrees)')
+% axis manual
+% 
+% p1.XDataSource = 't';
+% p1.YDataSource = 'rad2deg(r(1))';
+% p2.XDataSource = 't';
+% p2.YDataSource = 'rad2deg(y(1))';
+% 
+% subplot(2,1,2)
+% p3 = plot(t, rad2deg(r(2)));
+% p4 = plot(t, rad2deg(y(2)));
+% 
+% xlim([0 10])
+% ylim([-45 90])
+% xlabel('Time (s)')
+% ylabel('Velocity (degrees/s)')
+% axis manual
+% 
+% p3.XDataSource = 't';
+% p3.YDataSource = 'rad2deg(r(2))';
+% p4.XDataSource = 't';
+% p4.YDataSource = 'rad2deg(y(2))';
+
+% legend('shoulder_pos', 'shoulder_vel') % Legend currently doesn't work as I'm plotting 1000's of data series and not linking and updating the plot data
+% TODO: https://www.mathworks.com/help/matlab/creating_plots/making-graphs-responsive-with-data-linking.html
 
 while true % For each time batch
     
+    previous_batch = current_batch;
     current_batch = k:k-1+dk;
     next_batch = k+dk:k-1+2*dk;
     
@@ -132,13 +154,13 @@ while true % For each time batch
     
     for i=current_batch
         % Summing Junction
-        e(:,i) = r(:,i) - y(:,i);
+        e(:,i) = r(:,i) - y(:,i-1);
 
         % Decoupled Gain
         d(:,i) = D * e(:,i);
 
         % Calculate integral error
-        di(:,i) = di(:,i-1) + Ts * d(:,i-1);
+        di(:,i) = di(:,i-1) + Ts * d(:,i-1); % i-1 refers to the previous batch
 
         % Calculate command signal (muscle signals)
         u(:,i) = Kp .* d(:,i) + Ki .* di(:,i);
@@ -149,18 +171,19 @@ while true % For each time batch
     % --- FORWARD TOOL --- %
     
     % Run Forward Tool for this time step
-    y(:,next_batch) = forwardtoolloop(forwardTool, transpose(u(:,current_batch)), t(k), t(k-1+dk));
+    y(:,next_batch) = forwardtoolloop(forwardTool, transpose(u(:,current_batch)), t(k+1), t(k+dk));
     
     
     % --- RESULTS --- %
     
-    plot(t(current_batch), r(1,current_batch), t(current_batch), y(1,current_batch)) % Plot elbow position: output versus reference
+%     refreshdata
+%     drawnow
+    plot(t(current_batch), rad2deg(r(1,current_batch)), t(current_batch), rad2deg(y(1,current_batch))) % Plot elbow position: output versus reference
     hold on
+    
     
     k = k + dk; % Onto the next time step!
 end
 
 
 % Write cumulative results to file
-% 
-
