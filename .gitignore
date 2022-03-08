@@ -8,7 +8,7 @@ HPGM/validation/cmc/*
 HPGM/validation/motions/*
 HPGM/validation/temp/*
 *.mat
-Tools/SS_Results
+Tools/SS_Results/*
 
 
 ### Some Common .gitignore Configurations ###
