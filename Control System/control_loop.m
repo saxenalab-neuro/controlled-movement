@@ -7,6 +7,7 @@ clear;clc;close all
 
 
 toolspathname = "../Tools/";
+system_order = 9;
 
 % % Parse inputs
 % if nargin == 2
@@ -36,7 +37,7 @@ forwardTool = ForwardTool(fdSetup); % Initialize Forward Tool
 
 % --- IMPORT CONTROLLERS --- %
 
-controllersfilename = "controller_tuning/system_9.mat";
+controllersfilename = "controller_tuning/system_" + num2str(system_order) + ".mat";
 Blocks = load(controllersfilename).C.Blocks;
 
 D = Blocks.Decoupler.Gain.Value;
@@ -68,6 +69,10 @@ clear Blocks_cell Blocks s i
 
 
 
+        
+
+
+
 % --- INITIALIZE STATES --- %
 
 ti = 0;
@@ -77,7 +82,7 @@ t = ti:Ts:tf;
 
 % K acts as my time index
 k = 1;
-dk = 20;
+dk = 200;
 current_batch = k:k-1+dk;
 
 
@@ -85,11 +90,33 @@ current_batch = k:k-1+dk;
 
 despos = repmat(deg2rad(60), 1, numel(t)); % Desired position [rad] - reference(1)
 desvel = repmat(deg2rad(0), 1, numel(t)); % Desired velocity [rad/s] - reference(2)
+r = [despos; desvel]; % Reference (desired)
+
+
+% --- STARTUP CONTROL APP --- %
+
+ds = DataStorage();
+myapp = control_loop_visualizer(ds);
+
+% Wait until I can proceed - user has selected a reference signal
+% Give uiwait a figure handle, it will wait until it is closed or uiresume is used in here or in the app
+
+uiwait(myapp.ControlLoopAppUIFigure);
+fprintf("Waiting...");
+
+% Waiting for uiresume(myapp.ControlLoopAppUIFigure) to be called from from either start button callback
+
+if (myapp.startSimulation == true)
+    % Get reference signal
+    [r, ti, tf] = myapp.getRefSignal(); % Override defaults with real signal
+    t = ti:Ts:tf; % Set time array
+else
+    error("CRIT_ERR: NO REFERENCE SIGNAL???")
+end
 
 
 % --- PREALLOCATE ARRAYS --- %
 
-r = [despos; desvel]; % Reference (desired)
 y = zeros(2,numel(t)); % Output (measured)
 e = zeros(2,numel(t)); % Error
 d = zeros(8,numel(t)); % Decoupled gain
@@ -144,11 +171,7 @@ ylabel('Velocity (degrees/s)')
 axis manual
 
 
-% --- RUN THE APP WITH OUR DATA STORAGE HANDLE CLASS --- %
-
-ds = DataStorage();  
-ds.dataArea.pos = 60;
-ds.dataArea.vel = 0;
+% --- UPDATE APP GRAPHS --- %
 
 pos_graph.t = t(1:k-1);
 pos_graph.r = r_deg(1,1:k-1);
@@ -161,10 +184,8 @@ vel_graph.y = y_deg(2,1:k-1);
 ds.dataArea.pos_graph = pos_graph;
 ds.dataArea.vel_graph = vel_graph;
 
-myapp = control_loop_visualizer(ds);
+myapp.updateGraphs(pos_graph, vel_graph);
 
-
-fprintf(1, 'Inside your app/GUI, you selected choice "%d"\n', ds.dataArea.pos);
 
 
 
@@ -188,7 +209,7 @@ while k < numel(t)-1-dk % Do for each time batch until the end
         r_deg(:,i) = rad2deg(r(:,i));
         
         % Summing Junction
-        e(:,i) = r(:,i) - y(:,i-1);
+        e(:,i) = r(:,i) - y(:,i-dk); % But y is calculated in batches so go find previous value
 
         % Decoupled Gain
         d(:,i) = D * e(:,i);

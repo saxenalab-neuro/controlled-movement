@@ -68,10 +68,12 @@ end
 tf = ti + (size(goodvals,1)-1)*Ts;
 goodvals(:,1) = ti:Ts:tf; % Reset time of goodvals to follow sampling time Ts
 
-initstates = transpose(goodvals(1:dk, [4 5]));
+while size(goodvals,1) < dk
+    % Duplicate goodvals to get more vals
+    goodvals = vertcat(goodvals, flip(goodvals));
+end
 
-% Duplicate goodvals to get more vals
-goodvals = vertcat(goodvals, flip(goodvals));
+initstates = transpose(goodvals(1:dk, [4 5]));
 
 
 % Set time of states to what I want
