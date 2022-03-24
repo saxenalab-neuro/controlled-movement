@@ -62,7 +62,7 @@ for number = 1:numsignals
         hold on
     end
     
-    signal.data = deg2rad([pos; vel]);
+    signal.data = [pos; vel];
     
     % --- Save as motion file ---- %
     % Motion File directory and filename

@@ -36,7 +36,7 @@ end
 
 [t,pos,vel] = ss2cumulative(); % Copy OpenSim output into cumulative files
 
-% Need to make sure coordinate values is a 2-by-20 and not anything more or less. Need to interpolate to get that. A little icky but it's a bandaid for now. [TAG] TODO: Figure out better solution
+% Need to make sure coordinate values is a 2-by-batchsize and not anything more or less. Need to interpolate to get that. A little icky but it's a bandaid for now. [TAG] TODO: Figure out better solution
 
 tq = ti:0.001:tf; % TAG [HARDCODED]: Change Ts to be dynamic
 coordinatevalues(1,:) = interp1(t, pos, tq, 'spline');
