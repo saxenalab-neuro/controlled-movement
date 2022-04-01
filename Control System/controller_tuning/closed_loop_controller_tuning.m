@@ -1,10 +1,13 @@
 clear;clc;close all;
 
-warning('off', 'Control:tuning:TuningWarning1')
+%warning('off', 'Control:tuning:TuningWarning1')
 
 doIgraph = true;
 sysChars = false;
 displayControllers = false;
+
+wcmin = 50;
+wcmax = 500;
 
 
 savedir = "loops/";
@@ -105,7 +108,7 @@ C0 = connect(controllers{:},D,S,{'r','y'},G.InputName);
 
 
 % Tune the control system
-wc = [50 500]; % TAG: [TODO] fix 
+wc = [wcmin wcmax]; % Crossover frequency interval
 [G,C,gam,Info] = looptune(G,C0,wc);
 
 
@@ -125,7 +128,7 @@ if (doIgraph == true)
     % Check the time-domain response for the control system with the tuned coefficients. Plot the step response from reference to output
     figure('Name','Time-Domain Response','NumberTitle','off')
     step(T)
-    S = stepinfo(T, 'SettlingTimeThreshold', 0.05);
+    S = stepinfo(T, 'SettlingTimeThreshold', 0.02);
     risetime = S.RiseTime
     settlingtime = S.SettlingTime
     overshoot = S.Overshoot

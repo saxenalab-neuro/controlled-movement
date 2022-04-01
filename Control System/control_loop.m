@@ -7,15 +7,18 @@ clear;clc;close all
 warning('off','Control:analysis:LsimStartTime') % Turn off warning about lsim start time not being 0
 
 
-toolspathname = "../Tools/";
-system_order = 4;
+% Variables to control
 
-% % Parse inputs
-% if nargin == 2
-%     if (strcmp(varargin{1},'ToolsPath'))
-%         toolspathname = varargin{2};
-%     end
-% end
+toolspathname = "../Tools/";
+system_order = 10;
+batchsize = 20;
+
+muscles = ["TRIlong", "TRIlat", "TRImed", "BIClong", "BICshort", "BRA", "shoulder_res", "elbow_res"];
+Pgain = 0.017 .* [1 1 1 1 1 1 1 1]';
+Igain = 0.03 .* [1 1 1 1 1 1 1 1]';
+Dgain = 1 .* [1 1 1 1 1 1 1 1]';
+n_int = 100;
+n_diff = 2;
 
 
 
@@ -68,7 +71,7 @@ t = ti:Ts:tf;
 
 % K acts as my time index
 k = 1;
-dk = 200;
+dk = batchsize;
 current_batch = k:k-1+dk;
 
 
@@ -90,7 +93,7 @@ myapp = control_loop_visualizer(ds);
 % Give uiwait a figure handle, it will wait until it is closed or uiresume is used in here or in the app
 
 uiwait(myapp.ControlLoopAppUIFigure);
-fprintf("Waiting...");
+fprintf("Waiting...\n");
 
 % Waiting for uiresume(myapp.ControlLoopAppUIFigure) to be called from from either start button callback
 
@@ -99,7 +102,7 @@ if (myapp.startSimulation == true)
     [r, r_deg, ti, tf] = myapp.getRefSignal(); % Override defaults with real signal
     t = ti:Ts:tf; % Set time array % [TAG] HARDCODED: Allow Ts to be set from within app
 else
-    error("CRIT_ERR: NO REFERENCE SIGNAL???")
+    error("CRIT_ERR: NO REFERENCE SIGNAL???\n")
 end
 
 
@@ -113,6 +116,7 @@ y_sim_deg = zeros(2,numel(t)); % Output in degrees(simulated)
 e = zeros(2,numel(t)); % Error
 d = zeros(8,numel(t)); % Decoupled gain
 di = zeros(8,numel(t)); % Integral error
+dd = zeros(8,numel(t)); % Derivative error
 u = zeros(8,numel(t)); % Command signal - Muscle contractions 0 to 1
 
 
@@ -211,7 +215,7 @@ while k < numel(t)-1-dk % Do for each time batch until the end
         [r(:,i), r_deg(:,i)] = myapp.updateRef(r_deg(:,i));
         
         % Summing Junction
-        e(:,i) = r(:,i) - y(:,i-dk); % But y is calculated in batches so go find previous value
+        e(:,i) = r(1,i) - y(:,i-dk); % But y is calculated in batches so go find previous value
 
         % Decoupled Gain
         d(:,i) = D * e(:,i);
@@ -219,9 +223,15 @@ while k < numel(t)-1-dk % Do for each time batch until the end
         % Calculate integral error
         di(:,i) = di(:,i-1) + Ts * d(:,i-1); % i-1 refers to the previous batch
 
+        % Calculate derivative error
+        dd(:,i) = (d(:,i-1) - d(:,i-n_diff)) / (t(i-1) - t(i-n_diff)); % difference in value over difference in time
+
         % Calculate command signal (muscle signals)
-        u(:,i) = 10*Kp .* d(:,i) + Ki .* di(:,i);
+        u(:,i) = Pgain .* Kp .* d(:,i) + Igain .* Ki .* di(:,i) + Dgain .* Kd .* dd(:,i);
         % Referenced from https://tttapa.github.io/Pages/Arduino/Control-Theory/Motor-Fader/PID-Controllers.html#derivative-filtering
+        
+        % In range and coerce
+        u(:,i) = max(min(u(:,i),1),-1);
     end
     
     
