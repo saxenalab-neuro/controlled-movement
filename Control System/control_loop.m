@@ -11,7 +11,7 @@ warning('off','Control:analysis:LsimStartTime') % Turn off warning about lsim st
 
 toolspathname = "../Tools/";
 system_order = 10;
-batchsize = 20;
+batchsize = 200;
 
 muscles = ["TRIlong", "TRIlat", "TRImed", "BIClong", "BICshort", "BRA", "shoulder_res", "elbow_res"];
 Pgain = 0.017 .* [1 1 1 1 1 1 1 1]';
@@ -111,9 +111,10 @@ end
 
 y = zeros(2,numel(t)); % Output in radians (measured)
 y_deg = zeros(2,numel(t)); % Output in degrees (measured)
-y_sim = zeros(2,numel(t)); % Output (simulated)
+y_sim = zeros(2,numel(t)); % Output in radians (simulated)
 y_sim_deg = zeros(2,numel(t)); % Output in degrees(simulated)
-e = zeros(2,numel(t)); % Error
+e = zeros(2,numel(t)); % Error in radians (measured)
+e_deg = zeros(2,numel(t)); % Error in degrees (measured)
 d = zeros(8,numel(t)); % Decoupled gain
 di = zeros(8,numel(t)); % Integral error
 dd = zeros(8,numel(t)); % Derivative error
@@ -131,38 +132,67 @@ y_deg(:,current_batch) = rad2deg(y(:,current_batch)); % Calculate degree signal
 
 % Error (difference)
 e(:,current_batch) = r(:,current_batch) - y(:,current_batch); % [position in rad, velocity in rad/s]
-
+e_deg(:,current_batch) = rad2deg(e(:,current_batch));
 
 k = k + dk; % Increment time batch
 current_batch = k:k-1+dk;
 
 
+
 % --- SET UP GRAPHS --- %
 
-f_out = figure('Name', 'Output versus Reference');
+fig = figure('Name', 'Trajectory Tracking', 'Position', [2560/2 0 2560/2 1440]);
+tlayout = tiledlayout(3,1, 'Padding', 'none');
 
 % Position Graph
-subplot(2,1,1)
-p_pos = plot(t(1:k-1), r_deg(1,1:k-1), t(1:k-1), y_deg(1,1:k-1), t(1:k-1), rad2deg(e(1,1:k-1)), t(1:k-1), u(1,1:k-1));
-
-xlim([0 10])
-ylim([-30 210])
-legend('Reference', 'Output', 'Error', 'Command')
-xlabel('Time (s)')
-ylabel('Position (degrees)')
-axis manual
-
+ax(1) = nexttile;
+p_pos = plot(t(1:k-1), r_deg(1,1:k-1), t(1:k-1), y_deg(1,1:k-1), t(1:k-1), e_deg(1,1:k-1));
+yline(0,'k--')
 
 % Velocity Graph 
-subplot(2,1,2)
-p_vel = plot(t(1:k-1), r_deg(2,1:k-1), t(1:k-1), y_deg(2,1:k-1), t(1:k-1), rad2deg(e(2,1:k-1)), t(1:k-1), u(2,1:k-1));
+ax(2) = nexttile;
+p_vel = plot(t(1:k-1), r_deg(2,1:k-1), t(1:k-1), y_deg(2,1:k-1), t(1:k-1), e_deg(2,1:k-1));
+yline(0,'k--')
 
-xlim([0 10])
-ylim([-250 250])
-legend('Reference', 'Output', 'Error', 'Command')
-xlabel('Time (s)')
-ylabel('Velocity (degrees/s)')
-axis manual
+% Muscle Excitations Graph 
+ax(3) = nexttile;
+p_mus = plot(t(1:k-1), u(:,1:k-1));
+yline(0,'k--')
+
+
+% Axes boundaries
+linkaxes(ax(:),'x')
+ax(1).XLim = [ti tf]; % Time bounds
+ax(1).YLim = [-50 210]; % Position y bounds
+ax(2).YLim = [-250 250]; % Velocity y bounds
+ax(3).YLim = [-1 1]; % Muscle exciation y bounds
+
+% Graph formatting
+fontsize = 9; % 9 is default
+fontweight = 'bold';
+set(ax, 'FontSize', fontsize)
+
+% Set legend text
+leg1 = legend(ax(1), 'Reference', 'Output', 'Error');
+leg2 = legend(ax(2), 'Reference', 'Output', 'Error');
+leg3 = legend(ax(3), 'TRI Long', 'TRI Lat', 'TRI Med', 'BIC Long', 'BIC Short', 'BRA', 'Shoulder Res', 'Elbow Res');
+
+% Set legend location
+set(leg1, 'Location', 'south', 'Orientation', 'horizontal', 'FontSize', fontsize);
+set(leg2, 'Location', 'south', 'Orientation', 'horizontal', 'FontSize', fontsize);
+set(leg3, 'Location', 'south', 'Orientation', 'vertical', 'NumColumns', 3, 'FontSize', fontsize);
+
+% Set legend icon so they're not large [Line Dot]
+leg1.ItemTokenSize = [10, 10];
+leg2.ItemTokenSize = [10, 10];
+leg3.ItemTokenSize = [10, 10];
+
+% Labels
+row1_label = ylabel(ax(1), 'Elbow Position (deg)', 'FontWeight', fontweight, 'FontSize', fontsize);
+row2_label = ylabel(ax(2), 'Elbow Velocity (deg/s)', 'FontWeight', fontweight, 'FontSize', fontsize);
+row3_label = ylabel(ax(3), 'Muscle Excitations', 'FontWeight', fontweight, 'FontSize', fontsize);
+time_label = xlabel(ax(3), 'Time (s)', 'FontWeight', fontweight, 'FontSize', fontsize);
+
 
 
 % % --- Create Simulated Test Graph --- %
@@ -181,17 +211,15 @@ axis manual
 
 % --- UPDATE APP GRAPHS --- %
 
-pos_graph.t = t(1:k-1);
-pos_graph.r = r_deg(1,1:k-1);
-pos_graph.y = y_deg(1,1:k-1);
-pos_graph.ysim = y_sim_deg(1,1:k-1);
+graphdata.t = t(1:k-1);
+graphdata.r = r_deg(:,1:k-1);
+graphdata.y = y_deg(:,1:k-1);
+graphdata.e = e_deg(:,1:k-1);
+graphdata.u = u(:,1:k-1);
+graphdata.r_full = r_deg;
+graphdata.y_full = y_deg;
 
-vel_graph.t = t(1:k-1);
-vel_graph.r = r_deg(2,1:k-1);
-vel_graph.y = y_deg(2,1:k-1);
-vel_graph.ysim = y_sim_deg(2,1:k-1);
-
-myapp.updateGraphs(pos_graph, vel_graph);
+myapp.updateGraphs(graphdata)
 
 
 
@@ -215,7 +243,8 @@ while k < numel(t)-1-dk % Do for each time batch until the end
         [r(:,i), r_deg(:,i)] = myapp.updateRef(r_deg(:,i));
         
         % Summing Junction
-        e(:,i) = r(1,i) - y(:,i-dk); % But y is calculated in batches so go find previous value
+        e(:,i) = r(:,i) - y(:,i-dk); % But y is calculated in batches so go find previous value
+        e_deg(:,i) = rad2deg(e(:,i));
 
         % Decoupled Gain
         d(:,i) = D * e(:,i);
@@ -245,63 +274,35 @@ while k < numel(t)-1-dk % Do for each time batch until the end
     
     % --- RESULTS --- %
     
-%     figure(f_out)
-%     
+    
     % Position graph data
-    p_pos(1).XData = t(1:k-1);
-    p_pos(1).YData = r_deg(1,1:k-1);
+    posgraphdata = {t(1:k-1), r_deg(1,1:k-1); t(1:k-1), y_deg(1,1:k-1); t(1:k-1), e_deg(1,1:k-1)};
+    velgraphdata = {t(1:k-1), r_deg(2,1:k-1); t(1:k-1), y_deg(2,1:k-1); t(1:k-1), e_deg(2,1:k-1)};
     
-    p_pos(2).XData = t(1:k-1);
-    p_pos(2).YData = y_deg(1,1:k-1);
+    musgraphdata = cell(8,2);
+    for musclenumber = 1:8
+        musgraphdata{musclenumber,1} = t(1:k-1);
+        musgraphdata{musclenumber,2} = u(musclenumber,1:k-1);
+    end
     
-    p_pos(3).XData = t(1:k-1);
-    p_pos(3).YData = rad2deg(e(1,1:k-1));
     
-    p_pos(4).XData = t(1:k-1);
-    p_pos(4).YData = u(1,1:k-1);
+    set(p_pos, {'Xdata', 'Ydata'}, posgraphdata);
+    set(p_vel, {'Xdata', 'Ydata'}, velgraphdata);
+    set(p_mus, {'Xdata', 'Ydata'}, musgraphdata);
     
-    % Velocity graph data
-    p_vel(1).XData = t(1:k-1);
-    p_vel(1).YData = r_deg(2,1:k-1);
-    
-    p_vel(2).XData = t(1:k-1);
-    p_vel(2).YData = y_deg(2,1:k-1);
-    
-    p_vel(3).XData = t(1:k-1);
-    p_vel(3).YData = rad2deg(e(2,1:k-1));
-    
-    p_vel(4).XData = t(1:k-1);
-    p_vel(4).YData = u(2,1:k-1);
-%     
-%     
-%     
-%     figure(f_sim)
-%     
-%     % Position graph data
-%     s_pos.XData = t(current_batch);
-%     s_pos.YData = y_sim_deg(1,current_batch);
-%     
-%     % Velocity graph data
-%     s_vel.XData = t(current_batch);
-%     s_vel.YData = y_sim_deg(2,current_batch);
-%     
-%     
     % Refresh graphs
-    drawnow
-    
+    %drawnow
     
     % Update app graphs
-    pos_graph.t = t(current_batch);
-    pos_graph.r = r_deg(1,current_batch);
-    pos_graph.y = y_deg(1,current_batch);
-    pos_graph.ysim = y_sim_deg(1,current_batch);
+    graphdata.t = t(current_batch);
+    graphdata.r = r_deg(:,current_batch);
+    graphdata.y = y_deg(:,current_batch);
+    graphdata.e = e_deg(:,current_batch);
+    graphdata.u = u(:,current_batch);
+    graphdata.r_full = r_deg;
+    graphdata.y_full = y_deg;
     
-    vel_graph.t = t(current_batch);
-    vel_graph.r = r_deg(2,current_batch);
-    vel_graph.y = y_deg(2,current_batch);
-    vel_graph.ysim = y_sim_deg(2,current_batch);
-    
-    myapp.updateGraphs(pos_graph, vel_graph)
+    myapp.updateGraphs(graphdata)
     
     
     k = k + dk; % Onto the next time step!
